@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Đơn hàng đã bị hủy</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .header { background: #e53935; color: white; padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .body { padding: 30px; }
+        .order-info { background: #f9f9f9; border-radius: 6px; padding: 20px; margin: 20px 0; }
+        .order-info p { margin: 8px 0; color: #555; }
+        .label { font-weight: bold; color: #333; }
+        .footer { background: #f0f0f0; padding: 20px; text-align: center; font-size: 13px; color: #888; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>❌ Đơn hàng đã bị hủy</h1>
+    </div>
+    <div class="body">
+        <p>Xin chào <strong th:text="${order.firstName + ' ' + order.lastName}">Khách hàng</strong>,</p>
+        <p>Rất tiếc, đơn hàng của bạn đã bị <strong>hủy</strong>. Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi để được hỗ trợ.</p>
+        <div class="order-info">
+            <p><span class="label">Mã đơn hàng:</span> #<span th:text="${order.id}"></span></p>
+            <p><span class="label">Trạng thái:</span> Đã hủy</p>
+            <p><span class="label">Tổng tiền:</span> <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')}"></span> ₫</p>
+        </div>
+        <p>Bạn có thể đặt lại đơn hàng mới bất kỳ lúc nào. Chúng tôi rất mong được phục vụ bạn!</p>
+    </div>
+    <div class="footer">
+        <p>Cảm ơn bạn đã liên hệ với cửa hàng của chúng tôi! 🌸</p>
+    </div>
+</div>
+</body>
+</html>
