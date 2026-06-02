@@ -13,7 +13,7 @@ COPY src ./src
 RUN mvn package -DskipTests -B
 
 # ===== Stage 2: Runtime =====
-FROM openjdk:8-jre-slim
+FROM eclipse-temurin:8-jre-focal
 WORKDIR /app
 
 # Tạo non-root user để bảo mật
