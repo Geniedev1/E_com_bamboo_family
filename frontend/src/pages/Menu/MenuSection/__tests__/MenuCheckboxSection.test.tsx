@@ -4,7 +4,7 @@ import { Checkbox } from "antd";
 import { mountWithStore } from "../../../../utils/test/testHelper";
 import MenuCheckboxSection from "../MenuCheckboxSection";
 import { CheckboxCategoryFilter } from "../../Menu";
-import { perfumer } from "../../MenuData";
+import { vendor } from "../../MenuData";
 
 describe("MenuCheckboxSection", () => {
     it("should render correctly", () => {
@@ -12,8 +12,8 @@ describe("MenuCheckboxSection", () => {
             <MenuCheckboxSection
                 title={"Brand"}
                 onChange={jest.fn()}
-                category={CheckboxCategoryFilter.PERFUMERS}
-                data={perfumer}
+                category={CheckboxCategoryFilter.VENDORS}
+                data={vendor}
                 selectedValues={[]}
             />
         );

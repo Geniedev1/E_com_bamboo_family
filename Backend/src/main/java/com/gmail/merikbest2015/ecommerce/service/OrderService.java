@@ -21,7 +21,7 @@ public interface OrderService {
 
     Page<Order> getUserOrders(String email, Pageable pageable);
 
-    Order postOrder(Order validOrder, Map<Long, Long> perfumesId);
+    Order postOrder(Order validOrder, Map<Long, Long> productsId);
 
     Order updateOrderStatus(Long orderId, OrderStatus newStatus);
 
@@ -31,4 +31,3 @@ public interface OrderService {
 
     DataFetcher<List<Order>> getUserOrdersByEmailQuery();
 }
-

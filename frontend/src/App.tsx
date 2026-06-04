@@ -37,47 +37,50 @@ import OrderFinalize from "./pages/OrderFinalize/OrderFinalize";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import OAuth2RedirectHandler from "./utils/oauth2/OAuth2RedirectHandler";
+import "./tailwind.css";
 import "./App.css";
 
 const App: FC = (): ReactElement => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const perfumesFromLocalStorage: Map<number, number> = new Map(
-            JSON.parse(localStorage.getItem("perfumes") as string)
+        const productsFromLocalStorage: Map<number, number> = new Map(
+            JSON.parse(localStorage.getItem("products") as string)
         );
-        dispatch(fetchCart(Array.from(perfumesFromLocalStorage.keys())));
+        dispatch(fetchCart(Array.from(productsFromLocalStorage.keys())));
 
         if (localStorage.getItem("token")) {
             dispatch(fetchUserInfo());
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
             <NavBar />
-            <Switch>
-                <Route exact path={BASE} component={Home} />
-                <Route exact path={LOGIN} component={Login} />
-                <Route exact path={REGISTRATION} component={Registration} />
-                <Route exact path={FORGOT} component={ForgotPassword} />
-                <Route exact path={`${RESET}/:code`} component={ResetPassword} />
-                <Route exact path={`${ACTIVATE}/:code`} component={Login} />
-                <Route exact path={MENU} component={Menu} />
-                <Route exact path={`${PRODUCT}/:id`} component={Product} />
-                <Route exact path={CONTACTS} component={Contacts} />
-                <Route exact path={CART} component={Cart} />
-                <Route exact path={ORDER} component={Order} />
-                <Route exact path={ORDER_FINALIZE} component={OrderFinalize} />
-                <Route path={OAUTH2_REDIRECT} component={OAuth2RedirectHandler} />
-                <Route
-                    path={ACCOUNT}
-                    render={() =>
-                        localStorage.getItem("token") ? <Route component={Account} /> : <Route component={Home} />
-                    }
-                />
-                <Route path="*" component={Home} />
-            </Switch>
+            <main className="min-h-screen bg-background pt-[72px]">
+                <Switch>
+                    <Route exact path={BASE} component={Home} />
+                    <Route exact path={LOGIN} component={Login} />
+                    <Route exact path={REGISTRATION} component={Registration} />
+                    <Route exact path={FORGOT} component={ForgotPassword} />
+                    <Route exact path={`${RESET}/:code`} component={ResetPassword} />
+                    <Route exact path={`${ACTIVATE}/:code`} component={Login} />
+                    <Route exact path={MENU} component={Menu} />
+                    <Route exact path={`${PRODUCT}/:id`} component={Product} />
+                    <Route exact path={CONTACTS} component={Contacts} />
+                    <Route exact path={CART} component={Cart} />
+                    <Route exact path={ORDER} component={Order} />
+                    <Route exact path={ORDER_FINALIZE} component={OrderFinalize} />
+                    <Route path={OAUTH2_REDIRECT} component={OAuth2RedirectHandler} />
+                    <Route
+                        path={ACCOUNT}
+                        render={() =>
+                            localStorage.getItem("token") ? <Route component={Account} /> : <Route component={Home} />
+                        }
+                    />
+                    <Route path="*" component={Home} />
+                </Switch>
+            </main>
             <Footer />
             <BackTop />
         </>

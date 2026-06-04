@@ -22,11 +22,6 @@ public class ReviewMapper {
         return commonMapper.convertToResponseList(reviewService.getReviewsByProductId(productId), ReviewResponse.class);
     }
 
-    // backward compat alias — ReviewController cũ gọi cái này
-    public List<ReviewResponse> getReviewsByPerfumeId(Long perfumeId) {
-        return getReviewsByProductId(perfumeId);
-    }
-
     public ReviewResponse addReviewToProduct(ReviewRequest reviewRequest, Long productId, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new InputFieldException(bindingResult);
@@ -34,10 +29,4 @@ public class ReviewMapper {
         Review review = commonMapper.convertToEntity(reviewRequest, Review.class);
         return commonMapper.convertToResponse(reviewService.addReviewToProduct(review, productId), ReviewResponse.class);
     }
-
-    // backward compat alias
-    public ReviewResponse addReviewToPerfume(ReviewRequest reviewRequest, Long perfumeId, BindingResult bindingResult) {
-        return addReviewToProduct(reviewRequest, perfumeId, bindingResult);
-    }
 }
-

@@ -63,7 +63,7 @@ public class ProductController {
     @PostMapping(SEARCH_GENDER)
     public ResponseEntity<List<ProductResponse>> findByGender(@RequestBody ProductSearchRequest filter) {
         return ResponseEntity.ok(productMapper.findByGender(filter.getGenders() != null && !filter.getGenders().isEmpty()
-                ? filter.getGenders().get(0) : filter.getPerfumeGender()));
+                ? filter.getGenders().get(0) : filter.getGender()));
     }
 
     // ===== POST: Tìm theo vendor/thương hiệu =====

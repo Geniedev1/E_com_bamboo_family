@@ -1,6 +1,6 @@
-import { PerfumePrice } from "../../types/types";
+import { ProductPrice } from "../../types/types";
 
-export const perfumer: Array<{ name: string }> = [
+export const vendor: Array<{ name: string }> = [
     { name: "Burberry" },
     { name: "Bvlgari" },
     { name: "Calvin Klein" },
@@ -21,12 +21,12 @@ export const perfumer: Array<{ name: string }> = [
     { name: "Versace" }
 ];
 
-export const gender: Array<{ name: string }> = [{ name: "male" }, { name: "female" }];
+export const audience: Array<{ name: string }> = [{ name: "male" }, { name: "female" }, { name: "unisex" }];
 
-export const price: Array<PerfumePrice> = [
-    { id: 1, name: "any", array: [1, 9999] },
-    { id: 2, name: "15 - 25 $", array: [15, 25] },
-    { id: 3, name: "25 - 40 $", array: [25, 40] },
-    { id: 4, name: "40 - 90 $", array: [40, 90] },
-    { id: 5, name: "90 - 175+ $", array: [90, 250] }
+export const price: Array<ProductPrice> = [
+    { id: 1, name: "Tất cả", array: [1, 9999] },
+    { id: 2, name: "$15 - $25", array: [15, 25] },
+    { id: 3, name: "$25 - $40", array: [25, 40] },
+    { id: 4, name: "$40 - $90", array: [40, 90] },
+    { id: 5, name: "Trên $90", array: [90, 250] }
 ];

@@ -15,19 +15,7 @@ public class ProductSearchRequest {
     private List<Integer> prices;     // [minPrice, maxPrice]
     private Boolean sortByPrice;
 
-    // Giữ backward compat (frontend cũ gọi perfumers/perfumeGender)
-    private List<String> perfumers;
-    private String perfumeGender;
-    private String perfumer;
-
-    // Getter thống nhất: ưu tiên vendors mới, fallback sang perfumers cũ
-    public List<String> getVendors() {
-        return (vendors != null && !vendors.isEmpty()) ? vendors : perfumers;
-    }
-
-    public String getVendor() {
-        return vendor != null ? vendor : perfumer;
-    }
+    private String gender;
 
     private String vendor;
     private String category;

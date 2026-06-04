@@ -16,7 +16,7 @@ describe("NavBar", () => {
     it("should render correctly", () => {
         const wrapper = mountWithStore(<NavBar />);
         expect(wrapper.text().includes("HOME")).toBe(true);
-        expect(wrapper.text().includes("PERFUMES")).toBe(true);
+        expect(wrapper.text().includes("PRODUCTS")).toBe(true);
         expect(wrapper.text().includes("CONTACTS")).toBe(true);
         expect(wrapper.text().includes("SIGN IN")).toBe(true);
         expect(wrapper.text().includes("SIGN UP")).toBe(true);

@@ -27,7 +27,7 @@ public class OrderItem {
     private Long quantity; // Số lượng đặt
 
     @OneToOne
-    @JoinColumn(name = "perfume_id") // Giữ tên cột gốc
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Override
@@ -43,4 +43,3 @@ public class OrderItem {
         return Objects.hash(id);
     }
 }
-

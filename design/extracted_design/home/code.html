@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trang chủ - Đồ Mây Tre Đan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Literata:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#324c3e",
+                        "on-secondary-fixed": "#360f00",
+                        "on-tertiary-fixed-variant": "#623f18",
+                        "surface-container-low": "#f6f3f0",
+                        "primary": "#173124",
+                        "surface": "#fcf9f6",
+                        "outline-variant": "#c2c8c2",
+                        "outline": "#727973",
+                        "secondary": "#984721",
+                        "inverse-primary": "#b0cdbb",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#f0bd8b",
+                        "secondary-fixed-dim": "#ffb598",
+                        "on-secondary-container": "#752d08",
+                        "secondary-container": "#fd966a",
+                        "on-background": "#1c1c1a",
+                        "surface-container": "#f0edea",
+                        "surface-variant": "#e5e2df",
+                        "on-error": "#ffffff",
+                        "background": "#fcf9f6",
+                        "on-tertiary-fixed": "#2c1600",
+                        "inverse-on-surface": "#f3f0ed",
+                        "on-surface-variant": "#424844",
+                        "surface-dim": "#dcdad7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e5e2df",
+                        "primary-fixed-dim": "#b0cdbb",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae8e5",
+                        "on-surface": "#1c1c1a",
+                        "primary-fixed": "#ccead6",
+                        "secondary-fixed": "#ffdbcd",
+                        "surface-tint": "#496455",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#d5a474",
+                        "on-primary-fixed": "#062014",
+                        "on-secondary-fixed-variant": "#79300b",
+                        "on-primary-container": "#98b5a3",
+                        "primary-container": "#2d4739",
+                        "tertiary-container": "#5c3a13",
+                        "tertiary": "#422401",
+                        "inverse-surface": "#31302f",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf9f6",
+                        "tertiary-fixed": "#ffdcbd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "xl": "80px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Be Vietnam Pro"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-lg-mobile": ["Literata"],
+                        "headline-lg": ["Literata"],
+                        "headline-md": ["Literata"],
+                        "headline-xl": ["Literata"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .texture-overlay {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(28, 28, 26, 0.02) 10px, rgba(28, 28, 26, 0.02) 20px);
+        }
+        .soft-shadow {
+            box-shadow: 0 12px 24px -4px rgba(193, 102, 62, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-4">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+                Làng Nghề Việt
+            </div>
+<ul class="hidden md:flex space-x-gutter">
+<li><a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary dark:border-secondary-fixed-dim pb-1 transition-all" href="#">Home</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all" href="#">Shop</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all" href="#">About</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant dark:text-outline hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all" href="#">Contact</a></li>
+</ul>
+<div class="flex items-center space-x-md text-primary dark:text-primary-fixed">
+<button class="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="md:hidden hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-[80px]">
+<!-- Hero Section -->
+<section class="relative h-[819px] min-h-[600px] w-full flex items-center justify-center overflow-hidden bg-surface-container-low">
+<div class="absolute inset-0 z-0">
+<img alt="Hero Image" class="w-full h-full object-cover opacity-80" data-alt="A beautifully styled living room featuring exquisite handmade rattan and bamboo furniture. A large woven pendant lamp hangs centrally, casting a warm, inviting glow over a textured beige sofa and a rattan coffee table. The overall aesthetic is 'Tactile Minimalism', with heavy whitespace, soft natural light, and a grounded, serene atmosphere. The color palette revolves around Neutral Sandy Beige and rich tertiary wood tones, embodying traditional Vietnamese craftsmanship in a modern interior design context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn2WEft8BzvVhCAxYan-PH4fgCW4S12zIeI_OLY3HxLX4VF_cgXm7U-493MQzeI_1WAuwRvPra9e9I81KBYb7JoreExzTjH5LiJbWlW5f070OmUth6Gde-O9PkXyD1eXprWOt31Vjd_qTxNP_Q3-p7xEU-9LOZiBCX_be2c71kl9AvIYW-3WTLyAzKDYrPTB4sZJu-DmrhB2oYh-v-IFok2fNQIQDov4iu2wyOL4RzBSRVV3TOIuutui5kcE3LE1gMao6rhcxe5GU1"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface/80 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-6 flex flex-col items-start justify-center">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/20 px-sm py-xs rounded-full mb-md backdrop-blur-sm">Thủ công tinh xảo</span>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-md">Mang Hơi Thở Tự Nhiên Vào Ngôi Nhà Của Bạn</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-md">Khám phá bộ sưu tập nội thất mây tre đan cao cấp, kết tinh từ bàn tay khéo léo của các nghệ nhân làng nghề Việt truyền thống.</p>
+<a class="inline-flex items-center justify-center px-[32px] py-[16px] bg-primary text-on-primary font-label-sm text-label-sm rounded-lg hover:bg-primary-container transition-colors duration-300" href="#">
+                        Khám Phá Ngay
+                    </a>
+</div>
+</div>
+</section>
+<!-- Seasonal Collections -->
+<section class="py-xl bg-surface texture-overlay relative">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Bộ Sưu Tập Mới Nhất</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Những thiết kế tối giản, tôn vinh vẻ đẹp mộc mạc của chất liệu tự nhiên.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Card 1 -->
+<div class="md:col-span-4 group cursor-pointer">
+<div class="bg-surface-container-lowest rounded-[16px] soft-shadow overflow-hidden transition-transform duration-500 group-hover:-translate-y-2">
+<div class="relative h-[300px] overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up shot of an elegant, hand-woven rattan armchair sitting on a smooth concrete floor against a minimalist beige wall. The chair features intricate weaving details and organic curves, embodying 'Tactile Minimalism'. Soft, diffused natural light highlights the rich wood tones and the tactile quality of the material. The mood is calm, grounded, and high-end boutique, perfectly capturing the essence of modern Vietnamese craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTmfSOIvHx8noe4yNxf0lzXc08ssBqqT_ztmz840BVrKmcfjUoh3bxbESq2ZXn8YPxVotRk2ed_1MB-MFT_8PeTNseTnEZxpOev3XWk9wgpDprN9E6UufMg5tcXJFEaecq747kicyxM65EDeCCdv9K1LaiAvy_QN9wk1vVECYcR-oFnCFXGD1Mvdh_PodVB-qAAIjlif0ODxK_r6NsAEs0p9ErkAXyS5SM6K3mZQ4YOcUxlJCoU4aJBK1W5HiwW2rG-rxc5xI0XbmD"/>
+<div class="absolute top-sm right-sm bg-inverse-primary/90 text-primary-fixed font-label-sm text-[12px] px-sm py-xs rounded-full">New</div>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-[20px] text-primary mb-xs">Ghế Thư Giãn Mây Đan</h3>
+<p class="font-body-md text-secondary font-semibold">2,450,000 ₫</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="md:col-span-4 group cursor-pointer md:translate-y-[24px]">
+<div class="bg-surface-container-lowest rounded-[16px] soft-shadow overflow-hidden transition-transform duration-500 group-hover:-translate-y-2">
+<div class="relative h-[300px] overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A beautifully crafted bamboo pendant lamp hanging over a simple, light wood dining table. The woven structure of the lamp casts intricate, warm shadows on the clean white walls behind it. The setting is minimal and serene, emphasizing 'Tactile Minimalism' and 'slow living'. The lighting is soft and inviting, highlighting the natural textures and the neutral, earthy color palette of the room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsx4mDmqkeDJXeF0yNjHUXwHvCeNqE6DbnGQ_zV80KPvwaDDns25Xwc-kp4Wy7fLwCETIYYjVG9Rae4tdV8Bi4tVWR-LLhYz7HhMT_bwL_jpB_tCU4q4rwNiqdN7X1qxN1GA1zGyhvYjqQcTCQx0oUKCBdR96btyU-j68JzvceUnXc9siqTUVgj0QPBn4rN0xQOj5_iYpj1tJoh8iB6qPejPno4IjrJ7ijnD2zoTiLO14zAIytWZnafo8Ml8Hk0sVZD-HDvNJQjs9Z"/>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-[20px] text-primary mb-xs">Đèn Thả Tre Cổ Điển</h3>
+<p class="font-body-md text-secondary font-semibold">1,200,000 ₫</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="md:col-span-4 group cursor-pointer md:translate-y-[48px]">
+<div class="bg-surface-container-lowest rounded-[16px] soft-shadow overflow-hidden transition-transform duration-500 group-hover:-translate-y-2">
+<div class="relative h-[300px] overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A collection of handmade woven rattan baskets and trays neatly arranged on a low, cream-colored credenza. The scene is shot with a shallow depth of field, bringing the rich textures of the woven material into sharp focus. The environment is a modern, sunlit room with heavy whitespace, promoting a sense of 'slow living' and authentic craftsmanship. The warm, subtle shadows add depth to the serene, grounded composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyDVGf_NbzuPGWDcvXilhz51clNJZk-_wbqDvyvGWjXAxNhLgpFMVdfCW1qJRRGchIvlA7wpw5Br1urGThNSpjtQkb3fEWuccGhXSRYmIZD5PXx16Gqb9ZJ_qnnwKLOiOsRIBwmylist4D5IsHLBDF59kBdaGcteZU4Bi46DPxhU91FI2LKA0gVqUHkhDBfMSWNg2Rh4VDPaubjDouzGwWHVmLYMTNLV3x1KRuNM8gu3l8P_A4JEnfGIIDdibRqBXsvEZmhSwcuOqb"/>
+</div>
+<div class="p-md">
+<h3 class="font-headline-md text-[20px] text-primary mb-xs">Bộ Giỏ Cói Trang Trí</h3>
+<p class="font-body-md text-secondary font-semibold">850,000 ₫</p>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-xl pt-lg">
+<a class="inline-flex items-center font-label-sm text-label-sm text-tertiary border-b border-tertiary pb-1 hover:text-secondary hover:border-secondary transition-colors" href="#">
+                        Xem Tất Cả Sản Phẩm <span class="material-symbols-outlined ml-xs text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Crafting Process Section -->
+<section class="py-xl bg-surface-container-low overflow-hidden">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+<div class="relative">
+<div class="absolute -top-4 -left-4 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
+<img alt="Artisan Crafting" class="rounded-xl soft-shadow relative z-10 w-full aspect-[4/3] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlNPBMFpNY9DCdQoIiNg_16r92y2M-EFsUIiQu0JrtdW1K2R1WH7Z9Vay88oVLH6ZgTW-iIys8T0J9QkcV8ucntRhN-qEQA0HSQ_pXV4O7I9h7UTKmKUmZCPolUeOV-2Y3MGP8BreiC2ZRcV_rIItno71gBiIqKne-sdgGdu7PTTWifkB5HunWm7MN6WqhVsCPpKafCR9W7I0sv-LHeNeFoHn_Bj1Kfc_WrFVdlKVgfy78T8NGHQzB6gHklkVTFmj5916Tp8rEtZYT"/>
+<div class="absolute -bottom-6 -right-6 w-48 h-48 border-2 border-secondary/20 rounded-xl -z-0"></div>
+</div>
+<div class="flex flex-col space-y-md">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Nghệ thuật thủ công</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Quy Trình Chế Tác Tỉ Mỉ</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Mỗi sản phẩm tại Làng Nghề Việt là một câu chuyện về sự kiên trì và tài hoa. Từ khâu chọn lựa những sợi mây tre dẻo dai nhất, xử lý tự nhiên để giữ màu sắc nguyên bản, đến hàng nghìn nút thắt thủ công được thực hiện bởi các nghệ nhân giàu kinh nghiệm.</p>
+<div class="space-y-sm">
+<div class="flex items-start space-x-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+<div>
+<h4 class="font-label-sm font-bold text-primary">Nguyên liệu tự nhiên</h4>
+<p class="text-sm text-on-surface-variant">Sử dụng 100% mây, tre, cói từ các vùng nguyên liệu bền vững.</p>
+</div>
+</div>
+<div class="flex items-start space-x-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="history_edu">history_edu</span>
+<div>
+<h4 class="font-label-sm font-bold text-primary">Kỹ thuật truyền thống</h4>
+<p class="text-sm text-on-surface-variant">Bảo tồn những cách đan lát đặc trưng của làng nghề hàng trăm năm tuổi.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Living Spaces Section -->
+<section class="py-xl bg-surface">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Không Gian Sống</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Tìm cảm hứng bày trí cho từng căn phòng trong ngôi nhà bạn.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Living Room -->
+<div class="group relative overflow-hidden rounded-xl h-[450px]">
+<img alt="Living Room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUcvn7OykRgHwWQFXXpfWRJJjT-qkhJtliXo5aiR5zXIBxcOU0KhYErmPiPLIaCoknEmjsvkKYXg47KMcO4yyHqM6aJnfLzRRNqkORWEX37FjroQFocz1HIr84pJtiuK1DvtYMJMqCMegdtdmGa5J8YwQrJaHEkkZXAqtjyBsnMRbAIZn4xv8E1YzeGV67M1_UztFqLcaMCeAadUVanBBO0RLk6UD1IvdqlAi4qiCn84zt2q90Td0aBj6kI9pnnHgm3NsMZXznxzef"/>
+<div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-lg text-white">
+<h3 class="font-headline-md mb-xs">Phòng Khách</h3>
+<p class="text-sm opacity-90 mb-md">Sự ấm cúng và sang trọng từ mây đan.</p>
+<a class="font-label-sm flex items-center hover:translate-x-2 transition-transform" href="#">Khám phá <span class="material-symbols-outlined ml-xs" data-icon="chevron_right">chevron_right</span></a>
+</div>
+</div>
+<!-- Dining Room -->
+<div class="group relative overflow-hidden rounded-xl h-[450px]">
+<img alt="Dining Room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdbRasUpurLO_hwNLyO5wsTgGrWPxkv69pbvmmcUywTLHHEQgmVZKXfN_G9DHK2E8GnGZBV6yLRhR0Y1t3cy_cYIxuUkv4ad6K3xq94onIiZzOf-helJbSLJQ3_FY3M6yoIhEn0220NDjIn2Hi_3TqcrkUajO6TgA5ePcWwmOPZTxfXh6BQMnzM-2P96mahPETp2pQJOo-JO4Fc1KFEjyHlCj73X98pIhTFMFcfXFLy1tOvnpY1ArsdQUXgzkPu2i0G33_lj39Sbbv"/>
+<div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-lg text-white">
+<h3 class="font-headline-md mb-xs">Phòng Ăn</h3>
+<p class="text-sm opacity-90 mb-md">Bữa cơm gia đình thêm gần gũi với tre nứa.</p>
+<a class="font-label-sm flex items-center hover:translate-x-2 transition-transform" href="#">Khám phá <span class="material-symbols-outlined ml-xs" data-icon="chevron_right">chevron_right</span></a>
+</div>
+</div>
+<!-- Bedroom -->
+<div class="group relative overflow-hidden rounded-xl h-[450px]">
+<img alt="Bedroom" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz5twztqlJb6Qw5-DWUJ0LCWUsX-O73D3T8s_hTk8ZrcGd8kauvEiZBArWQa-vm2mfgs0jGQ8uyvtarP0bjeAPgs8lWv7c3zl4SddNWWpgXoB6Z60wk_SspikKFYUSQkPAshaMEN5kBq8LH0jiJlKMJyW-HTRaHFMo_YDJHblATjFMBnaLLtg7nF77i4FI3JC2h2kRwwTe-uXLfUlf5A1LSW2lCzFQsLbTZnIS0zGcIuzYzgBzjCYA5oBfH66AZKR58ymtUrdXTyE9"/>
+<div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors"></div>
+<div class="absolute inset-0 flex flex-col justify-end p-lg text-white">
+<h3 class="font-headline-md mb-xs">Phòng Ngủ</h3>
+<p class="text-sm opacity-90 mb-md">Giấc ngủ thư thái trong không gian tự nhiên.</p>
+<a class="font-label-sm flex items-center hover:translate-x-2 transition-transform" href="#">Khám phá <span class="material-symbols-outlined ml-xs" data-icon="chevron_right">chevron_right</span></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-xl bg-surface-container text-on-surface">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Khách Hàng Nói Gì</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Sự hài lòng của bạn là động lực lớn nhất của chúng tôi.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Testimonial 1 -->
+<div class="bg-surface-bright p-lg rounded-xl soft-shadow flex flex-col">
+<div class="flex text-secondary mb-md">
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+</div>
+<p class="font-body-md text-on-surface-variant italic mb-lg">"Tôi thực sự ấn tượng với độ tỉ mỉ của chiếc ghế mây. Nó không chỉ đẹp mà còn rất chắc chắn, mang lại cảm giác thư thái tuyệt đối cho phòng đọc sách của tôi."</p>
+<div class="mt-auto flex items-center space-x-sm">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center font-bold text-on-primary-fixed">TH</div>
+<div>
+<p class="font-label-sm text-primary">Chị Thu Hà</p>
+<p class="text-[12px] text-on-surface-variant">Hà Nội</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-surface-bright p-lg rounded-xl soft-shadow flex flex-col">
+<div class="flex text-secondary mb-md">
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+</div>
+<p class="font-body-md text-on-surface-variant italic mb-lg">"Dịch vụ khách hàng rất tận tâm. Đèn tre được đóng gói vô cùng cẩn thận, khi lắp lên tỏa ra ánh sáng ấm cúng, làm bừng sáng cả không gian bàn ăn."</p>
+<div class="mt-auto flex items-center space-x-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center font-bold text-on-secondary-fixed">AM</div>
+<div>
+<p class="font-label-sm text-primary">Anh Minh</p>
+<p class="text-[12px] text-on-surface-variant">TP. Hồ Chí Minh</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-surface-bright p-lg rounded-xl soft-shadow flex flex-col">
+<div class="flex text-secondary mb-md">
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+<span class="material-symbols-outlined fill-1" data-icon="star">star</span>
+</div>
+<p class="font-body-md text-on-surface-variant italic mb-lg">"Sản phẩm handmade nhưng chất lượng hoàn thiện rất cao. Tôi đã mua trọn bộ giỏ cói và cảm thấy ngôi nhà mình trở nên mộc mạc, gần gũi với thiên nhiên hơn hẳn."</p>
+<div class="mt-auto flex items-center space-x-sm">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center font-bold text-on-tertiary-fixed">LN</div>
+<div>
+<p class="font-label-sm text-primary">Chị Lan Ngọc</p>
+<p class="text-[12px] text-on-surface-variant">Đà Nẵng</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full relative overflow-hidden bg-surface-container-highest dark:bg-surface-container border-t border-outline-variant/30">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-lg space-y-md md:space-y-0 max-w-7xl mx-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-container">
+                Làng Nghề Việt
+            </div>
+<ul class="flex flex-wrap justify-center gap-md">
+<li><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors hover:underline opacity-90 hover:opacity-100" href="#">Sustainability</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors hover:underline opacity-90 hover:opacity-100" href="#">Craftsmanship</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors hover:underline opacity-90 hover:opacity-100" href="#">Shipping Policy</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors hover:underline opacity-90 hover:opacity-100" href="#">Return Policy</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors hover:underline opacity-90 hover:opacity-100" href="#">Terms of Service</a></li>
+</ul>
+<div class="font-body-md text-body-md text-on-surface dark:text-on-surface opacity-70 text-sm">
+                © 2024 Làng Nghề Việt. Handmade with care.
+            </div>
+</div>
+</footer>
+</body></html>

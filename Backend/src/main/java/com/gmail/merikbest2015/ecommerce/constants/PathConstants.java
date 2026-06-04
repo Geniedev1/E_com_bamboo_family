@@ -5,16 +5,14 @@ public class PathConstants {
     public static final String API_V1 = "/api/v1";
     public static final String ORDER = "/order";
     public static final String ORDERS = "/orders";
-    public static final String PERFUMES = "/perfumes"; // legacy (kept for backward compat)
-    public static final String PRODUCTS = "/products"; // new
+    public static final String PRODUCTS = "/products";
     public static final String USER = "/user";
     public static final String GRAPHQL = "/graphql";
 
     public static final String API_V1_ADMIN = API_V1 + "/admin";
     public static final String API_V1_AUTH = API_V1 + "/auth";
     public static final String API_V1_ORDER = API_V1 + ORDER;
-    public static final String API_V1_PERFUMES = API_V1 + PERFUMES; // legacy
-    public static final String API_V1_PRODUCTS = API_V1 + PRODUCTS; // new
+    public static final String API_V1_PRODUCTS = API_V1 + PRODUCTS;
     public static final String API_V1_REGISTRATION = API_V1 + "/registration";
     public static final String API_V1_REVIEW = API_V1 + "/review";
     public static final String API_V1_USERS = API_V1 + "/users";
@@ -22,8 +20,7 @@ public class PathConstants {
     public static final String ADD = "/add";
     public static final String EDIT = "/edit";
     public static final String CART = "/cart";
-    public static final String DELETE_BY_PERFUME_ID = "/delete/{perfumeId}"; // legacy
-    public static final String DELETE_BY_PRODUCT_ID = "/delete/{productId}"; // new
+    public static final String DELETE_BY_PRODUCT_ID = "/delete/{productId}";
     public static final String ORDER_BY_EMAIL = ORDER + "/{userEmail}";
     public static final String ORDER_DELETE = ORDER + "/delete/{orderId}";
     public static final String ORDER_STATUS = ORDER + "/{orderId}/status";
@@ -45,19 +42,14 @@ public class PathConstants {
     public static final String ORDER_ID = "/{orderId}";
     public static final String ORDER_ID_ITEMS = ORDER_ID + "/items";
 
-    public static final String PERFUME_ID = "/{perfumeId}"; // legacy
-    public static final String PRODUCT_ID = "/{productId}"; // new
+    public static final String PRODUCT_ID = "/{productId}";
     public static final String IDS = "/ids";
     public static final String SEARCH = "/search";
     public static final String SEARCH_GENDER = SEARCH + "/gender";
-    public static final String SEARCH_VENDOR = SEARCH + "/vendor"; // new
-    public static final String SEARCH_PERFUMER = SEARCH + "/perfumer"; // legacy
-    public static final String SEARCH_CATEGORY = SEARCH + "/category"; // new
+    public static final String SEARCH_VENDOR = SEARCH + "/vendor";
+    public static final String SEARCH_CATEGORY = SEARCH + "/category";
     public static final String SEARCH_TEXT = SEARCH + "/text";
     public static final String GRAPHQL_IDS = GRAPHQL + IDS;
-    public static final String GRAPHQL_PERFUMES = GRAPHQL + PERFUMES; // legacy
-    public static final String GRAPHQL_PRODUCTS = GRAPHQL + PRODUCTS; // new
-    public static final String GRAPHQL_PERFUME = GRAPHQL + "/perfume"; // legacy
-    public static final String GRAPHQL_PRODUCT = GRAPHQL + "/product"; // new
+    public static final String GRAPHQL_PRODUCTS = GRAPHQL + PRODUCTS;
+    public static final String GRAPHQL_PRODUCT = GRAPHQL + "/product";
 }
-

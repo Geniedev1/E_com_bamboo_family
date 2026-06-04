@@ -12,19 +12,19 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
-@Table(name = "perfume") // Giữ tên bảng gốc, tránh migration phức tạp
+@Table(name = "product")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "perfume_id_seq")
-    @SequenceGenerator(name = "perfume_id_seq", sequenceName = "perfume_id_seq", initialValue = 109, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_seq")
+    @SequenceGenerator(name = "product_id_seq", sequenceName = "product_id_seq", initialValue = 109, allocationSize = 1)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "perfume_title")
+    @Column(name = "product_title")
     private String productTitle;
 
-    @Column(name = "perfumer")
+    @Column(name = "vendor")
     private String vendor; // Người bán / thương hiệu / nghệ nhân
 
     @Column(name = "year")
@@ -33,17 +33,17 @@ public class Product {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "perfume_gender")
+    @Column(name = "gender")
     private String gender; // Có thể dùng để phân loại target audience
 
-    @Column(name = "fragrance_top_notes")
-    private String topDescription; // Mô tả ngắn (trước dùng cho top notes)
+    @Column(name = "top_description")
+    private String topDescription; // Mô tả ngắn
 
-    @Column(name = "fragrance_middle_notes")
-    private String middleDescription; // Mô tả trung (trước dùng cho middle notes)
+    @Column(name = "middle_description")
+    private String middleDescription; // Mô tả trung
 
-    @Column(name = "fragrance_base_notes")
-    private String baseDescription; // Mô tả chân (trước dùng cho base notes)
+    @Column(name = "base_description")
+    private String baseDescription; // Mô tả chân
 
     @Column(name = "description")
     private String description; // Mô tả đầy đủ
@@ -60,7 +60,7 @@ public class Product {
     @Column(name = "type")
     private String type; // Loại sản phẩm nội bộ
 
-    @Column(name = "perfume_rating")
+    @Column(name = "product_rating")
     private Double productRating; // Điểm đánh giá trung bình
 
     // ===== Các field mới cho quản lý shop =====
@@ -74,6 +74,11 @@ public class Product {
     private String productStatus; // ACTIVE | INACTIVE | OUT_OF_STOCK
 
     @OneToMany
+    @JoinTable(
+            name = "product_reviews",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "reviews_id")
+    )
     @ToString.Exclude
     private List<Review> reviews;
 

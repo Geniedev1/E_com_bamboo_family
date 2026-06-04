@@ -11,9 +11,9 @@ type PropsType = {
 
 const MenuSorter: FC<PropsType> = ({ onChange, sortByPrice }): ReactElement => {
     return (
-        <Radio.Group value={sortByPrice} onChange={onChange} style={{ float: "right" }}>
+        <Radio.Group value={sortByPrice} onChange={onChange} className="whitespace-nowrap lg:justify-self-end">
             <Radio.Button disabled className={"price-button"}>
-                Sort by price
+                Sắp xếp giá
             </Radio.Button>
             <Radio.Button value={false}>
                 <ArrowDownOutlined />

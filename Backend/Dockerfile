@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline -B
 
 # Copy source và build (bỏ tests để nhanh hơn)
 COPY src ./src
-RUN mvn package -DskipTests -B
+RUN mvn package -Dmaven.test.skip=true -B
 
 # ===== Stage 2: Runtime =====
 FROM eclipse-temurin:8-jre-focal

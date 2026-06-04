@@ -16,8 +16,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 
 @Component
 @RequiredArgsConstructor
@@ -35,8 +37,10 @@ public class GraphQLProvider {
 
     @PostConstruct
     public void loadSchema() throws IOException {
-        File fileSchema = resource.getFile();
-        TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(fileSchema);
+        TypeDefinitionRegistry typeRegistry;
+        try (Reader schemaReader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
+            typeRegistry = new SchemaParser().parse(schemaReader);
+        }
         RuntimeWiring wiring = buildRuntimeWiring();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, wiring);
         graphQL = GraphQL.newGraphQL(schema).build();
@@ -45,10 +49,9 @@ public class GraphQLProvider {
     private RuntimeWiring buildRuntimeWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeWiring -> typeWiring
-                        // "perfumes" / "perfume" giữ nguyên để không break frontend GraphQL queries
-                        .dataFetcher("perfumes", productService.getAllProductsByQuery())
-                        .dataFetcher("perfumesIds", productService.getAllProductsByIdsQuery())
-                        .dataFetcher("perfume", productService.getProductByQuery())
+                        .dataFetcher("products", productService.getAllProductsByQuery())
+                        .dataFetcher("productsIds", productService.getAllProductsByIdsQuery())
+                        .dataFetcher("product", productService.getProductByQuery())
                         .dataFetcher("orders", orderService.getAllOrdersByQuery())
                         .dataFetcher("ordersByEmail", orderService.getUserOrdersByEmailQuery())
                         .dataFetcher("users", userService.getAllUsersByQuery())
@@ -56,4 +59,3 @@ public class GraphQLProvider {
                 .build();
     }
 }
-

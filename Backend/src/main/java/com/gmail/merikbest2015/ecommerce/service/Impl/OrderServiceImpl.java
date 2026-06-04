@@ -60,11 +60,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order postOrder(Order order, Map<Long, Long> perfumesId) {
+    public Order postOrder(Order order, Map<Long, Long> productsId) {
         List<OrderItem> orderItemList = new ArrayList<>();
         double serverTotal = 0.0;
 
-        for (Map.Entry<Long, Long> entry : perfumesId.entrySet()) {
+        for (Map.Entry<Long, Long> entry : productsId.entrySet()) {
             Product product = productRepository.findById(entry.getKey()).get();
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
@@ -136,4 +136,3 @@ public class OrderServiceImpl implements OrderService {
         };
     }
 }
-

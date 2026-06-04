@@ -18,7 +18,7 @@ public interface UserService {
     
     Page<User> getAllUsers(Pageable pageable);
 
-    List<Product> getCart(List<Long> perfumeIds);
+    List<Product> getCart(List<Long> productIds);
 
     User updateUserInfo(String email, User user);
 

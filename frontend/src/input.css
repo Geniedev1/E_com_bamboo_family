@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .texture-overlay {
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(28, 28, 26, 0.02) 10px, rgba(28, 28, 26, 0.02) 20px);
+  }
+  .soft-shadow {
+      box-shadow: 0 12px 24px -4px rgba(193, 102, 62, 0.08);
+  }
+}
