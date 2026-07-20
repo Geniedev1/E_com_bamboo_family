@@ -163,7 +163,6 @@ export interface UserRegistration {
     lastName: string;
     password: string;
     password2: string;
-    captcha: string | null;
 }
 
 export interface UserResetPasswordRequest {
@@ -173,7 +172,6 @@ export interface UserResetPasswordRequest {
 }
 
 export interface AuthErrors {
-    captchaError: string;
     emailError: string;
     firstNameError: string;
     lastNameError: string;

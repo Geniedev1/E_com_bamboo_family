@@ -4,7 +4,6 @@ import com.gmail.merikbest2015.ecommerce.domain.Product;
 import com.gmail.merikbest2015.ecommerce.dto.product.ProductSearchRequest;
 import com.gmail.merikbest2015.ecommerce.enums.SearchProduct;
 import com.gmail.merikbest2015.ecommerce.repository.projection.ProductProjection;
-import graphql.schema.DataFetcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,11 +31,4 @@ public interface ProductService {
     Product saveProduct(Product product, MultipartFile file);
 
     String deleteProduct(Long productId);
-
-    // GraphQL DataFetchers
-    DataFetcher<Product> getProductByQuery();
-
-    DataFetcher<List<ProductProjection>> getAllProductsByQuery();
-
-    DataFetcher<List<Product>> getAllProductsByIdsQuery();
 }

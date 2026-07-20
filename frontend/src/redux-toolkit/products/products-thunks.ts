@@ -3,14 +3,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import RequestService from "../../utils/request-service";
 import {
     PRODUCTS,
-    PRODUCTS_GRAPHQL_IDS,
-    PRODUCTS_GRAPHQL_PRODUCTS,
     PRODUCTS_IDS,
     PRODUCTS_SEARCH,
     PRODUCTS_SEARCH_TEXT
 } from "../../constants/urlConstants";
 import { FilterParamsType, HeaderResponse, ProductResponse, ProductsSearchRequest } from "../../types/types";
-import { geProductsByIdsQuery, getAllProductsByQuery } from "../../utils/graphql-query/product-query";
 
 export const fetchProducts = createAsyncThunk<HeaderResponse<ProductResponse>, number>(
     "products/fetchProducts",
@@ -53,19 +50,5 @@ export const fetchProductsByInputText = createAsyncThunk<HeaderResponse<ProductR
             pagesCount: parseInt(response.headers["page-total-count"]),
             totalElements: parseInt(response.headers["page-total-elements"])
         };
-    }
-);
-
-// GraphQL thunks
-export const fetchProductsByQuery = createAsyncThunk<Array<ProductResponse>>("products/fetchProductsByQuery", async () => {
-    const response = await RequestService.post(PRODUCTS_GRAPHQL_PRODUCTS, { query: getAllProductsByQuery });
-    return response.data.data.products;
-});
-
-export const fetchProductsByIdsQuery = createAsyncThunk<Array<ProductResponse>, Array<number>>(
-    "products/fetchProductsByIdsQuery",
-    async (ids) => {
-        const response = await RequestService.post(PRODUCTS_GRAPHQL_IDS, { query: geProductsByIdsQuery(ids) });
-        return response.data.data.productsIds;
     }
 );

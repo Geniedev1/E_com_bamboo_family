@@ -50,8 +50,6 @@ const Product: FC = (): ReactElement => {
     const { addToCart } = useCart(product?.id!);
 
     useEffect(() => {
-        // GraphQL example
-        // dispatch(fetchProductByQuery(params.id));
         dispatch(fetchProduct(params.id));
         dispatch(resetInputForm());
         window.scrollTo(0, 0);

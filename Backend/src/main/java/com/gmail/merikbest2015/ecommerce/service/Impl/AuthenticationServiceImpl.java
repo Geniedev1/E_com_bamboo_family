@@ -3,7 +3,6 @@ package com.gmail.merikbest2015.ecommerce.service.Impl;
 import com.gmail.merikbest2015.ecommerce.enums.AuthProvider;
 import com.gmail.merikbest2015.ecommerce.enums.Role;
 import com.gmail.merikbest2015.ecommerce.domain.User;
-import com.gmail.merikbest2015.ecommerce.dto.CaptchaResponse;
 import com.gmail.merikbest2015.ecommerce.exception.ApiRequestException;
 import com.gmail.merikbest2015.ecommerce.exception.EmailException;
 import com.gmail.merikbest2015.ecommerce.exception.PasswordConfirmationException;
@@ -23,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,7 +35,6 @@ import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
-    private final RestTemplate restTemplate;
     private final JwtProvider jwtProvider;
     private final MailSender mailSender;
     private final PasswordEncoder passwordEncoder;
@@ -45,12 +42,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Value("${hostname}")
     private String hostname;
-
-    @Value("${recaptcha.secret}")
-    private String secret;
-
-    @Value("${recaptcha.url}")
-    private String captchaUrl;
 
     @Override
     public Map<String, Object> login(String email, String password) {
@@ -71,10 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional
-    public String registerUser(User user, String captcha, String password2) {
-        String url = String.format(captchaUrl, secret, captcha);
-        restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponse.class);
-
+    public String registerUser(User user, String password2) {
         if (user.getPassword() != null && !user.getPassword().equals(password2)) {
             throw new PasswordException(PASSWORDS_DO_NOT_MATCH);
         }

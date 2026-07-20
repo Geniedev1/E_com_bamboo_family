@@ -19,14 +19,6 @@ describe("Registration", () => {
         expect(mockDispatchFn).nthCalledWith(1, { payload: LoadingStatus.LOADED, type: "auth/setAuthLoadingState" });
     });
 
-    it("should reset Captcha Value", () => {
-        const mockStore = {
-            ...mockRootStore,
-            auth: { ...mockRootStore.auth, isRegistered: true }
-        };
-        mountWithStore(<Registration />, mockStore);
-    });
-
     it("should unmount Registration", () => {
         const wrapper = mountWithStore(<Registration />);
         wrapper.unmount();

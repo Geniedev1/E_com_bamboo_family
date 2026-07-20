@@ -1,7 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.user.UpdateUserRequest;
 import com.gmail.merikbest2015.ecommerce.security.JwtAuthenticationException;
 import org.junit.Test;
@@ -126,27 +125,4 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$[*].reviewsCount").isNotEmpty());
     }
 
-    @Test
-    @WithUserDetails(USER_EMAIL)
-    public void getUserInfoByQuery() throws Exception {
-        GraphQLRequest graphQLRequest = new GraphQLRequest();
-        graphQLRequest.setQuery(GRAPHQL_QUERY_USER);
-
-        mockMvc.perform(post(API_V1_USERS + GRAPHQL)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.user.id", equalTo(USER_ID)))
-                .andExpect(jsonPath("$.data.user.email", equalTo(USER_EMAIL)))
-                .andExpect(jsonPath("$.data.user.firstName", equalTo(FIRST_NAME)))
-                .andExpect(jsonPath("$.data.user.lastName", equalTo(LAST_NAME)))
-                .andExpect(jsonPath("$.data.user.city", equalTo(CITY)))
-                .andExpect(jsonPath("$.data.user.address", equalTo(ADDRESS)))
-                .andExpect(jsonPath("$.data.user.phoneNumber", equalTo(PHONE_NUMBER)))
-                .andExpect(jsonPath("$.data.user.postIndex", equalTo("1234567890")))
-                .andExpect(jsonPath("$.data.user.activationCode", equalTo(null)))
-                .andExpect(jsonPath("$.data.user.passwordResetCode", equalTo(null)))
-                .andExpect(jsonPath("$.data.user.active", equalTo(true)))
-                .andExpect(jsonPath("$.data.user.roles[0]", equalTo(ROLE_USER)));
-    }
 }

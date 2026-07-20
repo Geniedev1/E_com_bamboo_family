@@ -5,8 +5,6 @@ import { Alert, Col, Divider, Form, Row, Space } from "antd";
 import { LockOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
 
 import googleLogo from "../../img/google.png";
-import facebookLogo from "../../img/facebook.png";
-import githubLogo from "../../img/github.png";
 import { selectErrorMessage } from "../../redux-toolkit/auth/auth-selector";
 import { resetAuthState } from "../../redux-toolkit/auth/auth-slice";
 import { activateAccount, login } from "../../redux-toolkit/auth/auth-thunks";
@@ -77,8 +75,6 @@ const Login: FC = (): ReactElement => {
                 <Col span={12}>
                     <Space direction={"vertical"} className={"social-login-wrapper"}>
                         <SocialButton socialNetwork={"google"} image={googleLogo} />
-                        <SocialButton socialNetwork={"facebook"} image={facebookLogo} />
-                        <SocialButton socialNetwork={"github"} image={githubLogo} />
                     </Space>
                 </Col>
             </Row>

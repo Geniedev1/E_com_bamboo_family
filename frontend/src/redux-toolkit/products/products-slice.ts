@@ -5,9 +5,7 @@ import {
     fetchProducts,
     fetchProductsByFilterParams,
     fetchProductsByIds,
-    fetchProductsByIdsQuery,
-    fetchProductsByInputText,
-    fetchProductsByQuery
+    fetchProductsByInputText
 } from "./products-thunks";
 
 export interface ProductsState {
@@ -71,20 +69,6 @@ export const productsSlice = createSlice({
             state.products = action.payload.items;
             state.pagesCount = action.payload.pagesCount;
             state.totalElements = action.payload.totalElements;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchProductsByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchProductsByQuery.fulfilled, (state, action) => {
-            state.products = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchProductsByIdsQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchProductsByIdsQuery.fulfilled, (state, action) => {
-            state.products = action.payload;
             state.loadingState = LoadingStatus.LOADED;
         });
     }

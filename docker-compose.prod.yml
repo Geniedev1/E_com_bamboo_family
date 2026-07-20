@@ -41,17 +41,12 @@ services:
       FRONTEND_URL: ${FRONTEND_URL}
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
-      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
-      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
-      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
-      AWS_REGION: ${AWS_REGION:-ap-southeast-1}
+      UPLOAD_DIR: ${UPLOAD_DIR:-uploads}
+      APP_BASE_URL: ${APP_BASE_URL}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      FACEBOOK_CLIENT_ID: ${FACEBOOK_CLIENT_ID}
-      FACEBOOK_CLIENT_SECRET: ${FACEBOOK_CLIENT_SECRET}
-      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
-      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
-      RECAPTCHA_SECRET: ${RECAPTCHA_SECRET}
+    volumes:
+      - backend_uploads:/app/uploads
     networks:
       - shop_network
     healthcheck:
@@ -86,3 +81,4 @@ networks:
 volumes:
   postgres_data:
   nginx_logs:
+  backend_uploads:

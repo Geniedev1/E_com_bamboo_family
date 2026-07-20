@@ -51,7 +51,6 @@ export const userEditErrorsData: UserEditErrors = {
 };
 
 export const authErrorsData: AuthErrors = {
-    captchaError: "Fill captcha.",
     emailError: "First name cannot be empty",
     firstNameError: "Last name cannot be empty",
     lastNameError: "The password must be between 6 and 16 characters long",
@@ -83,6 +82,5 @@ export const userRegistrationData: UserRegistration = {
     firstName: "John",
     lastName: "Doe",
     password: "test123",
-    password2: "test123",
-    captcha: "test"
+    password2: "test123"
 };

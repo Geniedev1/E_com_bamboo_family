@@ -3,11 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LoadingStatus, OrderResponse } from "../../types/types";
 import {
     fetchAllUsersOrders,
-    fetchAllUsersOrdersByQuery,
     fetchUserOrders,
-    fetchUserOrdersByEmail,
-    fetchUserOrdersByEmailQuery,
-    fetchUserOrdersByQuery
+    fetchUserOrdersByEmail
 } from "./orders-thunks";
 
 export interface OrdersState {
@@ -56,27 +53,6 @@ export const ordersSlice = createSlice({
             state.orders = action.payload.items;
             state.pagesCount = action.payload.pagesCount;
             state.totalElements = action.payload.totalElements;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchUserOrdersByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchUserOrdersByQuery.fulfilled, (state, action) => {
-            state.orders = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchAllUsersOrdersByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchAllUsersOrdersByQuery.fulfilled, (state, action) => {
-            state.orders = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchUserOrdersByEmailQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchUserOrdersByEmailQuery.fulfilled, (state, action) => {
-            state.orders = action.payload;
             state.loadingState = LoadingStatus.LOADED;
         });
     }

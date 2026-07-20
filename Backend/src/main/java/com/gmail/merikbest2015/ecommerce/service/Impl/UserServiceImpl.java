@@ -6,7 +6,6 @@ import com.gmail.merikbest2015.ecommerce.exception.ApiRequestException;
 import com.gmail.merikbest2015.ecommerce.repository.ProductRepository;
 import com.gmail.merikbest2015.ecommerce.repository.UserRepository;
 import com.gmail.merikbest2015.ecommerce.service.UserService;
-import graphql.schema.DataFetcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,18 +59,5 @@ public class UserServiceImpl implements UserService {
         userFromDb.setPhoneNumber(user.getPhoneNumber());
         userFromDb.setPostIndex(user.getPostIndex());
         return userFromDb;
-    }
-    
-    @Override
-    public DataFetcher<User> getUserByQuery() {
-        return dataFetchingEnvironment -> {
-            Long userId = Long.parseLong(dataFetchingEnvironment.getArgument("id"));
-            return userRepository.findById(userId).get();
-        };
-    }
-
-    @Override
-    public DataFetcher<List<User>> getAllUsersByQuery() {
-        return dataFetchingEnvironment -> userRepository.findAllByOrderByIdAsc();
     }
 }

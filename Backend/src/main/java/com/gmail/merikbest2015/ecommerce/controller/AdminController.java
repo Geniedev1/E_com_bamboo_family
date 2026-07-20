@@ -1,6 +1,5 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.HeaderResponse;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderResponse;
 import com.gmail.merikbest2015.ecommerce.dto.product.ProductRequest;
@@ -11,8 +10,6 @@ import com.gmail.merikbest2015.ecommerce.enums.OrderStatus;
 import com.gmail.merikbest2015.ecommerce.mapper.OrderMapper;
 import com.gmail.merikbest2015.ecommerce.mapper.ProductMapper;
 import com.gmail.merikbest2015.ecommerce.mapper.UserMapper;
-import com.gmail.merikbest2015.ecommerce.service.graphql.GraphQLProvider;
-import graphql.ExecutionResult;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
@@ -37,7 +34,6 @@ public class AdminController {
     private final UserMapper userMapper;
     private final ProductMapper productMapper;
     private final OrderMapper orderMapper;
-    private final GraphQLProvider graphQLProvider;
 
     // ===== Product Management =====
 
@@ -100,28 +96,6 @@ public class AdminController {
     public ResponseEntity<List<BaseUserResponse>> getAllUsers(@PageableDefault(size = 10) Pageable pageable) {
         HeaderResponse<BaseUserResponse> response = userMapper.getAllUsers(pageable);
         return ResponseEntity.ok().headers(response.getHeaders()).body(response.getItems());
-    }
-
-    // ===== GraphQL =====
-
-    @PostMapping(GRAPHQL_USER)
-    public ResponseEntity<ExecutionResult> getUserByQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
-    }
-
-    @PostMapping(GRAPHQL_USER_ALL)
-    public ResponseEntity<ExecutionResult> getAllUsersByQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
-    }
-
-    @PostMapping(GRAPHQL_ORDERS)
-    public ResponseEntity<ExecutionResult> getAllOrdersQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
-    }
-
-    @PostMapping(GRAPHQL_ORDER)
-    public ResponseEntity<ExecutionResult> getUserOrdersByEmailQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
     }
 }
 

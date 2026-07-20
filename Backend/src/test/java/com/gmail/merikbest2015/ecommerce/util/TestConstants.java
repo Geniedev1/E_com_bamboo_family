@@ -44,16 +44,4 @@ public class TestConstants {
 
     public static final String FILE_NAME = "Chanel N5.jpg";
     public static final String FILE_PATH = "src/test/resources/empty.jpg";
-
-    public static final String GRAPHQL_QUERY_USERS = "{ users { id email password firstName lastName city " +
-            "address phoneNumber postIndex activationCode passwordResetCode active provider roles } }";
-    public static final String GRAPHQL_QUERY_USER = "{ user(id: 122) { id email password firstName lastName city " +
-            "address phoneNumber postIndex activationCode passwordResetCode active provider roles } }";
-    public static final String GRAPHQL_QUERY_ORDERS = "{ orders { id totalPrice date firstName lastName city address " +
-            "email phoneNumber postIndex orderItems { id amount quantity perfume { id perfumeTitle perfumer price filename } } } }";
-    public static final String GRAPHQL_QUERY_ORDERS_BY_EMAIL = "{ ordersByEmail(email: \"test123@test.com\") { id totalPrice date firstName lastName city address " +
-            "email phoneNumber postIndex orderItems { id amount quantity perfume { id perfumeTitle perfumer price filename } } } }";
-    public static final String GRAPHQL_QUERY_PERFUMES_BY_IDS = "{ perfumesIds(ids: [3,4,5]) { id perfumeTitle perfumer price } }";
-    public static final String GRAPHQL_QUERY_PERFUMES = "{ perfumes { id perfumeTitle perfumer price filename } }";
-    public static final String GRAPHQL_QUERY_PERFUME = "{ perfume(id: 1) { id perfumeTitle perfumer price } }";
 }

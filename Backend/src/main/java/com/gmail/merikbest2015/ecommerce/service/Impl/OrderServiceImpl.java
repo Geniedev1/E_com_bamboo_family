@@ -11,7 +11,6 @@ import com.gmail.merikbest2015.ecommerce.repository.ProductRepository;
 import com.gmail.merikbest2015.ecommerce.service.OrderService;
 import com.gmail.merikbest2015.ecommerce.service.email.MailSender;
 
-import graphql.schema.DataFetcher;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
@@ -121,18 +120,5 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new ApiRequestException(ORDER_NOT_FOUND, HttpStatus.NOT_FOUND));
         orderRepository.delete(order);
         return "Order deleted successfully";
-    }
-
-    @Override
-    public DataFetcher<List<Order>> getAllOrdersByQuery() {
-        return dataFetchingEnvironment -> orderRepository.findAllByOrderByIdAsc();
-    }
-
-    @Override
-    public DataFetcher<List<Order>> getUserOrdersByEmailQuery() {
-        return dataFetchingEnvironment -> {
-            String email = dataFetchingEnvironment.getArgument("email").toString();
-            return orderRepository.findOrderByEmail(email);
-        };
     }
 }

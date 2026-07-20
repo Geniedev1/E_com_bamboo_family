@@ -1,14 +1,11 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.HeaderResponse;
 import com.gmail.merikbest2015.ecommerce.dto.product.FullProductResponse;
 import com.gmail.merikbest2015.ecommerce.dto.product.ProductResponse;
 import com.gmail.merikbest2015.ecommerce.dto.product.ProductSearchRequest;
 import com.gmail.merikbest2015.ecommerce.dto.product.SearchTypeRequest;
 import com.gmail.merikbest2015.ecommerce.mapper.ProductMapper;
-import com.gmail.merikbest2015.ecommerce.service.graphql.GraphQLProvider;
-import graphql.ExecutionResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,7 +26,6 @@ import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
 public class ProductController {
 
     private final ProductMapper productMapper;
-    private final GraphQLProvider graphQLProvider;
 
     // ===== GET: Danh sách sản phẩm (phân trang) =====
     @GetMapping
@@ -89,21 +85,5 @@ public class ProductController {
         HeaderResponse<ProductResponse> response = productMapper.findByInputText(
                 searchType.getSearchType(), searchType.getText(), pageable);
         return ResponseEntity.ok().headers(response.getHeaders()).body(response.getItems());
-    }
-
-    // ===== GraphQL endpoints =====
-    @PostMapping(GRAPHQL_IDS)
-    public ResponseEntity<ExecutionResult> getProductsByIdsQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
-    }
-
-    @PostMapping(GRAPHQL_PRODUCTS)
-    public ResponseEntity<ExecutionResult> getAllProductsByQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
-    }
-
-    @PostMapping(GRAPHQL_PRODUCT)
-    public ResponseEntity<ExecutionResult> getProductByQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
     }
 }

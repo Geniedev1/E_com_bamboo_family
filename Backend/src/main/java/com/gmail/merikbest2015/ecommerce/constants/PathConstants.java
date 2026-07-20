@@ -7,7 +7,6 @@ public class PathConstants {
     public static final String ORDERS = "/orders";
     public static final String PRODUCTS = "/products";
     public static final String USER = "/user";
-    public static final String GRAPHQL = "/graphql";
 
     public static final String API_V1_ADMIN = API_V1 + "/admin";
     public static final String API_V1_AUTH = API_V1 + "/auth";
@@ -26,10 +25,6 @@ public class PathConstants {
     public static final String ORDER_STATUS = ORDER + "/{orderId}/status";
     public static final String USER_BY_ID = USER + "/{userId}";
     public static final String USER_ALL = USER + "/all";
-    public static final String GRAPHQL_USER = GRAPHQL + USER;
-    public static final String GRAPHQL_USER_ALL = GRAPHQL + USER + "/all";
-    public static final String GRAPHQL_ORDERS = GRAPHQL + ORDERS;
-    public static final String GRAPHQL_ORDER = GRAPHQL + ORDER;
 
     public static final String LOGIN = "/login";
     public static final String FORGOT_EMAIL = "/forgot/{email}";
@@ -49,7 +44,4 @@ public class PathConstants {
     public static final String SEARCH_VENDOR = SEARCH + "/vendor";
     public static final String SEARCH_CATEGORY = SEARCH + "/category";
     public static final String SEARCH_TEXT = SEARCH + "/text";
-    public static final String GRAPHQL_IDS = GRAPHQL + IDS;
-    public static final String GRAPHQL_PRODUCTS = GRAPHQL + PRODUCTS;
-    public static final String GRAPHQL_PRODUCT = GRAPHQL + "/product";
 }

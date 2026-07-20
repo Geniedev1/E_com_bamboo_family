@@ -1,7 +1,5 @@
 package com.gmail.merikbest2015.ecommerce.service.Impl;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.gmail.merikbest2015.ecommerce.domain.Product;
 import com.gmail.merikbest2015.ecommerce.dto.product.ProductSearchRequest;
 import com.gmail.merikbest2015.ecommerce.enums.SearchProduct;
@@ -9,7 +7,6 @@ import com.gmail.merikbest2015.ecommerce.exception.ApiRequestException;
 import com.gmail.merikbest2015.ecommerce.repository.ProductRepository;
 import com.gmail.merikbest2015.ecommerce.repository.projection.ProductProjection;
 import com.gmail.merikbest2015.ecommerce.service.ProductService;
-import graphql.schema.DataFetcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -24,7 +21,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.PRODUCT_NOT_FOUND;
 
@@ -33,10 +29,12 @@ import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.PRODUCT_N
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final AmazonS3 amazonS3client;
 
-    @Value("${amazon.s3.bucket.name}")
-    private String bucketName;
+    @Value("${app.upload-dir}")
+    private String uploadDir;
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     @Override
     public Product getProductById(Long productId) {
@@ -99,18 +97,20 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Product saveProduct(Product product, MultipartFile multipartFile) {
         if (multipartFile == null) {
-            product.setFilename(amazonS3client.getUrl(bucketName, "empty.jpg").toString());
+            product.setFilename(baseUrl + "/static/images/empty.jpg");
         } else {
-            File file = new File(multipartFile.getOriginalFilename());
+            String fileName = UUID.randomUUID().toString() + "." + multipartFile.getOriginalFilename();
+            File uploadDirectory = new File(uploadDir);
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs();
+            }
+            File file = new File(uploadDirectory, fileName);
             try (FileOutputStream fos = new FileOutputStream(file)) {
                 fos.write(multipartFile.getBytes());
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new ApiRequestException("Failed to store uploaded file", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            String fileName = UUID.randomUUID().toString() + "." + multipartFile.getOriginalFilename();
-            amazonS3client.putObject(new PutObjectRequest(bucketName, fileName, file));
-            product.setFilename(amazonS3client.getUrl(bucketName, fileName).toString());
-            file.delete();
+            product.setFilename(baseUrl + "/images/" + fileName);
         }
         return productRepository.save(product);
     }
@@ -122,29 +122,5 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ApiRequestException(PRODUCT_NOT_FOUND, HttpStatus.NOT_FOUND));
         productRepository.delete(product);
         return "Product deleted successfully";
-    }
-
-    @Override
-    public DataFetcher<Product> getProductByQuery() {
-        return dataFetchingEnvironment -> {
-            Long productId = Long.parseLong(dataFetchingEnvironment.getArgument("id"));
-            return productRepository.findById(productId).get();
-        };
-    }
-
-    @Override
-    public DataFetcher<List<ProductProjection>> getAllProductsByQuery() {
-        return dataFetchingEnvironment -> productRepository.findAllByOrderByIdAsc();
-    }
-
-    @Override
-    public DataFetcher<List<Product>> getAllProductsByIdsQuery() {
-        return dataFetchingEnvironment -> {
-            List<String> objects = dataFetchingEnvironment.getArgument("ids");
-            List<Long> productIds = objects.stream()
-                    .map(Long::parseLong)
-                    .collect(Collectors.toList());
-            return productRepository.findByIdIn(productIds);
-        };
     }
 }

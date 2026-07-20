@@ -28,7 +28,7 @@ describe("Login", () => {
         expect(mockDispatchFn).nthCalledWith(1, expect.any(Function));
         expect(wrapper.find(ContentTitle).at(0).prop("title")).toBe("SIGN IN");
         expect(wrapper.find(IconButton).at(0).prop("title")).toBe("Sign in");
-        expect(wrapper.find(SocialButton).length).toEqual(3);
+        expect(wrapper.find(SocialButton).length).toEqual(1);
     });
 
     it("should render error message", () => {

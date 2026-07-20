@@ -34,8 +34,12 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-devpassword123}
       JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret-key}
       FRONTEND_URL: ${FRONTEND_URL:-localhost:3000}
+      UPLOAD_DIR: ${UPLOAD_DIR:-uploads}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:8080}
     ports:
       - "8080:8080"
+    volumes:
+      - backend_uploads:/app/uploads
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
       interval: 30s
@@ -45,3 +49,4 @@ services:
 
 volumes:
   postgres_dev_data:
+  backend_uploads:

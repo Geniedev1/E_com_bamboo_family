@@ -16,8 +16,9 @@ RUN mvn package -Dmaven.test.skip=true -B
 FROM eclipse-temurin:8-jre-focal
 WORKDIR /app
 
-# Tạo non-root user để bảo mật
-RUN addgroup --system spring && adduser --system --group spring
+# Tạo non-root user để bảo mật + thư mục lưu ảnh upload
+RUN addgroup --system spring && adduser --system --group spring \
+  && mkdir -p /app/uploads && chown -R spring:spring /app
 USER spring:spring
 
 # Copy jar từ build stage

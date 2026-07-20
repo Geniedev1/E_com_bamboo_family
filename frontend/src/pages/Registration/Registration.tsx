@@ -1,10 +1,9 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
+import React, { FC, ReactElement, useEffect } from "react";
 import { Col, Divider, Form, Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import ReCAPTCHA from "react-google-recaptcha";
 import { LockOutlined, MailOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
 
-import { selectErrors, selectIsAuthLoading, selectIsRegistered } from "../../redux-toolkit/auth/auth-selector";
+import { selectErrors, selectIsAuthLoading } from "../../redux-toolkit/auth/auth-selector";
 import ContentWrapper from "../../components/ContentWrapper/ContentWrapper";
 import ContentTitle from "../../components/ContentTitle/ContentTitle";
 import { registration } from "../../redux-toolkit/auth/auth-thunks";
@@ -15,10 +14,8 @@ import { LoadingStatus, UserRegistration } from "../../types/types";
 
 const Registration: FC = (): ReactElement => {
     const dispatch = useDispatch();
-    const isRegistered = useSelector(selectIsRegistered);
     const isLoading = useSelector(selectIsAuthLoading);
     const errors = useSelector(selectErrors);
-    const [captchaValue, setCaptchaValue] = useState<string | null>("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -29,18 +26,8 @@ const Registration: FC = (): ReactElement => {
         };
     }, []);
 
-    useEffect(() => {
-        setCaptchaValue("");
-    }, [isRegistered]);
-
-    const onChangeRecaptcha = (token: string | null): void => {
-        setCaptchaValue(token);
-    };
-
     const onClickSignIn = (userData: UserRegistration): void => {
-        dispatch(registration({ ...userData, captcha: captchaValue }));
-        // @ts-ignore
-        window.grecaptcha.reset();
+        dispatch(registration(userData));
     };
 
     return (
@@ -98,16 +85,6 @@ const Registration: FC = (): ReactElement => {
                             inputPassword
                         />
                         <IconButton disabled={isLoading} title={"Sign up"} icon={<UserAddOutlined />} />
-                        <Form.Item
-                            help={errors.captchaError}
-                            validateStatus={errors.captchaError ? "error" : "validating"}
-                            style={{ marginTop: 16 }}
-                        >
-                            <ReCAPTCHA
-                                onChange={onChangeRecaptcha}
-                                sitekey="6Lc5cLkZAAAAAN8mFk85HQieB9toPcWFoW0RXCNR"
-                            />
-                        </Form.Item>
                     </Form>
                 </Col>
             </Row>
