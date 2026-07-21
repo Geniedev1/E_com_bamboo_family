@@ -64,8 +64,8 @@ const EditProduct: FC = (): ReactElement => {
         if (isProductEdited) {
             window.scrollTo(0, 0);
             notification.success({
-                message: "Product edited",
-                description: "Product successfully edited!"
+                message: "Đã cập nhật sản phẩm",
+                description: "Cập nhật sản phẩm thành công!"
             });
             dispatch(resetAdminState(LoadingStatus.SUCCESS));
         }
@@ -89,110 +89,110 @@ const EditProduct: FC = (): ReactElement => {
 
     return (
         <div>
-            <ContentTitle title={"Edit product"} titleLevel={4} icon={<EditOutlined />} />
+            <ContentTitle title={"Sửa sản phẩm"} titleLevel={4} icon={<EditOutlined />} />
             <Form onFinish={onFormSubmit} form={form}>
                 <Row gutter={32}>
-                    <Col span={12}>
+                    <Col xs={24} md={12}>
                         <FormInput
-                            title={"Product title"}
+                            title={"Tên sản phẩm"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"productTitle"}
                             error={errors.productTitleError}
                             disabled={isLoading}
-                            placeholder={"Product title"}
+                            placeholder={"Tên sản phẩm"}
                         />
                         <FormInput
-                            title={"Brand"}
+                            title={"Thương hiệu"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"vendor"}
                             error={errors.vendorError}
                             disabled={isLoading}
-                            placeholder={"Brand"}
+                            placeholder={"Thương hiệu"}
                         />
                         <FormInput
-                            title={"Release year"}
+                            title={"Năm sản xuất"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"year"}
                             error={errors.yearError}
                             disabled={isLoading}
-                            placeholder={"Release year"}
+                            placeholder={"Năm sản xuất"}
                         />
                         <FormInput
-                            title={"Country"}
+                            title={"Xuất xứ"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"country"}
                             error={errors.countryError}
                             disabled={isLoading}
-                            placeholder={"Country"}
+                            placeholder={"Xuất xứ"}
                         />
                         <EditProductSelect
-                            title={"Product type"}
+                            title={"Loại sản phẩm"}
                             name={"type"}
-                            placeholder={"Product type"}
+                            placeholder={"Loại sản phẩm"}
                             error={errors.typeError}
                             disabled={isLoading}
                             values={["Handmade", "Home decor", "Kitchenware", "Accessory"]}
                         />
                         <EditProductSelect
-                            title={"Audience"}
+                            title={"Đối tượng"}
                             name={"gender"}
-                            placeholder={"Audience"}
+                            placeholder={"Đối tượng"}
                             disabled={isLoading}
                             values={["all", "male", "female", "unisex"]}
                         />
                         <FormInput
-                            title={"Volume"}
+                            title={"Kích thước"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"volume"}
                             error={errors.volumeError}
                             disabled={isLoading}
-                            placeholder={"Volume"}
+                            placeholder={"Kích thước"}
                         />
                         <FormInput
-                            title={"Short description"}
+                            title={"Mô tả ngắn"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"topDescription"}
                             error={errors.topDescriptionError}
                             disabled={isLoading}
-                            placeholder={"Short description"}
+                            placeholder={"Mô tả ngắn"}
                         />
                         <FormInput
-                            title={"Key details"}
+                            title={"Chi tiết nổi bật"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"middleDescription"}
                             error={errors.middleDescriptionError}
                             disabled={isLoading}
-                            placeholder={"Key details"}
+                            placeholder={"Chi tiết nổi bật"}
                         />
                         <FormInput
-                            title={"Materials / care"}
+                            title={"Chất liệu / bảo quản"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"baseDescription"}
                             error={errors.baseDescriptionError}
                             disabled={isLoading}
-                            placeholder={"Materials / care"}
+                            placeholder={"Chất liệu / bảo quản"}
                         />
                         <FormInput
-                            title={"Price"}
+                            title={"Giá"}
                             titleSpan={6}
                             wrapperSpan={18}
                             name={"price"}
                             error={errors.priceError}
                             disabled={isLoading}
-                            placeholder={"Price"}
+                            placeholder={"Giá (đơn vị nghìn đồng)"}
                         />
                     </Col>
-                    <Col span={12}>
+                    <Col xs={24} md={12}>
                         <Upload name={"file"} onChange={handleUpload} beforeUpload={() => false}>
-                            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                            <Button icon={<UploadOutlined />}>Chọn ảnh sản phẩm</Button>
                         </Upload>
                         <div className={"edit-product-image-wrapper"}>
                             <img
@@ -203,7 +203,7 @@ const EditProduct: FC = (): ReactElement => {
                         </div>
                     </Col>
                 </Row>
-                <IconButton title={"Edit"} icon={<EditOutlined />} disabled={isLoading} />
+                <IconButton title={"Lưu thay đổi"} icon={<EditOutlined />} disabled={isLoading} />
             </Form>
         </div>
     );

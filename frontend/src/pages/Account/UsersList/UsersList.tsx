@@ -33,7 +33,7 @@ const UsersList: FC = (): ReactElement => {
 
     return (
         <div>
-            <ContentTitle title={"List of all users"} titleLevel={4} icon={<TeamOutlined />} />
+            <ContentTitle title={"Người dùng"} titleLevel={4} icon={<TeamOutlined />} />
             <Table
                 rowKey={"id"}
                 onChange={handleTableChange}
@@ -45,37 +45,44 @@ const UsersList: FC = (): ReactElement => {
                 dataSource={users}
                 columns={[
                     {
-                        title: "Id",
+                        title: "Mã",
                         dataIndex: "id",
-                        key: "id"
+                        key: "id",
+                        render: (_, user: BaseUserResponse) => <span className="font-label-sm text-primary">#{user.id}</span>
                     },
                     {
-                        title: "First name",
+                        title: "Tên",
                         dataIndex: "firstName",
                         key: "firstName"
                     },
                     {
-                        title: "E-mail",
+                        title: "Email",
                         dataIndex: "email",
                         key: "email"
                     },
                     {
-                        title: "Role",
+                        title: "Vai trò",
                         dataIndex: "roles",
                         key: "roles",
-                        render: (_, user: BaseUserResponse) => user.roles[0]
+                        render: (_, user: BaseUserResponse) => (user.roles[0] === "ADMIN" ? "Quản trị viên" : "Khách hàng")
                     },
                     {
-                        title: "Provider",
+                        title: "Đăng nhập qua",
                         dataIndex: "provider",
                         key: "provider"
                     },
                     {
-                        title: "Action",
+                        title: "Thao tác",
                         dataIndex: "amount",
                         key: "amount",
                         render: (_, user: BaseUserResponse) => (
-                            <Link to={`${ACCOUNT_ADMIN_USERS}/${user.id}`}>Show more</Link>
+                            <Link
+                                to={`${ACCOUNT_ADMIN_USERS}/${user.id}`}
+                                className="inline-flex items-center gap-1 font-label-sm text-secondary hover:text-primary hover:no-underline"
+                            >
+                                <span className="material-symbols-outlined text-[18px]">visibility</span>
+                                Xem chi tiết
+                            </Link>
                         )
                     }
                 ]}

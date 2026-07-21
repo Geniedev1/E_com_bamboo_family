@@ -50,8 +50,8 @@ const AddProduct: FC = (): ReactElement => {
         if (isProductAdded) {
             window.scrollTo(0, 0);
             notification.success({
-                message: "Product added",
-                description: "Product successfully added!"
+                message: "Đã thêm sản phẩm",
+                description: "Thêm sản phẩm thành công!"
             });
             dispatch(resetAdminState(LoadingStatus.SUCCESS));
         }
@@ -75,26 +75,26 @@ const AddProduct: FC = (): ReactElement => {
 
     return (
         <>
-            <ContentTitle title={"Add product"} titleLevel={4} icon={<PlusSquareOutlined />} />
+            <ContentTitle title={"Thêm sản phẩm"} titleLevel={4} icon={<PlusSquareOutlined />} />
             <Form onFinish={onFormSubmit}>
                 <Row gutter={32}>
-                    <Col span={12}>
+                    <Col xs={24} md={12}>
                         <AddFormInput
-                            title={"Product title"}
+                            title={"Tên sản phẩm"}
                             name={"productTitle"}
                             error={productErrors.productTitleError}
-                            placeholder={"Enter the product title"}
+                            placeholder={"Nhập tên sản phẩm"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
-                            title={"Release year"}
+                            title={"Năm sản xuất"}
                             name={"year"}
                             error={productErrors.yearError}
-                            placeholder={"Enter the release year"}
+                            placeholder={"Nhập năm sản xuất"}
                             disabled={ispProductLoading}
                         />
                         <AddFormSelect
-                            title={"Product type"}
+                            title={"Loại sản phẩm"}
                             name={"type"}
                             error={productErrors.typeError}
                             placeholder={"Handmade"}
@@ -102,7 +102,7 @@ const AddProduct: FC = (): ReactElement => {
                             values={["Handmade", "Home decor", "Kitchenware", "Accessory"]}
                         />
                         <AddFormSelect
-                            title={"Audience"}
+                            title={"Đối tượng"}
                             name={"gender"}
                             error={productErrors.genderError}
                             placeholder={"all"}
@@ -110,64 +110,64 @@ const AddProduct: FC = (): ReactElement => {
                             values={["all", "male", "female", "unisex"]}
                         />
                         <AddFormInput
-                            title={"Key details"}
+                            title={"Chi tiết nổi bật"}
                             name={"middleDescription"}
                             error={productErrors.middleDescriptionError}
-                            placeholder={"Enter key product details"}
+                            placeholder={"Nhập chi tiết nổi bật"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
-                            title={"Price"}
+                            title={"Giá"}
                             name={"price"}
                             error={productErrors.priceError}
-                            placeholder={"Enter the price"}
+                            placeholder={"Nhập giá (đơn vị nghìn đồng)"}
                             disabled={ispProductLoading}
                         />
                     </Col>
-                    <Col span={12}>
+                    <Col xs={24} md={12}>
                         <AddFormInput
-                            title={"Brand"}
+                            title={"Thương hiệu"}
                             name={"vendor"}
                             error={productErrors.vendorError}
-                            placeholder={"Enter the brand"}
+                            placeholder={"Nhập thương hiệu"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
-                            title={"Manufacturer country"}
+                            title={"Xuất xứ"}
                             name={"country"}
                             error={productErrors.countryError}
-                            placeholder={"Enter the manufacturer country"}
+                            placeholder={"Nhập xuất xứ"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
-                            title={"Volume"}
+                            title={"Kích thước"}
                             name={"volume"}
                             error={productErrors.volumeError}
-                            placeholder={"Enter the volume"}
+                            placeholder={"Nhập kích thước"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
-                            title={"Short description"}
+                            title={"Mô tả ngắn"}
                             name={"topDescription"}
                             error={productErrors.topDescriptionError}
-                            placeholder={"Enter a short description"}
+                            placeholder={"Nhập mô tả ngắn"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
-                            title={"Materials / care"}
+                            title={"Chất liệu / bảo quản"}
                             name={"baseDescription"}
                             error={productErrors.baseDescriptionError}
-                            placeholder={"Enter materials or care notes"}
+                            placeholder={"Nhập chất liệu hoặc cách bảo quản"}
                             disabled={ispProductLoading}
                         />
                         <Upload name={"file"} onChange={handleUpload} beforeUpload={() => false}>
                             <Button icon={<UploadOutlined />} style={{ marginTop: 22 }}>
-                                Click to Upload
+                                Chọn ảnh sản phẩm
                             </Button>
                         </Upload>
                     </Col>
                 </Row>
-                <IconButton title={"Add"} icon={<PlusSquareFilled />} />
+                <IconButton title={"Thêm sản phẩm"} icon={<PlusSquareFilled />} />
             </Form>
         </>
     );

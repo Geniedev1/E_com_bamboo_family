@@ -33,32 +33,32 @@ const ChangePassword: FC = (): ReactElement => {
 
     return (
         <>
-            <ContentTitle title={"Change Password"} titleLevel={4} icon={<KeyOutlined />} />
+            <ContentTitle title={"Đổi mật khẩu"} titleLevel={4} icon={<KeyOutlined />} />
             <Form onFinish={onFormSubmit} form={form}>
                 <Row>
-                    <Col span={12}>
+                    <Col xs={24} md={14}>
                         {successMessage && (
                             <Alert type="success" message={successMessage} style={{ marginBottom: 16 }} />
                         )}
                         <FormInput
-                            title={"Enter a new password"}
+                            title={"Mật khẩu mới"}
                             titleSpan={10}
                             wrapperSpan={14}
                             name={"password"}
                             error={passwordError}
-                            placeholder={"Password"}
+                            placeholder={"Mật khẩu"}
                             inputPassword
                         />
                         <FormInput
-                            title={"Confirm password"}
+                            title={"Xác nhận mật khẩu"}
                             titleSpan={10}
                             wrapperSpan={14}
                             name={"password2"}
                             error={password2Error}
-                            placeholder={"Password"}
+                            placeholder={"Mật khẩu"}
                             inputPassword
                         />
-                        <IconButton title={"Change"} icon={<UndoOutlined />} />
+                        <IconButton title={"Đổi mật khẩu"} icon={<UndoOutlined />} />
                     </Col>
                 </Row>
             </Form>

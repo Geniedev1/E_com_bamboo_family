@@ -1,22 +1,21 @@
 import React, { FC, ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 
-import "./AccountLink.scss";
-
 type PropsType = {
     link: string;
     title: string;
+    icon?: string;
 };
 
-const AccountLink: FC<PropsType> = ({ link, title }): ReactElement => {
+const AccountLink: FC<PropsType> = ({ link, title, icon }): ReactElement => {
     return (
         <NavLink
             to={link}
-            className="account-sidebar-link nav-link"
-            activeClassName="is-active"
-            style={{ display: "block", marginBottom: 8 }}
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 font-label-sm text-[14px] text-on-surface-variant transition hover:bg-surface-container-low hover:text-primary hover:no-underline"
+            activeClassName="!bg-primary-fixed !text-primary"
         >
-            {title}
+            {icon && <span className="material-symbols-outlined text-[20px]">{icon}</span>}
+            <span className="truncate">{title}</span>
         </NavLink>
     );
 };

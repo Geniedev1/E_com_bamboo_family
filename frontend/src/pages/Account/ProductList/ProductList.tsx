@@ -43,8 +43,8 @@ const ProductList: FC = (): ReactElement => {
         if (isProductDeleted) {
             window.scrollTo(0, 0);
             notification.success({
-                message: "Product deleted",
-                description: "Product successfully deleted!"
+                message: "Đã xóa sản phẩm",
+                description: "Xóa sản phẩm thành công!"
             });
         }
     }, [isProductDeleted]);
@@ -75,7 +75,7 @@ const ProductList: FC = (): ReactElement => {
 
     return (
         <div>
-            <ContentTitle title={"List of products"} titleLevel={4} icon={<UnorderedListOutlined />} />
+            <ContentTitle title={"Danh sách sản phẩm"} titleLevel={4} icon={<UnorderedListOutlined />} />
             <Row>
                 <Col span={24}>
                     <Row>

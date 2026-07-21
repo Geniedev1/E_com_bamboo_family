@@ -73,12 +73,7 @@ const App: FC = (): ReactElement => {
                     <Route exact path={ORDER} component={Order} />
                     <Route exact path={ORDER_FINALIZE} component={OrderFinalize} />
                     <Route path={OAUTH2_REDIRECT} component={OAuth2RedirectHandler} />
-                    <Route
-                        path={ACCOUNT}
-                        render={() =>
-                            localStorage.getItem("token") ? <Route component={Account} /> : <Route component={Home} />
-                        }
-                    />
+                    <Route path={ACCOUNT} component={Account} />
                     <Route path="*" component={Home} />
                 </Switch>
             </main>

@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
-import { Card, Col, Row, Table } from "antd";
+import { Col, Row, Table } from "antd";
 
 import { selectAdminStateUser, selectIsAdminStateLoading } from "../../../redux-toolkit/admin/admin-selector";
 import { selectOrders, selectTotalElements } from "../../../redux-toolkit/orders/orders-selector";
@@ -16,6 +16,7 @@ import ContentTitle from "../../../components/ContentTitle/ContentTitle";
 import AccountDataItem from "../../../components/AccountDataItem/AccountDataItem";
 import { ACCOUNT_USER_ORDERS } from "../../../constants/routeConstants";
 import { useTablePagination } from "../../../hooks/useTablePagination";
+import { formatProductPrice } from "../../../utils/priceUtils";
 
 const ManageUser: FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -48,38 +49,34 @@ const ManageUser: FC = (): ReactElement => {
                 <Spinner />
             ) : (
                 <>
-                    <ContentTitle title={`User: ${firstName} ${lastName}`} titleLevel={4} icon={<UserOutlined />} />
+                    <ContentTitle title={`Người dùng: ${firstName} ${lastName}`} titleLevel={4} icon={<UserOutlined />} />
                     <Row>
                         <Col span={24}>
-                            <Card>
+                            <div className="rounded-2xl border border-outline-variant/50 bg-surface p-5">
                                 <Row gutter={24}>
-                                    <Col span={12}>
-                                        <AccountDataItem title={"User id"} text={id} />
+                                    <Col xs={24} md={12}>
+                                        <AccountDataItem title={"Mã người dùng"} text={`#${id}`} />
                                         <AccountDataItem title={"Email"} text={email} />
-                                        <AccountDataItem title={"Role"} text={roles} />
-                                        <AccountDataItem title={"First name"} text={firstName} />
-                                        <AccountDataItem title={"Last name"} text={lastName} />
+                                        <AccountDataItem title={"Vai trò"} text={roles?.[0] === "ADMIN" ? "Quản trị viên" : "Khách hàng"} />
+                                        <AccountDataItem title={"Họ"} text={firstName} />
+                                        <AccountDataItem title={"Tên"} text={lastName} />
                                     </Col>
-                                    <Col span={8}>
-                                        <AccountDataItem title={"Provider"} text={provider} />
-                                        <AccountDataItem title={"City"} text={city} />
-                                        <AccountDataItem title={"Address"} text={address} />
-                                        <AccountDataItem title={"Phone number"} text={phoneNumber} />
-                                        <AccountDataItem title={"Post index"} text={postIndex} />
+                                    <Col xs={24} md={12}>
+                                        <AccountDataItem title={"Đăng nhập qua"} text={provider} />
+                                        <AccountDataItem title={"Thành phố"} text={city} />
+                                        <AccountDataItem title={"Địa chỉ"} text={address} />
+                                        <AccountDataItem title={"Số điện thoại"} text={phoneNumber} />
+                                        <AccountDataItem title={"Mã bưu chính"} text={postIndex} />
                                     </Col>
                                 </Row>
-                            </Card>
-                            <Row style={{ marginTop: 16 }}>
+                            </div>
+                            <Row style={{ marginTop: 24 }}>
                                 <Col span={24}>
                                     {userOrders.length === 0 ? (
-                                        <div style={{ textAlign: "center" }}>
-                                            <ContentTitle title={"No orders"} titleLevel={4} />
-                                        </div>
+                                        <ContentTitle title={"Chưa có đơn hàng"} titleLevel={4} />
                                     ) : (
                                         <>
-                                            <div style={{ textAlign: "center" }}>
-                                                <ContentTitle title={"Orders"} titleLevel={4} />
-                                            </div>
+                                            <ContentTitle title={"Đơn hàng của người dùng"} titleLevel={4} />
                                             <Table
                                                 rowKey={"id"}
                                                 onChange={handleTableChange}
@@ -90,43 +87,54 @@ const ManageUser: FC = (): ReactElement => {
                                                 dataSource={userOrders}
                                                 columns={[
                                                     {
-                                                        title: "Order №",
+                                                        title: "Mã đơn",
                                                         dataIndex: "id",
-                                                        key: "id"
+                                                        key: "id",
+                                                        render: (_, order: OrderResponse) => `#${order.id}`
                                                     },
                                                     {
-                                                        title: "Date",
+                                                        title: "Ngày đặt",
                                                         dataIndex: "date",
                                                         key: "date"
                                                     },
                                                     {
-                                                        title: "City",
+                                                        title: "Thành phố",
                                                         dataIndex: "city",
                                                         key: "city"
                                                     },
                                                     {
-                                                        title: "Address",
+                                                        title: "Địa chỉ",
                                                         dataIndex: "address",
                                                         key: "address"
                                                     },
                                                     {
-                                                        title: "Post index",
+                                                        title: "Mã bưu chính",
                                                         dataIndex: "postIndex",
                                                         key: "postIndex"
                                                     },
                                                     {
-                                                        title: "Order Summary",
+                                                        title: "Tổng tiền",
                                                         dataIndex: "totalPrice",
                                                         key: "totalPrice",
-                                                        render: (_, order: OrderResponse) => `${order.totalPrice}.0 $`
+                                                        render: (_, order: OrderResponse) => (
+                                                            <span className="font-label-sm text-secondary">
+                                                                {formatProductPrice(order.totalPrice)}
+                                                            </span>
+                                                        )
                                                     },
                                                     {
-                                                        title: "Actions",
+                                                        title: "Thao tác",
                                                         dataIndex: "actions",
                                                         key: "actions",
                                                         render: (_, order: OrderResponse) => (
-                                                            <Link to={`${ACCOUNT_USER_ORDERS}/${order.id}`}>
-                                                                Show more
+                                                            <Link
+                                                                to={`${ACCOUNT_USER_ORDERS}/${order.id}`}
+                                                                className="inline-flex items-center gap-1 font-label-sm text-secondary hover:text-primary hover:no-underline"
+                                                            >
+                                                                <span className="material-symbols-outlined text-[18px]">
+                                                                    visibility
+                                                                </span>
+                                                                Xem chi tiết
                                                             </Link>
                                                         )
                                                     }
