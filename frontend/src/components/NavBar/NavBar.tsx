@@ -33,7 +33,7 @@ const NavBar: FC = (): ReactElement => {
     };
 
     return (
-        <nav className="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm transition-all duration-300 ease-in-out">
+        <nav className="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/40 shadow-sm transition-all duration-300 ease-in-out">
             <div className="relative flex justify-start items-center gap-sm max-w-7xl mx-auto px-margin-mobile md:justify-between md:px-margin-desktop py-4">
                 <Link to={BASE} className="max-w-[220px] truncate font-headline-md text-[22px] font-bold text-primary dark:text-primary-fixed hover:text-primary hover:no-underline md:max-w-none md:text-headline-md">
                     Làng Nghề Việt
@@ -71,8 +71,13 @@ const NavBar: FC = (): ReactElement => {
                             </button>
                         </div>
                     ) : (
-                        <Link to={LOGIN} className="hidden hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all items-center text-primary hover:no-underline md:flex" title="Login / Register">
-                            <span className="material-symbols-outlined text-[24px]">login</span>
+                        <Link
+                            to={LOGIN}
+                            className="hidden md:inline-flex items-center gap-xs rounded-full bg-primary px-md py-1.5 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary-container hover:text-white hover:no-underline"
+                            title="Đăng nhập / Đăng ký"
+                        >
+                            <span className="material-symbols-outlined text-[18px]">login</span>
+                            Đăng nhập
                         </Link>
                     )}
                     <button
