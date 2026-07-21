@@ -39,18 +39,18 @@ public class AdminController {
 
     @PostMapping(ADD)
     public ResponseEntity<FullProductResponse> addProduct(
-            @RequestPart(name = "file", required = false) MultipartFile file,
+            @RequestPart(name = "files", required = false) MultipartFile[] files,
             @RequestPart("product") @Valid ProductRequest product,
             BindingResult bindingResult) {
-        return ResponseEntity.ok(productMapper.saveProduct(product, file, bindingResult));
+        return ResponseEntity.ok(productMapper.saveProduct(product, files, bindingResult));
     }
 
     @PostMapping(EDIT)
     public ResponseEntity<FullProductResponse> updateProduct(
-            @RequestPart(name = "file", required = false) MultipartFile file,
+            @RequestPart(name = "files", required = false) MultipartFile[] files,
             @RequestPart("product") @Valid ProductRequest product,
             BindingResult bindingResult) {
-        return ResponseEntity.ok(productMapper.saveProduct(product, file, bindingResult));
+        return ResponseEntity.ok(productMapper.saveProduct(product, files, bindingResult));
     }
 
     @DeleteMapping(DELETE_BY_PRODUCT_ID)

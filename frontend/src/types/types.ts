@@ -21,6 +21,7 @@ export interface FullProductResponse extends ProductResponse {
     baseDescription: string;
     description: string;
     type: string;
+    images?: string[];
     file: any;
 }
 

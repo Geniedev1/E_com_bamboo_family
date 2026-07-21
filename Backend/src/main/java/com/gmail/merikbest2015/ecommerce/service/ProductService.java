@@ -28,7 +28,7 @@ public interface ProductService {
 
     Page<ProductProjection> findByCategory(String category, Pageable pageable);
 
-    Product saveProduct(Product product, MultipartFile file);
+    Product saveProduct(Product product, MultipartFile[] files);
 
     String deleteProduct(Long productId);
 }

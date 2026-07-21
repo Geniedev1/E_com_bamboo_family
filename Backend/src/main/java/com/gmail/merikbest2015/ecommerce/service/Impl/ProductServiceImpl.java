@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +37,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Value("${app.base-url}")
     private String baseUrl;
+
+    private static final int MAX_IMAGES = 5;
 
     @Override
     public Product getProductById(Long productId) {
@@ -95,24 +99,51 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product saveProduct(Product product, MultipartFile multipartFile) {
-        if (multipartFile == null) {
-            product.setFilename(baseUrl + "/static/images/empty.jpg");
+    public Product saveProduct(Product product, MultipartFile[] multipartFiles) {
+        List<String> imageUrls = new ArrayList<>();
+        if (multipartFiles != null) {
+            for (MultipartFile file : multipartFiles) {
+                if (file == null || file.isEmpty()) {
+                    continue;
+                }
+                if (imageUrls.size() >= MAX_IMAGES) {
+                    break; // giới hạn tối đa 5 ảnh / sản phẩm
+                }
+                imageUrls.add(storeImage(file));
+            }
+        }
+
+        if (!imageUrls.isEmpty()) {
+            product.setImages(imageUrls);
+            product.setFilename(imageUrls.get(0)); // ảnh bìa
+        } else if (product.getId() != null) {
+            // Chỉnh sửa mà không upload ảnh mới -> giữ nguyên ảnh cũ.
+            productRepository.findById(product.getId()).ifPresent(existing -> {
+                product.setImages(existing.getImages());
+                product.setFilename(existing.getFilename());
+            });
         } else {
-            String fileName = UUID.randomUUID().toString() + "." + multipartFile.getOriginalFilename();
-            File uploadDirectory = new File(uploadDir);
-            if (!uploadDirectory.exists()) {
-                uploadDirectory.mkdirs();
-            }
-            File file = new File(uploadDirectory, fileName);
-            try (FileOutputStream fos = new FileOutputStream(file)) {
-                fos.write(multipartFile.getBytes());
-            } catch (IOException e) {
-                throw new ApiRequestException("Failed to store uploaded file", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-            product.setFilename(baseUrl + "/images/" + fileName);
+            // Sản phẩm mới không có ảnh -> dùng ảnh mặc định.
+            String placeholder = baseUrl + "/static/images/empty.jpg";
+            product.setFilename(placeholder);
+            product.setImages(Collections.singletonList(placeholder));
         }
         return productRepository.save(product);
+    }
+
+    private String storeImage(MultipartFile multipartFile) {
+        String fileName = UUID.randomUUID().toString() + "." + multipartFile.getOriginalFilename();
+        File uploadDirectory = new File(uploadDir);
+        if (!uploadDirectory.exists()) {
+            uploadDirectory.mkdirs();
+        }
+        File file = new File(uploadDirectory, fileName);
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(multipartFile.getBytes());
+        } catch (IOException e) {
+            throw new ApiRequestException("Failed to store uploaded file", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return baseUrl + "/images/" + fileName;
     }
 
     @Override

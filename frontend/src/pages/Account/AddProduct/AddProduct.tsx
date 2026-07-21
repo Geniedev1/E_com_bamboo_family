@@ -36,7 +36,7 @@ const AddProduct: FC = (): ReactElement => {
     const isProductAdded = useSelector(selectIsProductAdded);
     const ispProductLoading = useSelector(selectIsAdminStateLoading);
     const productErrors = useSelector(selectAdminStateErrors);
-    const [file, setFile] = React.useState<string>("");
+    const [fileList, setFileList] = React.useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setAdminLoadingState(LoadingStatus.LOADED));
@@ -59,8 +59,12 @@ const AddProduct: FC = (): ReactElement => {
 
     const onFormSubmit = (data: AddProductData): void => {
         const bodyFormData: FormData = new FormData();
-        // @ts-ignore
-        bodyFormData.append("file", { file });
+        fileList.forEach((item) => {
+            const raw = item.originFileObj || item;
+            if (raw) {
+                bodyFormData.append("files", raw);
+            }
+        });
         bodyFormData.append(
             "product",
             new Blob([JSON.stringify({ ...data, productRating: 0 })], { type: "application/json" })
@@ -69,8 +73,8 @@ const AddProduct: FC = (): ReactElement => {
         dispatch(addProduct(bodyFormData));
     };
 
-    const handleUpload = ({ file }: UploadChangeParam<any>): void => {
-        setFile(file);
+    const handleUpload = ({ fileList: newFileList }: UploadChangeParam<any>): void => {
+        setFileList(newFileList.slice(0, 5));
     };
 
     return (
@@ -160,9 +164,18 @@ const AddProduct: FC = (): ReactElement => {
                             placeholder={"Nhập chất liệu hoặc cách bảo quản"}
                             disabled={ispProductLoading}
                         />
-                        <Upload name={"file"} onChange={handleUpload} beforeUpload={() => false}>
-                            <Button icon={<UploadOutlined />} style={{ marginTop: 22 }}>
-                                Chọn ảnh sản phẩm
+                        <Upload
+                            name={"files"}
+                            multiple
+                            maxCount={5}
+                            listType={"picture"}
+                            accept={"image/*"}
+                            fileList={fileList}
+                            onChange={handleUpload}
+                            beforeUpload={() => false}
+                        >
+                            <Button icon={<UploadOutlined />} style={{ marginTop: 22 }} disabled={fileList.length >= 5}>
+                                Chọn ảnh (tối đa 5)
                             </Button>
                         </Upload>
                     </Col>

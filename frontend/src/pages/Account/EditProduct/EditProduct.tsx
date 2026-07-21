@@ -43,7 +43,7 @@ const EditProduct: FC = (): ReactElement => {
     const isLoading = useSelector(selectIsAdminStateLoading);
     const errors = useSelector(selectAdminStateErrors);
     const isProductEdited = useSelector(selectIsProductEdited);
-    const [file, setFile] = React.useState<string>("");
+    const [fileList, setFileList] = React.useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setAdminLoadingState(LoadingStatus.LOADED));
@@ -73,8 +73,12 @@ const EditProduct: FC = (): ReactElement => {
 
     const onFormSubmit = (data: EditProductData): void => {
         const bodyFormData: FormData = new FormData();
-        // @ts-ignore
-        bodyFormData.append("file", { file });
+        fileList.forEach((item) => {
+            const raw = item.originFileObj || item;
+            if (raw) {
+                bodyFormData.append("files", raw);
+            }
+        });
         bodyFormData.append(
             "product",
             new Blob([JSON.stringify({ ...data, id: productData?.id })], { type: "application/json" })
@@ -83,8 +87,8 @@ const EditProduct: FC = (): ReactElement => {
         dispatch(updateProduct(bodyFormData));
     };
 
-    const handleUpload = ({ file }: UploadChangeParam<any>): void => {
-        setFile(file);
+    const handleUpload = ({ fileList: newFileList }: UploadChangeParam<any>): void => {
+        setFileList(newFileList.slice(0, 5));
     };
 
     return (
@@ -191,16 +195,42 @@ const EditProduct: FC = (): ReactElement => {
                         />
                     </Col>
                     <Col xs={24} md={12}>
-                        <Upload name={"file"} onChange={handleUpload} beforeUpload={() => false}>
-                            <Button icon={<UploadOutlined />}>Chọn ảnh sản phẩm</Button>
+                        <Upload
+                            name={"files"}
+                            multiple
+                            maxCount={5}
+                            listType={"picture"}
+                            accept={"image/*"}
+                            fileList={fileList}
+                            onChange={handleUpload}
+                            beforeUpload={() => false}
+                        >
+                            <Button icon={<UploadOutlined />} disabled={fileList.length >= 5}>
+                                Chọn ảnh (tối đa 5)
+                            </Button>
                         </Upload>
-                        <div className={"edit-product-image-wrapper"}>
-                            <img
-                                className={"edit-product-image"}
-                                src={productData.filename}
-                                alt={productData.productTitle}
-                            />
-                        </div>
+                        <p className="mt-sm font-body-md text-[13px] text-on-surface-variant">
+                            {fileList.length > 0
+                                ? "Ảnh mới sẽ thay thế toàn bộ ảnh hiện tại khi lưu."
+                                : "Ảnh hiện tại (để trống nếu không muốn thay đổi):"}
+                        </p>
+                        {fileList.length === 0 && (
+                            <div className="mt-xs flex flex-wrap gap-xs">
+                                {(productData.images && productData.images.length > 0
+                                    ? productData.images
+                                    : productData.filename
+                                    ? [productData.filename]
+                                    : []
+                                ).map((src, index) => (
+                                    <img
+                                        key={index}
+                                        src={src}
+                                        alt={`${productData.productTitle} ${index + 1}`}
+                                        className="h-24 w-24 rounded-lg border border-outline-variant/50 object-cover"
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </Col>
                 </Row>
                 <IconButton title={"Lưu thay đổi"} icon={<EditOutlined />} disabled={isLoading} />

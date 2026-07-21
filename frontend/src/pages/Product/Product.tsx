@@ -5,7 +5,6 @@ import { Form } from "antd";
 import SockJS from "sockjs-client";
 import { CompatClient, Stomp } from "@stomp/stompjs";
 
-import ContentWrapper from "../../components/ContentWrapper/ContentWrapper";
 import {
     selectIsProductLoaded,
     selectIsProductLoading,
@@ -81,27 +80,27 @@ const Product: FC = (): ReactElement => {
     };
 
     return (
-        <ContentWrapper>
-            {isProductLoading ? (
-                <Spinner />
-            ) : (
-                <>
-                    {isProductError ? (
-                        <ErrorMessage errorMessage={errorMessage} />
-                    ) : (
-                        <>
-                            <ProductInfo product={product} reviewsLength={reviews.length} addToCart={addToCart} />
-                            <ProductReviews
-                                reviews={reviews}
-                                reviewErrors={reviewErrors}
-                                addReview={addReview}
-                                form={form}
-                            />
-                        </>
-                    )}
-                </>
-            )}
-        </ContentWrapper>
+        <div className="min-h-[calc(100vh-72px)] bg-background">
+            <div className="mx-auto max-w-6xl px-margin-mobile py-lg md:px-margin-desktop">
+                {isProductLoading ? (
+                    <div className="flex min-h-[400px] items-center justify-center">
+                        <Spinner />
+                    </div>
+                ) : isProductError ? (
+                    <ErrorMessage errorMessage={errorMessage} />
+                ) : (
+                    <>
+                        <ProductInfo product={product} reviewsLength={reviews.length} addToCart={addToCart} />
+                        <ProductReviews
+                            reviews={reviews}
+                            reviewErrors={reviewErrors}
+                            addReview={addReview}
+                            form={form}
+                        />
+                    </>
+                )}
+            </div>
+        </div>
     );
 };
 
