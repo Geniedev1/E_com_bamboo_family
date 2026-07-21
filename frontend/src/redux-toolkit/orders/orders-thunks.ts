@@ -32,6 +32,20 @@ export const fetchAllUsersOrders = createAsyncThunk<HeaderResponse<OrderResponse
     }
 );
 
+// Fetch every order in one request (large page) so the admin can group them by
+// customer client-side. Suits the lite shop's modest order volume.
+export const fetchAllUsersOrdersFull = createAsyncThunk<HeaderResponse<OrderResponse>, void>(
+    "orders/fetchAllUsersOrdersFull",
+    async () => {
+        const response = await RequestService.get(`${ADMIN_ORDERS}?page=0&size=1000`, true);
+        return {
+            items: response.data,
+            pagesCount: parseInt(response.headers["page-total-count"]),
+            totalElements: parseInt(response.headers["page-total-elements"])
+        };
+    }
+);
+
 export const fetchUserOrdersByEmail = createAsyncThunk<HeaderResponse<OrderResponse>, UserOrdersRequest>(
     "orders/fetchUserOrdersByEmail",
     async ({ email, page }) => {

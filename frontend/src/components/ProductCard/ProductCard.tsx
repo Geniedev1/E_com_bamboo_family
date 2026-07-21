@@ -73,7 +73,9 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                 {product.volume && (
                     <p className="mt-1 flex items-center gap-1 font-body-md text-[13px] text-on-surface-variant">
                         <span className="material-symbols-outlined text-[16px] text-[#8c955f]">straighten</span>
-                        <span className="truncate">Kích thước: {product.volume}</span>
+                        <span className="truncate">
+                            Kích thước: {/^\d+$/.test(product.volume) ? `${product.volume} cm` : product.volume}
+                        </span>
                     </p>
                 )}
 

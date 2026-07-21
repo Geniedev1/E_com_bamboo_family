@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LoadingStatus, OrderResponse } from "../../types/types";
 import {
     fetchAllUsersOrders,
+    fetchAllUsersOrdersFull,
     fetchUserOrders,
     fetchUserOrdersByEmail
 } from "./orders-thunks";
@@ -41,6 +42,15 @@ export const ordersSlice = createSlice({
             state.loadingState = LoadingStatus.LOADING;
         });
         builder.addCase(fetchAllUsersOrders.fulfilled, (state, action) => {
+            state.orders = action.payload.items;
+            state.pagesCount = action.payload.pagesCount;
+            state.totalElements = action.payload.totalElements;
+            state.loadingState = LoadingStatus.LOADED;
+        });
+        builder.addCase(fetchAllUsersOrdersFull.pending, (state) => {
+            state.loadingState = LoadingStatus.LOADING;
+        });
+        builder.addCase(fetchAllUsersOrdersFull.fulfilled, (state, action) => {
             state.orders = action.payload.items;
             state.pagesCount = action.payload.pagesCount;
             state.totalElements = action.payload.totalElements;
