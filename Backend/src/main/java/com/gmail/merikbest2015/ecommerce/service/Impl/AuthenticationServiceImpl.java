@@ -13,6 +13,7 @@ import com.gmail.merikbest2015.ecommerce.security.oauth2.OAuth2UserInfo;
 import com.gmail.merikbest2015.ecommerce.service.AuthenticationService;
 import com.gmail.merikbest2015.ecommerce.service.email.MailSender;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,6 +32,7 @@ import java.util.UUID;
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -150,9 +152,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     private void sendEmail(User user, String subject, String template, String urlAttribute, String urlPath) {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("firstName", user.getFirstName());
-        attributes.put(urlAttribute, "http://" + hostname + urlPath);
-        mailSender.sendMessageHtml(user.getEmail(), subject, template, attributes);
+        // Email delivery must not roll back the surrounding transaction (e.g. a new
+        // registration or password-reset code). Log and continue if the mail server fails.
+        try {
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("firstName", user.getFirstName());
+            attributes.put(urlAttribute, "http://" + hostname + urlPath);
+            mailSender.sendMessageHtml(user.getEmail(), subject, template, attributes);
+        } catch (Exception e) {
+            log.warn("Could not send '{}' email to {}: {}", subject, user.getEmail(), e.getMessage());
+        }
     }
 }
