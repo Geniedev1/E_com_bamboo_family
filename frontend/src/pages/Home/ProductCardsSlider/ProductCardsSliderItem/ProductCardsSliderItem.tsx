@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from "react";
-import { Row } from "antd";
+import { Col, Row } from "antd";
 
 import ProductCard from "../../../../components/ProductCard/ProductCard";
 import { ProductResponse } from "../../../../types/types";
@@ -12,7 +12,9 @@ const ProductCardsSliderItem: FC<PropsType> = ({ products }): ReactElement => {
     return (
         <Row gutter={[16, 16]} style={{ margin: 10, marginTop: 10, marginBottom: 10 }}>
             {products.slice(0, 4).map((product) => (
-                <ProductCard key={product.id} product={product} colSpan={6} />
+                <Col key={product.id} span={6}>
+                    <ProductCard product={product} />
+                </Col>
             ))}
         </Row>
     );
