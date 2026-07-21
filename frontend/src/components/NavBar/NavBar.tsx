@@ -57,7 +57,7 @@ const NavBar: FC = (): ReactElement => {
                 </ul>
                 <div className="flex shrink-0 items-center space-x-sm text-primary dark:text-primary-fixed md:space-x-md">
                     <Link to={CART} className="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all flex items-center text-primary hover:no-underline">
-                        <Badge count={cartItemsCount} size="small" color={"#984721"}>
+                        <Badge count={cartItemsCount} size="small" color={"#2e6a45"}>
                             <span className="material-symbols-outlined text-[24px]">shopping_cart</span>
                         </Badge>
                     </Link>

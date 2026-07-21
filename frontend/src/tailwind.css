@@ -1053,7 +1053,7 @@ video {
 
 .border-secondary {
   --tw-border-opacity: 1;
-  border-color: rgb(152 71 33 / var(--tw-border-opacity, 1));
+  border-color: rgb(46 106 69 / var(--tw-border-opacity, 1));
 }
 
 .border-tertiary\/20 {
@@ -1118,7 +1118,7 @@ video {
 
 .bg-secondary {
   --tw-bg-opacity: 1;
-  background-color: rgb(152 71 33 / var(--tw-bg-opacity, 1));
+  background-color: rgb(46 106 69 / var(--tw-bg-opacity, 1));
 }
 
 .bg-surface {
@@ -1524,7 +1524,7 @@ video {
 
 .text-secondary {
   --tw-text-opacity: 1;
-  color: rgb(152 71 33 / var(--tw-text-opacity, 1));
+  color: rgb(46 106 69 / var(--tw-text-opacity, 1));
 }
 
 .text-white {
@@ -1686,22 +1686,22 @@ video {
 
 .selection\:bg-secondary-container *::selection {
   --tw-bg-opacity: 1;
-  background-color: rgb(253 150 106 / var(--tw-bg-opacity, 1));
+  background-color: rgb(185 228 198 / var(--tw-bg-opacity, 1));
 }
 
 .selection\:text-on-secondary-container *::selection {
   --tw-text-opacity: 1;
-  color: rgb(117 45 8 / var(--tw-text-opacity, 1));
+  color: rgb(12 58 31 / var(--tw-text-opacity, 1));
 }
 
 .selection\:bg-secondary-container::selection {
   --tw-bg-opacity: 1;
-  background-color: rgb(253 150 106 / var(--tw-bg-opacity, 1));
+  background-color: rgb(185 228 198 / var(--tw-bg-opacity, 1));
 }
 
 .selection\:text-on-secondary-container::selection {
   --tw-text-opacity: 1;
-  color: rgb(117 45 8 / var(--tw-text-opacity, 1));
+  color: rgb(12 58 31 / var(--tw-text-opacity, 1));
 }
 
 .hover\:-translate-y-1:hover {
@@ -1716,7 +1716,7 @@ video {
 
 .hover\:bg-on-secondary-container:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(117 45 8 / var(--tw-bg-opacity, 1));
+  background-color: rgb(12 58 31 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-primary-container:hover {
@@ -1761,7 +1761,7 @@ video {
 
 .hover\:text-secondary:hover {
   --tw-text-opacity: 1;
-  color: rgb(152 71 33 / var(--tw-text-opacity, 1));
+  color: rgb(46 106 69 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-white:hover {
@@ -1806,7 +1806,7 @@ video {
 }
 
 .group:hover .group-hover\:border-secondary\/70 {
-  border-color: rgb(152 71 33 / 0.7);
+  border-color: rgb(46 106 69 / 0.7);
 }
 
 .group:hover .group-hover\:bg-primary {
@@ -1821,7 +1821,7 @@ video {
 
 .group:hover .group-hover\:text-secondary {
   --tw-text-opacity: 1;
-  color: rgb(152 71 33 / var(--tw-text-opacity, 1));
+  color: rgb(46 106 69 / var(--tw-text-opacity, 1));
 }
 
 .group:hover .group-hover\:text-white {
@@ -1831,7 +1831,7 @@ video {
 
 .dark\:border-secondary-fixed-dim:is(.dark *) {
   --tw-border-opacity: 1;
-  border-color: rgb(255 181 152 / var(--tw-border-opacity, 1));
+  border-color: rgb(163 212 180 / var(--tw-border-opacity, 1));
 }
 
 .dark\:bg-surface-container:is(.dark *) {
@@ -1859,12 +1859,12 @@ video {
 
 .dark\:text-secondary-fixed-dim:is(.dark *) {
   --tw-text-opacity: 1;
-  color: rgb(255 181 152 / var(--tw-text-opacity, 1));
+  color: rgb(163 212 180 / var(--tw-text-opacity, 1));
 }
 
 .dark\:hover\:text-secondary-fixed-dim:hover:is(.dark *) {
   --tw-text-opacity: 1;
-  color: rgb(255 181 152 / var(--tw-text-opacity, 1));
+  color: rgb(163 212 180 / var(--tw-text-opacity, 1));
 }
 
 @media (min-width: 640px) {

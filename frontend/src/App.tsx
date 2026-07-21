@@ -39,6 +39,7 @@ import Footer from "./components/Footer/Footer";
 import OAuth2RedirectHandler from "./utils/oauth2/OAuth2RedirectHandler";
 import "./tailwind.css";
 import "./App.css";
+import "./antd-overrides.css";
 
 const App: FC = (): ReactElement => {
     const dispatch = useDispatch();
