@@ -1,5 +1,4 @@
 import React from "react";
-import { Button, InputNumber } from "antd";
 
 import { createMockRootState, mockDispatch, mountWithStore } from "../../../utils/test/testHelper";
 import { LoadingStatus } from "../../../types/types";
@@ -13,7 +12,7 @@ window.scrollTo = jest.fn();
 
 describe("Cart", () => {
     const mockRootStore = createMockRootState(LoadingStatus.SUCCESS);
-    const mockStore = {...mockRootStore, cart: {...mockRootStore.cart, products: mockCartProductsResponse}};
+    const mockStore = { ...mockRootStore, cart: { ...mockRootStore.cart, products: mockCartProductsResponse } };
     let mockDispatchFn: jest.Mock;
 
     beforeEach(() => {
@@ -27,7 +26,7 @@ describe("Cart", () => {
 
     it("should render empty cart", () => {
         const wrapper = mountWithStore(<Cart />, mockRootStore);
-        expect(wrapper.text().includes("Cart is empty")).toBe(true);
+        expect(wrapper.text().includes("Giỏ hàng của bạn đang trống")).toBe(true);
     });
 
     it("should render correctly", () => {
@@ -38,17 +37,23 @@ describe("Cart", () => {
     it("should click delete product from Cart and clear local storage", () => {
         localStorage.setItem("products", "[[17,1]]");
         const wrapper = mountWithStore(<Cart />, mockStore);
-        wrapper.find(CartItem).at(0).find(RemoveButton).find(Button).simulate("click");
-        expect(mockDispatchFn).nthCalledWith(2, { payload: mockCartProductsResponse[0].id, type: "cart/removeProductById" });
+        wrapper.find(CartItem).at(0).find(RemoveButton).find("button").simulate("click");
+        expect(mockDispatchFn).nthCalledWith(2, {
+            payload: mockCartProductsResponse[0].id,
+            type: "cart/removeProductById"
+        });
     });
 
     it("should change Product Item Count", () => {
         localStorage.setItem("products", "[[17,1],[27,1]]");
         const wrapper = mountWithStore(<Cart />, mockStore);
-        wrapper.find(CartItem).at(0).find(InputNumber).find("input").at(0).simulate("change", { target: { value: 11 } });
-        expect(mockDispatchFn).nthCalledWith(2, { payload: mockCartProductsResponse, type: "cart/calculateCartPrice" });
+        wrapper.find(CartItem).at(0).find('button[aria-label="Tăng số lượng"]').simulate("click");
+        expect(mockDispatchFn).nthCalledWith(2, {
+            payload: mockCartProductsResponse,
+            type: "cart/calculateCartPrice"
+        });
     });
-    
+
     it("should unmount Cart", () => {
         const wrapper = mountWithStore(<Cart />);
         wrapper.unmount();
