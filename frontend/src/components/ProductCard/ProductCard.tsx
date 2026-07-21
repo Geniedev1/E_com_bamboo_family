@@ -70,6 +70,13 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                     </p>
                 )}
 
+                {product.volume && (
+                    <p className="mt-1 flex items-center gap-1 font-body-md text-[13px] text-on-surface-variant">
+                        <span className="material-symbols-outlined text-[16px] text-[#8c955f]">straighten</span>
+                        <span className="truncate">Kích thước: {product.volume}</span>
+                    </p>
+                )}
+
                 <div className="mt-auto pt-3">
                     <div className="flex items-end justify-between gap-2">
                         <span className="font-headline-md text-[18px] font-bold text-secondary">
