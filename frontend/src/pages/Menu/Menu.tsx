@@ -12,6 +12,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import { MAX_PAGE_VALUE, usePagination } from "../../hooks/usePagination";
 import { price } from "./MenuData";
 import { useSearch } from "../../hooks/useSearch";
+import { CATEGORY_DESCRIPTIONS, PRODUCT_CATEGORIES } from "../../constants/categories";
 import "./Menu.css";
 
 export enum CheckboxCategoryFilter {
@@ -19,12 +20,7 @@ export enum CheckboxCategoryFilter {
     GENDERS = "GENDERS"
 }
 
-const categoryFilters = [
-    "Tất cả sản phẩm",
-    "Rổ & Giỏ đan",
-    "Khay trà & Phụ kiện",
-    "Đèn lồng trang trí"
-];
+const categoryFilters = ["Tất cả sản phẩm", ...PRODUCT_CATEGORIES];
 
 const materialFilters = ["Mây tự nhiên", "Tre hun khói", "Nứa đan", "Kết hợp"];
 
@@ -248,6 +244,7 @@ const Menu: FC = (): ReactElement => {
                                     <button
                                         key={category}
                                         type="button"
+                                        title={index === 0 ? undefined : CATEGORY_DESCRIPTIONS[category]}
                                         className="group flex items-center gap-xs text-left font-body-md text-body-md text-on-surface-variant transition hover:text-primary"
                                         onClick={() => handleChangeCategory(category, index)}
                                         aria-pressed={isChecked}

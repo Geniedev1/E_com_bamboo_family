@@ -19,6 +19,7 @@ import { fetchProduct } from "../../../redux-toolkit/product/product-thunks";
 import IconButton from "../../../components/IconButton/IconButton";
 import EditProductSelect from "./EditProductSelect";
 import { updateProduct } from "../../../redux-toolkit/admin/admin-thunks";
+import { PRODUCT_CATEGORIES } from "../../../constants/categories";
 import "./EditProduct.css";
 
 type EditProductData = {
@@ -29,6 +30,7 @@ type EditProductData = {
     type: string;
     volume: string;
     gender: string;
+    category: string;
     topDescription: string;
     middleDescription: string;
     baseDescription: string;
@@ -147,6 +149,13 @@ const EditProduct: FC = (): ReactElement => {
                             placeholder={"Đối tượng"}
                             disabled={isLoading}
                             values={["all", "male", "female", "unisex"]}
+                        />
+                        <EditProductSelect
+                            title={"Danh mục"}
+                            name={"category"}
+                            placeholder={"Chọn danh mục"}
+                            disabled={isLoading}
+                            values={PRODUCT_CATEGORIES}
                         />
                         <FormInput
                             title={"Kích thước"}

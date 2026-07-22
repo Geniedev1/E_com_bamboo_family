@@ -16,6 +16,7 @@ import ContentTitle from "../../../components/ContentTitle/ContentTitle";
 import AddFormInput from "./AddFormInput";
 import AddFormSelect from "./AddFormSelect";
 import IconButton from "../../../components/IconButton/IconButton";
+import { PRODUCT_CATEGORIES } from "../../../constants/categories";
 
 type AddProductData = {
     productTitle: string;
@@ -25,6 +26,7 @@ type AddProductData = {
     type: string;
     volume: string;
     gender: string;
+    category: string;
     topDescription: string;
     middleDescription: string;
     baseDescription: string;
@@ -112,6 +114,13 @@ const AddProduct: FC = (): ReactElement => {
                             placeholder={"all"}
                             disabled={ispProductLoading}
                             values={["all", "male", "female", "unisex"]}
+                        />
+                        <AddFormSelect
+                            title={"Danh mục"}
+                            name={"category"}
+                            placeholder={"Chọn danh mục"}
+                            disabled={ispProductLoading}
+                            values={PRODUCT_CATEGORIES}
                         />
                         <AddFormInput
                             title={"Chi tiết nổi bật"}
