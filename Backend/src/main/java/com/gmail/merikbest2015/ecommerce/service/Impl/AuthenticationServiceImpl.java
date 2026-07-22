@@ -157,10 +157,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         try {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("firstName", user.getFirstName());
-            attributes.put(urlAttribute, "http://" + hostname + urlPath);
+            attributes.put(urlAttribute, frontendBaseUrl() + urlPath);
             mailSender.sendMessageHtml(user.getEmail(), subject, template, attributes);
         } catch (Exception e) {
             log.warn("Could not send '{}' email to {}: {}", subject, user.getEmail(), e.getMessage());
         }
+    }
+
+    // hostname có thể gồm nhiều origin (phân tách bởi dấu phẩy) và đã kèm scheme
+    // (vd https://rattanovi.com). Lấy origin đầu tiên, thêm http:// nếu thiếu scheme.
+    private String frontendBaseUrl() {
+        String first = hostname.split(",")[0].trim();
+        if (first.startsWith("http://") || first.startsWith("https://")) {
+            return first;
+        }
+        return "http://" + first;
     }
 }
