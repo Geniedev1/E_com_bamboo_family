@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Form, notification, Row, Upload } from "antd";
+import { Button, Col, Form, notification, Row, Select, Typography, Upload } from "antd";
 import { PlusSquareFilled, PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
 import { UploadChangeParam } from "antd/lib/upload/interface";
 
@@ -12,11 +12,12 @@ import {
 import { resetAdminState, setAdminLoadingState } from "../../../redux-toolkit/admin/admin-slice";
 import { LoadingStatus } from "../../../types/types";
 import { addProduct } from "../../../redux-toolkit/admin/admin-thunks";
+import { fetchCategories } from "../../../redux-toolkit/category/category-thunks";
+import { selectCategories } from "../../../redux-toolkit/category/category-selector";
 import ContentTitle from "../../../components/ContentTitle/ContentTitle";
 import AddFormInput from "./AddFormInput";
 import AddFormSelect from "./AddFormSelect";
 import IconButton from "../../../components/IconButton/IconButton";
-import { PRODUCT_CATEGORIES } from "../../../constants/categories";
 
 type AddProductData = {
     productTitle: string;
@@ -26,7 +27,7 @@ type AddProductData = {
     type: string;
     volume: string;
     gender: string;
-    category: string;
+    categoryId: number;
     topDescription: string;
     middleDescription: string;
     baseDescription: string;
@@ -38,10 +39,12 @@ const AddProduct: FC = (): ReactElement => {
     const isProductAdded = useSelector(selectIsProductAdded);
     const ispProductLoading = useSelector(selectIsAdminStateLoading);
     const productErrors = useSelector(selectAdminStateErrors);
+    const categories = useSelector(selectCategories);
     const [fileList, setFileList] = React.useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setAdminLoadingState(LoadingStatus.LOADED));
+        dispatch(fetchCategories());
 
         return () => {
             dispatch(resetAdminState(LoadingStatus.LOADING));
@@ -115,13 +118,16 @@ const AddProduct: FC = (): ReactElement => {
                             disabled={ispProductLoading}
                             values={["all", "male", "female", "unisex"]}
                         />
-                        <AddFormSelect
-                            title={"Danh mục"}
-                            name={"category"}
-                            placeholder={"Chọn danh mục"}
-                            disabled={ispProductLoading}
-                            values={PRODUCT_CATEGORIES}
-                        />
+                        <Form.Item name={"categoryId"}>
+                            <Typography.Text>Danh mục</Typography.Text>
+                            <Select placeholder={"Chọn danh mục"} disabled={ispProductLoading} style={{ width: "100%" }}>
+                                {categories.map((category) => (
+                                    <Select.Option key={category.id} value={category.id}>
+                                        {category.name}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
                         <AddFormInput
                             title={"Chi tiết nổi bật"}
                             name={"middleDescription"}

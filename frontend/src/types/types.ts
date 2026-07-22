@@ -180,6 +180,19 @@ export interface AuthErrors {
     password2Error: string;
 }
 
+export interface Category {
+    id: number;
+    name: string;
+    description?: string;
+    sortOrder?: number;
+}
+
+export interface CategoryRequest {
+    name: string;
+    description?: string;
+    sortOrder?: number;
+}
+
 export interface FilterParamsType {
     vendors: Array<string>;
     genders: Array<string>;

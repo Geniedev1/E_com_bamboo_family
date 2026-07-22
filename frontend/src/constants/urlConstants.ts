@@ -4,6 +4,7 @@ export const WEBSOCKET_URL = BASE_URL + "/websocket";
 
 export const USER = "/user";
 export const REGISTRATION = "/registration";
+export const CATEGORIES = "/categories";
 export const CART = "/cart";
 export const PRODUCTS = "/products";
 

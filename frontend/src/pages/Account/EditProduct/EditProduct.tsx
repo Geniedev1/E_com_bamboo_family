@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { EditOutlined, UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, notification, Row, Upload } from "antd";
+import { Button, Col, Form, notification, Row, Select, Typography, Upload } from "antd";
 import { UploadChangeParam } from "antd/lib/upload/interface";
 
 import ContentTitle from "../../../components/ContentTitle/ContentTitle";
@@ -19,7 +19,8 @@ import { fetchProduct } from "../../../redux-toolkit/product/product-thunks";
 import IconButton from "../../../components/IconButton/IconButton";
 import EditProductSelect from "./EditProductSelect";
 import { updateProduct } from "../../../redux-toolkit/admin/admin-thunks";
-import { PRODUCT_CATEGORIES } from "../../../constants/categories";
+import { fetchCategories } from "../../../redux-toolkit/category/category-thunks";
+import { selectCategories } from "../../../redux-toolkit/category/category-selector";
 import "./EditProduct.css";
 
 type EditProductData = {
@@ -30,7 +31,7 @@ type EditProductData = {
     type: string;
     volume: string;
     gender: string;
-    category: string;
+    categoryId: number;
     topDescription: string;
     middleDescription: string;
     baseDescription: string;
@@ -45,22 +46,29 @@ const EditProduct: FC = (): ReactElement => {
     const isLoading = useSelector(selectIsAdminStateLoading);
     const errors = useSelector(selectAdminStateErrors);
     const isProductEdited = useSelector(selectIsProductEdited);
+    const categories = useSelector(selectCategories);
     const [fileList, setFileList] = React.useState<any[]>([]);
 
     useEffect(() => {
         dispatch(setAdminLoadingState(LoadingStatus.LOADED));
         dispatch(fetchProduct(params.id));
+        dispatch(fetchCategories());
 
         return () => {
             dispatch(resetAdminState(LoadingStatus.LOADING));
         };
     }, []);
-    
+
     useEffect(() => {
         if (productData) {
             form.setFieldsValue(productData);
+            // productData.category là TÊN danh mục -> tìm id tương ứng để chọn sẵn.
+            const matched = categories.find((category) => category.name === productData.category);
+            if (matched) {
+                form.setFieldsValue({ categoryId: matched.id });
+            }
         }
-    }, [productData])
+    }, [productData, categories])
 
     useEffect(() => {
         if (isProductEdited) {
@@ -150,13 +158,26 @@ const EditProduct: FC = (): ReactElement => {
                             disabled={isLoading}
                             values={["all", "male", "female", "unisex"]}
                         />
-                        <EditProductSelect
-                            title={"Danh mục"}
-                            name={"category"}
-                            placeholder={"Chọn danh mục"}
-                            disabled={isLoading}
-                            values={PRODUCT_CATEGORIES}
-                        />
+                        <Row className={"form-item"}>
+                            <Col span={6}>
+                                <Typography.Text>Danh mục</Typography.Text>
+                            </Col>
+                            <Col span={18}>
+                                <Form.Item name={"categoryId"}>
+                                    <Select
+                                        placeholder={"Chọn danh mục"}
+                                        disabled={isLoading}
+                                        style={{ width: "100%" }}
+                                    >
+                                        {categories.map((category) => (
+                                            <Select.Option key={category.id} value={category.id}>
+                                                {category.name}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
+                                </Form.Item>
+                            </Col>
+                        </Row>
                         <FormInput
                             title={"Kích thước"}
                             titleSpan={6}

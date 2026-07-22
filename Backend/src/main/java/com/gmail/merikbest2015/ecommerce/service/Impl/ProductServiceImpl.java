@@ -100,6 +100,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product saveProduct(Product product, MultipartFile[] multipartFiles) {
+        Product existing = product.getId() != null
+                ? productRepository.findById(product.getId()).orElse(null)
+                : null;
+
         List<String> imageUrls = new ArrayList<>();
         if (multipartFiles != null) {
             for (MultipartFile file : multipartFiles) {
@@ -116,17 +120,20 @@ public class ProductServiceImpl implements ProductService {
         if (!imageUrls.isEmpty()) {
             product.setImages(imageUrls);
             product.setFilename(imageUrls.get(0)); // ảnh bìa
-        } else if (product.getId() != null) {
+        } else if (existing != null) {
             // Chỉnh sửa mà không upload ảnh mới -> giữ nguyên ảnh cũ.
-            productRepository.findById(product.getId()).ifPresent(existing -> {
-                product.setImages(existing.getImages());
-                product.setFilename(existing.getFilename());
-            });
+            product.setImages(existing.getImages());
+            product.setFilename(existing.getFilename());
         } else {
             // Sản phẩm mới không có ảnh -> dùng ảnh mặc định.
             String placeholder = baseUrl + "/static/images/empty.jpg";
             product.setFilename(placeholder);
             product.setImages(Collections.singletonList(placeholder));
+        }
+
+        // Chỉnh sửa mà không đổi danh mục -> giữ danh mục cũ.
+        if (product.getCategory() == null && existing != null) {
+            product.setCategory(existing.getCategory());
         }
         return productRepository.save(product);
     }

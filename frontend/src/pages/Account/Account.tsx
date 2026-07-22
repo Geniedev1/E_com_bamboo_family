@@ -10,6 +10,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import {
     ACCOUNT,
     ACCOUNT_ADMIN_ADD,
+    ACCOUNT_ADMIN_CATEGORIES,
     ACCOUNT_ADMIN_ORDERS,
     ACCOUNT_ADMIN_PRODUCTS,
     ACCOUNT_ADMIN_USERS,
@@ -23,6 +24,7 @@ import AccountItem from "./AccountItem/AccountItem";
 import PersonalData from "./PersonalData/PersonalData";
 import AddProduct from "./AddProduct/AddProduct";
 import ProductList from "./ProductList/ProductList";
+import CategoryList from "./CategoryList/CategoryList";
 import EditProduct from "./EditProduct/EditProduct";
 import OrdersList from "./OrdersList/OrdersList";
 import ManageUserOrder from "./ManageUserOrder/ManageUserOrder";
@@ -78,6 +80,7 @@ const Account: FC = (): ReactElement => {
                                 <>
                                     <AccountLink link={ACCOUNT_ADMIN_ADD} title="Thêm sản phẩm" icon="add_box" />
                                     <AccountLink link={ACCOUNT_ADMIN_PRODUCTS} title="Danh sách sản phẩm" icon="inventory_2" />
+                                    <AccountLink link={ACCOUNT_ADMIN_CATEGORIES} title="Danh mục" icon="category" />
                                     <AccountLink link={ACCOUNT_ADMIN_ORDERS} title="Đơn hàng" icon="receipt_long" />
                                     <AccountLink link={ACCOUNT_ADMIN_USERS} title="Người dùng" icon="group" />
                                 </>
@@ -105,6 +108,7 @@ const Account: FC = (): ReactElement => {
                                 {isAdmin && <Route path={ACCOUNT_ADMIN_ADD} component={AddProduct} />}
                                 {isAdmin && <Route exact path={ACCOUNT_ADMIN_PRODUCTS} component={ProductList} />}
                                 {isAdmin && <Route exact path={`${ACCOUNT_ADMIN_PRODUCTS}/:id`} component={EditProduct} />}
+                                {isAdmin && <Route exact path={ACCOUNT_ADMIN_CATEGORIES} component={CategoryList} />}
                                 {isAdmin && <Route exact path={ACCOUNT_ADMIN_ORDERS} component={OrdersList} />}
                                 {isAdmin && <Route exact path={ACCOUNT_ADMIN_USERS} component={UsersList} />}
                                 {isAdmin && <Route exact path={`${ACCOUNT_ADMIN_USERS}/:id`} component={ManageUser} />}

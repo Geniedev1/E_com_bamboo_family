@@ -33,7 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p " +
             "WHERE (coalesce(:vendors, null) IS NULL OR p.vendor IN :vendors) " +
             "AND (coalesce(:genders, null) IS NULL OR p.gender IN :genders) " +
-            "AND (coalesce(:categories, null) IS NULL OR p.category IN :categories) " +
+            "AND (coalesce(:categories, null) IS NULL OR p.category.name IN :categories) " +
             "AND (coalesce(:priceStart, null) IS NULL OR p.price BETWEEN :priceStart AND :priceEnd) " +
             "ORDER BY CASE WHEN :sortByPrice = true THEN p.price ELSE -p.price END ASC")
     Page<ProductProjection> findProductsByFilterParams(
@@ -63,7 +63,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // ===== Tìm theo category =====
     @Query("SELECT p FROM Product p " +
-            "WHERE UPPER(p.category) = UPPER(:category) " +
+            "WHERE UPPER(p.category.name) = UPPER(:category) " +
             "ORDER BY p.price DESC")
     Page<ProductProjection> findByCategory(String category, Pageable pageable);
 }

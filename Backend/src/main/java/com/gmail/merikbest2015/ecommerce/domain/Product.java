@@ -75,8 +75,10 @@ public class Product {
     @Column(name = "stock_quantity")
     private Integer stockQuantity; // Số lượng tồn kho
 
-    @Column(name = "category")
-    private String category; // Danh mục (Gốm sứ, Vải, Gỗ, Trang sức...)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    @ToString.Exclude
+    private Category category; // Danh mục (tham chiếu bảng category)
 
     @Column(name = "product_status")
     private String productStatus; // ACTIVE | INACTIVE | OUT_OF_STOCK

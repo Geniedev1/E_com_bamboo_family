@@ -9,6 +9,7 @@ import com.gmail.merikbest2015.ecommerce.dto.product.ProductSearchRequest;
 import com.gmail.merikbest2015.ecommerce.enums.SearchProduct;
 import com.gmail.merikbest2015.ecommerce.exception.InputFieldException;
 import com.gmail.merikbest2015.ecommerce.repository.projection.ProductProjection;
+import com.gmail.merikbest2015.ecommerce.service.CategoryService;
 import com.gmail.merikbest2015.ecommerce.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ public class ProductMapper {
 
     private final CommonMapper commonMapper;
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     public FullProductResponse getProductById(Long productId) {
         return commonMapper.convertToResponse(productService.getProductById(productId), FullProductResponse.class);
@@ -67,6 +69,9 @@ public class ProductMapper {
             throw new InputFieldException(bindingResult);
         }
         Product product = commonMapper.convertToEntity(productRequest, Product.class);
+        if (productRequest.getCategoryId() != null) {
+            product.setCategory(categoryService.getCategoryById(productRequest.getCategoryId()));
+        }
         return commonMapper.convertToResponse(productService.saveProduct(product, files), FullProductResponse.class);
     }
 

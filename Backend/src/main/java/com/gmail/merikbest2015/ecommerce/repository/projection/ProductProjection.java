@@ -14,9 +14,11 @@ public interface ProductProjection {
     String getFilename();
     Double getProductRating();
     String getVolume();
-    String getCategory();
     String getProductStatus();
     Integer getStockQuantity();
+
+    @Value("#{target.category != null ? target.category.name : null}")
+    String getCategory();
 
     @Value("#{target.reviews.size()}")
     Integer getReviewsCount();

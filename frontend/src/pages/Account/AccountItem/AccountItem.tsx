@@ -7,6 +7,7 @@ import Spinner from "../../../components/Spinner/Spinner";
 import { UserRoles } from "../../../types/types";
 import {
     ACCOUNT_ADMIN_ADD,
+    ACCOUNT_ADMIN_CATEGORIES,
     ACCOUNT_ADMIN_ORDERS,
     ACCOUNT_ADMIN_PRODUCTS,
     ACCOUNT_ADMIN_USERS,
@@ -24,6 +25,7 @@ type QuickLink = {
 const adminLinks: QuickLink[] = [
     { to: ACCOUNT_ADMIN_ORDERS, icon: "receipt_long", title: "Đơn hàng", desc: "Xem và xử lý đơn của khách" },
     { to: ACCOUNT_ADMIN_PRODUCTS, icon: "inventory_2", title: "Sản phẩm", desc: "Quản lý, sửa & xóa sản phẩm" },
+    { to: ACCOUNT_ADMIN_CATEGORIES, icon: "category", title: "Danh mục", desc: "Thêm/sửa/xóa danh mục sản phẩm" },
     { to: ACCOUNT_ADMIN_ADD, icon: "add_box", title: "Thêm sản phẩm", desc: "Đăng sản phẩm mới lên cửa hàng" },
     { to: ACCOUNT_ADMIN_USERS, icon: "group", title: "Người dùng", desc: "Danh sách tài khoản khách hàng" }
 ];

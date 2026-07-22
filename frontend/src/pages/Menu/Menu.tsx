@@ -12,7 +12,8 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import { MAX_PAGE_VALUE, usePagination } from "../../hooks/usePagination";
 import { price } from "./MenuData";
 import { useSearch } from "../../hooks/useSearch";
-import { CATEGORY_DESCRIPTIONS, PRODUCT_CATEGORIES } from "../../constants/categories";
+import { fetchCategories } from "../../redux-toolkit/category/category-thunks";
+import { selectCategories } from "../../redux-toolkit/category/category-selector";
 import "./Menu.css";
 
 export enum CheckboxCategoryFilter {
@@ -20,7 +21,7 @@ export enum CheckboxCategoryFilter {
     GENDERS = "GENDERS"
 }
 
-const categoryFilters = ["Tất cả sản phẩm", ...PRODUCT_CATEGORIES];
+const ALL_CATEGORIES_LABEL = "Tất cả sản phẩm";
 
 const materialFilters = ["Mây tự nhiên", "Tre hun khói", "Nứa đan", "Kết hợp"];
 
@@ -126,7 +127,14 @@ const Menu: FC = (): ReactElement => {
     const dispatch = useDispatch();
     const products = useSelector(selectProducts);
     const isProductsLoading = useSelector(selectIsProductsLoading);
+    const categories = useSelector(selectCategories);
     const location = useLocation<{ id: string }>();
+
+    const categoryFilters = [ALL_CATEGORIES_LABEL, ...categories.map((category) => category.name)];
+    const descriptionByName: Record<string, string | undefined> = categories.reduce(
+        (acc, category) => ({ ...acc, [category.name]: category.description }),
+        {} as Record<string, string | undefined>
+    );
     const [filterParams, setFilterParams] = useState<FilterParamsType>({
         vendors: [],
         genders: [],
@@ -137,6 +145,10 @@ const Menu: FC = (): ReactElement => {
     const [sortByPrice, setSortByPrice] = useState<boolean>(false);
     const { currentPage, totalElements, handleChangePagination, resetPagination } = usePagination();
     const { searchValue, searchTypeValue, resetFields, form, onSearch, handleChangeSelect } = useSearch();
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
 
     useEffect(() => {
         const productData = location.state?.id || "all";
@@ -244,7 +256,7 @@ const Menu: FC = (): ReactElement => {
                                     <button
                                         key={category}
                                         type="button"
-                                        title={index === 0 ? undefined : CATEGORY_DESCRIPTIONS[category]}
+                                        title={index === 0 ? undefined : descriptionByName[category]}
                                         className="group flex items-center gap-xs text-left font-body-md text-body-md text-on-surface-variant transition hover:text-primary"
                                         onClick={() => handleChangeCategory(category, index)}
                                         aria-pressed={isChecked}
