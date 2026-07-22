@@ -134,6 +134,7 @@ const Menu: FC = (): ReactElement => {
     const [filterParams, setFilterParams] = useState<FilterParamsType>({
         vendors: [],
         genders: [],
+        categories: [],
         prices: price[0].array
     });
     const [activeMaterial, setActiveMaterial] = useState<string>(materialFilters[0]);
@@ -185,7 +186,16 @@ const Menu: FC = (): ReactElement => {
     };
 
     const resetFilter = (): void => {
-        const nextFilter = { vendors: [], genders: [], prices: price[0].array };
+        const nextFilter: FilterParamsType = { vendors: [], genders: [], categories: [], prices: price[0].array };
+        setFilterParams(nextFilter);
+        dispatch(fetchProductsByFilterParams({ ...nextFilter, sortByPrice, currentPage: 0 }));
+        resetFields();
+    };
+
+    const handleChangeCategory = (category: string, index: number): void => {
+        // index 0 = "Tất cả sản phẩm" -> bỏ lọc danh mục
+        const categories = index === 0 ? [] : [category];
+        const nextFilter: FilterParamsType = { ...filterParams, categories };
         setFilterParams(nextFilter);
         dispatch(fetchProductsByFilterParams({ ...nextFilter, sortByPrice, currentPage: 0 }));
         resetFields();
@@ -229,14 +239,17 @@ const Menu: FC = (): ReactElement => {
                         </h2>
                         <div className="mt-sm flex w-full flex-col gap-sm">
                             {categoryFilters.map((category, index) => {
-                                const isChecked = index === 0 && !filterParams.vendors.length && !filterParams.genders.length;
+                                const isChecked =
+                                    index === 0
+                                        ? filterParams.categories.length === 0
+                                        : filterParams.categories.includes(category);
 
                                 return (
                                     <button
                                         key={category}
                                         type="button"
                                         className="group flex items-center gap-xs text-left font-body-md text-body-md text-on-surface-variant transition hover:text-primary"
-                                        onClick={index === 0 ? resetFilter : undefined}
+                                        onClick={() => handleChangeCategory(category, index)}
                                         aria-pressed={isChecked}
                                     >
                                         <span

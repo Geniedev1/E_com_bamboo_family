@@ -65,7 +65,7 @@ describe("products slice tests", () => {
             "page-total-elements": "11"
         });
         const result = await store.dispatch(
-            fetchProductsByFilterParams({ vendors: ["Creed"], genders: [], prices: [], currentPage: 1 })
+            fetchProductsByFilterParams({ vendors: ["Creed"], genders: [], categories: [], prices: [], currentPage: 1 })
         );
 
         state = store.getState().products;

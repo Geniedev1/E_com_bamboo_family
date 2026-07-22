@@ -183,6 +183,7 @@ export interface AuthErrors {
 export interface FilterParamsType {
     vendors: Array<string>;
     genders: Array<string>;
+    categories: Array<string>;
     prices: Array<number>;
     currentPage?: number;
     sortByPrice?: boolean;
