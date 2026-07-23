@@ -180,6 +180,25 @@ export interface AuthErrors {
     password2Error: string;
 }
 
+export interface ChatMessageResponse {
+    id: number;
+    conversationId: number;
+    token: string;
+    sender: "CUSTOMER" | "ADMIN";
+    content: string;
+    createdAt: string;
+}
+
+export interface ConversationResponse {
+    id: number;
+    token: string;
+    customerName?: string;
+    customerEmail?: string;
+    lastMessage?: string;
+    lastMessageAt?: string;
+    unreadAdmin: number;
+}
+
 export interface Category {
     id: number;
     name: string;

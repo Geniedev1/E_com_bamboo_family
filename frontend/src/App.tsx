@@ -36,6 +36,7 @@ import Account from "./pages/Account/Account";
 import OrderFinalize from "./pages/OrderFinalize/OrderFinalize";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import ChatWidget from "./components/ChatWidget/ChatWidget";
 import OAuth2RedirectHandler from "./utils/oauth2/OAuth2RedirectHandler";
 import "./tailwind.css";
 import "./App.css";
@@ -79,6 +80,7 @@ const App: FC = (): ReactElement => {
             </main>
             <Footer />
             <BackTop />
+            <ChatWidget />
         </>
     );
 };

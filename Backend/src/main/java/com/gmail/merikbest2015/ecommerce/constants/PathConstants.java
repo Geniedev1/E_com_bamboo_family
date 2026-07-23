@@ -17,6 +17,8 @@ public class PathConstants {
     public static final String API_V1_USERS = API_V1 + "/users";
     public static final String API_V1_CATEGORIES = API_V1 + "/categories";
     public static final String CATEGORY_ID = "/{id}";
+    public static final String API_V1_CHAT = API_V1 + "/chat";
+    public static final String API_V1_ADMIN_CHAT = API_V1_ADMIN + "/chat";
 
     public static final String ADD = "/add";
     public static final String EDIT = "/edit";
