@@ -3,10 +3,8 @@
 ## Kiến trúc
 
 ```
-Internet → EC2 (Nginx :80/:443) → React Static
-                                → Spring Boot :8080
-                                → PostgreSQL :5432
-Tất cả chạy qua Docker Compose
+Internet → Cloudflare Pages (Frontend React)
+         → EC2 (Nginx :80) → Spring Boot :8080 → PostgreSQL :5432
 ```
 
 ---
@@ -101,23 +99,19 @@ AWS_REGION=ap-southeast-1
 
 ---
 
-## Bước 5: Build React Frontend
+## Bước 5: Deploy Frontend lên Cloudflare Pages
 
-```bash
-# Cài Node.js
-curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -   # Amazon Linux
-sudo yum install -y nodejs
-# Hoặc Ubuntu: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt install -y nodejs
-
-# Set production API URL trong .env frontend
-echo "REACT_APP_API_BASE_URL=https://yourdomain.com" > frontend/.env.production
-
-# Build
-cd frontend
-npm install
-npm run build
-cd ..
-```
+1. Commit toàn bộ code mới nhất của bạn (sau khi đã cấu hình) lên một GitHub Repository.
+2. Đăng nhập vào Cloudflare, chọn mục **Pages**.
+3. Bấm **Create a project** -> **Connect to Git**.
+4. Chọn repo chứa code của bạn, chọn nhánh `main` hoặc `master`.
+5. Cấu hình Build settings:
+   - Framework preset: `Create React App`
+   - Build command: `npm run build`
+   - Build output directory: `build`
+6. Thêm biến môi trường (Environment variables):
+   - Key: `REACT_APP_API_BASE_URL` | Value: `https://api.yourdomain.com` (Đổi thành domain Backend của bạn).
+7. Bấm **Save and Deploy**. Chờ 2 phút là bạn đã có giao diện siêu tốc!
 
 ---
 
@@ -133,31 +127,18 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ---
 
-## Bước 7: Cài HTTPS với Let's Encrypt (sau khi có domain)
+## Bước 7: Cấu hình SSL qua Cloudflare (Flexible SSL)
 
-```bash
-# Cài certbot
-sudo yum install -y certbot   # Amazon Linux
-# Hoặc: sudo apt install -y certbot   # Ubuntu
+Thay vì cài đặt Let's Encrypt (Certbot) phức tạp trên server, chúng ta sẽ tận dụng Cloudflare để tự động cấp phát SSL miễn phí và an toàn.
 
-# Dừng Nginx tạm (để certbot dùng port 80)
-docker-compose -f docker-compose.prod.yml stop nginx
-
-# Lấy certificate
-sudo certbot certonly --standalone -d yourdomain.com -d www.yourdomain.com \
-  --email your@email.com --agree-tos --no-eff-email
-
-# Bật HTTPS trong nginx/nginx.conf:
-# - Uncomment server block lắng nghe 443 ssl
-# - Uncomment HTTP → HTTPS redirect
-# - Sửa yourdomain.com trong nginx.conf
-
-# Khởi động lại
-docker-compose -f docker-compose.prod.yml up -d nginx
-
-# Auto-renew SSL (cron job)
-(crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet && docker-compose -f /home/ec2-user/ecommerce-spring-reactjs/docker-compose.prod.yml restart nginx") | crontab -
-```
+1. Đăng nhập vào tài khoản **Cloudflare** của bạn.
+2. Tại mục **DNS**, tạo bản ghi (A record) trỏ từ Domain của bạn về IP Public của EC2, bật cờ cam (Proxied).
+   - `@` → `<EC2_PUBLIC_IP>` (Proxied)
+   - `www` → `<EC2_PUBLIC_IP>` (Proxied)
+3. Chuyển sang mục **SSL/TLS** (bên menu trái).
+4. Chọn chế độ **Flexible**. Ở chế độ này, giao tiếp từ Người dùng ↔ Cloudflare sẽ được mã hóa bằng HTTPS, còn từ Cloudflare ↔ EC2 (Nginx) sẽ qua HTTP (port 80).
+5. Đảm bảo cấu hình Nginx trong `docker-compose.prod.yml` chỉ cần map cổng 80 (đã có sẵn `80:80`).
+6. Chờ vài phút để Cloudflare áp dụng chứng chỉ SSL. Giờ bạn đã có thể truy cập bằng `https://yourdomain.com` mà không cần cài thêm gì trên máy chủ!
 
 ---
 
