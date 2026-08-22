@@ -31,8 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final OAuth2SuccessHandler oauthSuccessHandler;
     private final CustomOAuth2UserService oAuth2UserService;
 
-    @Value("${hostname}")
-    private String hostname;
+    @Value("${cors.allowed-origins}")
+    private String allowedOrigins;
 
     public WebSecurityConfiguration(
             JwtConfigurer jwtConfigurer,
@@ -104,8 +104,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         origins.add("http://localhost:3000");
         origins.add("http://127.0.0.1:3000");
 
-        if (hostname != null) {
-            for (String rawOrigin : hostname.split(",")) {
+        if (allowedOrigins != null) {
+            for (String rawOrigin : allowedOrigins.split(",")) {
                 String origin = rawOrigin.trim();
                 if (!origin.isEmpty()) {
                     origins.add(origin.startsWith("http://") || origin.startsWith("https://")
