@@ -2,6 +2,7 @@ import React, { FC, ReactElement, useEffect, useState } from "react";
 
 import { ProductResponse } from "../../../types/types";
 import { formatVnd } from "../../../utils/priceUtils";
+import { getImageUrl } from "../../../utils/imageUrl";
 import RemoveButton from "./RemoveButton";
 
 type PropsType = {
@@ -32,7 +33,7 @@ const CartItem: FC<PropsType> = ({
     return (
         <div className="flex flex-col gap-md rounded-lg border border-[#eadfca] bg-[#fffdf6] p-md shadow-[0_8px_18px_-14px_rgba(83,61,31,0.32)] sm:flex-row">
             <img
-                src={product.filename}
+                src={getImageUrl(product.filename)}
                 alt={product.productTitle}
                 className="h-28 w-28 shrink-0 rounded-lg bg-[#f7f0e4] object-cover"
             />

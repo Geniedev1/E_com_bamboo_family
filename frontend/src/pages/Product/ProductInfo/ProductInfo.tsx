@@ -3,6 +3,7 @@ import { Rate } from "antd";
 
 import { FullProductResponse } from "../../../types/types";
 import { formatProductPrice } from "../../../utils/priceUtils";
+import { getImageUrl } from "../../../utils/imageUrl";
 
 type PropsType = {
     product?: Partial<FullProductResponse>;
@@ -41,7 +42,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
         <div className="grid gap-lg md:grid-cols-2">
             <div>
                 <div className="overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low">
-                    <img src={mainImage} alt={product?.productTitle} className="aspect-square w-full object-cover" />
+                    <img src={getImageUrl(mainImage)} alt={product?.productTitle} className="aspect-square w-full object-cover" />
                 </div>
                 {galleryImages.length > 1 && (
                     <div className="mt-sm flex flex-wrap gap-xs">
@@ -58,7 +59,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
                                 }`}
                             >
                                 <img
-                                    src={src}
+                                    src={getImageUrl(src)}
                                     alt={`${product?.productTitle} ${index + 1}`}
                                     className="h-full w-full object-cover"
                                 />

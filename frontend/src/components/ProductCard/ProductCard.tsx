@@ -5,6 +5,7 @@ import { ProductResponse } from "../../types/types";
 import { ACCOUNT_ADMIN_PRODUCTS, PRODUCT } from "../../constants/routeConstants";
 import { useCart } from "../../hooks/useCart";
 import { formatProductPrice } from "../../utils/priceUtils";
+import { getImageUrl } from "../../utils/imageUrl";
 
 type PropsType = {
     product: ProductResponse;
@@ -36,7 +37,7 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                 <div className="relative aspect-[4/3] overflow-hidden bg-surface-container-low">
                     <img
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                        src={product.filename}
+                        src={getImageUrl(product.filename)}
                         alt={product.productTitle}
                     />
                     {hasReviews && (
