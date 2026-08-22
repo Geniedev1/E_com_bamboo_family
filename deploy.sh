@@ -9,14 +9,8 @@ echo "======================================"
 echo "  🚀 Bắt đầu deploy..."
 echo "======================================"
 
-# ===== 1. Build React frontend =====
-echo ""
-echo "📦 [1/5] Build React frontend..."
-cd frontend
-npm install --silent
-REACT_APP_API_BASE_URL="" npm run build
-cd ..
-echo "✅ Frontend build xong!"
+# ===== 1. (Đã chuyển Frontend lên Cloudflare Pages) =====
+echo "ℹ️ Bỏ qua build Frontend (Frontend sẽ chạy trên Cloudflare Pages)"
 
 # ===== 2. Build Docker images =====
 echo ""

@@ -3,10 +3,8 @@
 ## Kiến trúc
 
 ```
-Internet → EC2 (Nginx :80/:443) → React Static
-                                → Spring Boot :8080
-                                → PostgreSQL :5432
-Tất cả chạy qua Docker Compose
+Internet → Cloudflare Pages (Frontend React)
+         → EC2 (Nginx :80) → Spring Boot :8080 → PostgreSQL :5432
 ```
 
 ---
@@ -101,23 +99,19 @@ AWS_REGION=ap-southeast-1
 
 ---
 
-## Bước 5: Build React Frontend
+## Bước 5: Deploy Frontend lên Cloudflare Pages
 
-```bash
-# Cài Node.js
-curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -   # Amazon Linux
-sudo yum install -y nodejs
-# Hoặc Ubuntu: curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt install -y nodejs
-
-# Set production API URL trong .env frontend
-echo "REACT_APP_API_BASE_URL=https://yourdomain.com" > frontend/.env.production
-
-# Build
-cd frontend
-npm install
-npm run build
-cd ..
-```
+1. Commit toàn bộ code mới nhất của bạn (sau khi đã cấu hình) lên một GitHub Repository.
+2. Đăng nhập vào Cloudflare, chọn mục **Pages**.
+3. Bấm **Create a project** -> **Connect to Git**.
+4. Chọn repo chứa code của bạn, chọn nhánh `lite-core`.
+5. Cấu hình Build settings:
+   - Framework preset: `Create React App`
+   - Build command: `npm run build`
+   - Build output directory: `build`
+6. Thêm biến môi trường (Environment variables):
+   - Key: `REACT_APP_API_BASE_URL` | Value: `https://api.yourdomain.com` (Đổi thành domain Backend của bạn).
+7. Bấm **Save and Deploy**. Chờ 2 phút là bạn đã có giao diện siêu tốc!
 
 ---
 
