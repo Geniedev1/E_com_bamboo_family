@@ -9,5 +9,5 @@ export const getImageUrl = (url?: string): string => {
     const cleanBase = BASE_URL.endsWith("/") ? BASE_URL.slice(0, -1) : BASE_URL;
     const cleanUrl = url.startsWith("/") ? url : `/${url}`;
     const separator = cleanUrl.includes("?") ? "&" : "?";
-    return `${cleanBase}${cleanUrl}${separator}v=2`;
+    return `${cleanBase}${cleanUrl}${separator}v=8`;
 };
