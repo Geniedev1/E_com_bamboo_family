@@ -6,14 +6,11 @@ import {
     ADMIN_ADD,
     ADMIN_DELETE,
     ADMIN_EDIT,
-    ADMIN_GRAPHQL_USER,
-    ADMIN_GRAPHQL_USER_ALL,
     ADMIN_USER,
     ADMIN_USER_ALL
 } from "../../constants/urlConstants";
 import { setProduct } from "../product/product-slice";
 import { removeProductById } from "../products/products-slice";
-import { userByQuery, usersByQuery } from "../../utils/graphql-query/users-query";
 
 export const addProduct = createAsyncThunk<{}, FormData, { rejectValue: ProductErrors }>(
     "admin/addProduct",
@@ -57,16 +54,5 @@ export const fetchAllUsers = createAsyncThunk<HeaderResponse<BaseUserResponse>, 
 
 export const fetchUserInfo = createAsyncThunk<UserResponse, string>("admin/fetchUserInfo", async (userId) => {
     const response = await RequestService.get(`${ADMIN_USER}/${userId}`, true);
-    return response.data;
-});
-
-//GraphQL thunks
-export const fetchUserInfoByQuery = createAsyncThunk<UserResponse, string>("admin/fetchUserInfoByQuery", async (userId) => {
-    const response = await RequestService.post(ADMIN_GRAPHQL_USER, { query: userByQuery(userId) }, true);
-    return response.data;
-});
-
-export const fetchAllUsersByQuery = createAsyncThunk<Array<BaseUserResponse>>("admin/fetchAllUsersByQuery", async () => {
-    const response = await RequestService.post(ADMIN_GRAPHQL_USER_ALL, { query: usersByQuery }, true);
     return response.data;
 });

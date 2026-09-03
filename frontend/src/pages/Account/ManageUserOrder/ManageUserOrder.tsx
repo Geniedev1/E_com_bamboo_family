@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Card, Col, Row, Table } from "antd";
+import { Col, Row, Table } from "antd";
 import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 
 import {
@@ -16,6 +16,7 @@ import ContentTitle from "../../../components/ContentTitle/ContentTitle";
 import Spinner from "../../../components/Spinner/Spinner";
 import AccountDataItem from "../../../components/AccountDataItem/AccountDataItem";
 import { OrderItemResponse } from "../../../types/types";
+import { formatProductPrice } from "../../../utils/priceUtils";
 import "./ManageUserOrder.css";
 
 const ManageUserOrder: FC = (): ReactElement => {
@@ -47,78 +48,79 @@ const ManageUserOrder: FC = (): ReactElement => {
                 <Spinner />
             ) : (
                 <>
-                    <div style={{ textAlign: "center" }}>
-                        <ContentTitle title={`Order #${id}`} titleLevel={4} icon={<ShoppingOutlined />} />
-                    </div>
-                    <Row>
+                    <ContentTitle title={`Đơn hàng #${id}`} titleLevel={4} icon={<ShoppingOutlined />} />
+                    <Row gutter={[24, 24]}>
+                        <Col xs={24} md={12}>
+                            <div className="h-full rounded-2xl border border-outline-variant/50 bg-surface p-5">
+                                <ContentTitle title={"Thông tin khách hàng"} titleLevel={5} icon={<InfoCircleOutlined />} />
+                                <AccountDataItem title={"Họ và tên"} text={`${firstName ?? ""} ${lastName ?? ""}`} />
+                                <AccountDataItem title={"Email"} text={email} />
+                                <AccountDataItem title={"Số điện thoại"} text={phoneNumber} />
+                                <AccountDataItem title={"Thành phố"} text={city} />
+                                <AccountDataItem title={"Địa chỉ"} text={address} />
+                                <AccountDataItem title={"Mã bưu chính"} text={postIndex} />
+                            </div>
+                        </Col>
+                        <Col xs={24} md={12}>
+                            <div className="h-full rounded-2xl border border-outline-variant/50 bg-surface p-5">
+                                <ContentTitle title={"Thông tin đơn hàng"} titleLevel={5} icon={<InfoCircleOutlined />} />
+                                <AccountDataItem title={"Mã đơn"} text={`#${id}`} />
+                                <AccountDataItem title={"Ngày đặt"} text={date} />
+                                <div className="mt-4 flex items-center justify-between rounded-xl bg-primary-fixed px-4 py-3">
+                                    <span className="font-label-sm text-[15px] text-primary">Tổng đơn hàng</span>
+                                    <span className="font-headline-md text-[20px] font-bold text-secondary">
+                                        {formatProductPrice(totalPrice)}
+                                    </span>
+                                </div>
+                            </div>
+                        </Col>
                         <Col span={24}>
-                            <Card>
-                                <Row gutter={32}>
-                                    <Col span={12}>
-                                        <InfoCircleOutlined className={"manage-user-icon"} />
-                                        <ContentTitle title={"Customer information"} titleLevel={5} />
-                                        <AccountDataItem title={"First name"} text={firstName} />
-                                        <AccountDataItem title={"Last name"} text={lastName} />
-                                        <AccountDataItem title={"City"} text={city} />
-                                        <AccountDataItem title={"Address"} text={address} />
-                                        <AccountDataItem title={"Email"} text={email} />
-                                        <AccountDataItem title={"Phone number"} text={phoneNumber} />
-                                        <AccountDataItem title={"Post index"} text={postIndex} />
-                                    </Col>
-                                    <Col span={12}>
-                                        <InfoCircleOutlined className={"manage-user-icon"} />
-                                        <ContentTitle title={"Order information"} titleLevel={5} />
-                                        <AccountDataItem title={"Order id"} text={id} />
-                                        <AccountDataItem title={"Date"} text={date} />
-                                        <ContentTitle title={`Order summary: ${totalPrice}.0 $`} titleLevel={4} />
-                                    </Col>
-                                </Row>
-                                <Row style={{ marginTop: 16 }}>
-                                    <Col span={24}>
-                                        <Table
-                                            rowKey={"id"}
-                                            pagination={false}
-                                            dataSource={orderItems}
-                                            columns={[
-                                                {
-                                                    title: "Product Id",
-                                                    dataIndex: "id",
-                                                    key: "id"
-                                                },
-                                                {
-                                                    title: "Product Brand",
-                                                    dataIndex: "vendor",
-                                                    key: "vendor",
-                                                    render: (_, order: OrderItemResponse) => order.product.vendor
-                                                },
-                                                {
-                                                    title: "Product Name",
-                                                    dataIndex: "productTitle",
-                                                    key: "productTitle",
-                                                    render: (_, order: OrderItemResponse) => order.product.productTitle
-                                                },
-                                                {
-                                                    title: "Quantity",
-                                                    dataIndex: "quantity",
-                                                    key: "quantity"
-                                                },
-                                                {
-                                                    title: "Price",
-                                                    dataIndex: "price",
-                                                    key: "price",
-                                                    render: (_, order: OrderItemResponse) => `${order.product.price}.0 $`
-                                                },
-                                                {
-                                                    title: "Amount",
-                                                    dataIndex: "amount",
-                                                    key: "amount",
-                                                    render: (_, order: OrderItemResponse) => `${order.amount}.0 $`
-                                                }
-                                            ]}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Card>
+                            <Table
+                                rowKey={"id"}
+                                pagination={false}
+                                dataSource={orderItems}
+                                columns={[
+                                    {
+                                        title: "Mã SP",
+                                        dataIndex: "id",
+                                        key: "id",
+                                        render: (_, order: OrderItemResponse) => `#${order.product.id}`
+                                    },
+                                    {
+                                        title: "Thương hiệu",
+                                        dataIndex: "vendor",
+                                        key: "vendor",
+                                        render: (_, order: OrderItemResponse) => order.product.vendor
+                                    },
+                                    {
+                                        title: "Tên sản phẩm",
+                                        dataIndex: "productTitle",
+                                        key: "productTitle",
+                                        render: (_, order: OrderItemResponse) => order.product.productTitle
+                                    },
+                                    {
+                                        title: "Số lượng",
+                                        dataIndex: "quantity",
+                                        key: "quantity"
+                                    },
+                                    {
+                                        title: "Đơn giá",
+                                        dataIndex: "price",
+                                        key: "price",
+                                        render: (_, order: OrderItemResponse) => formatProductPrice(order.product.price)
+                                    },
+                                    {
+                                        title: "Thành tiền",
+                                        dataIndex: "amount",
+                                        key: "amount",
+                                        render: (_, order: OrderItemResponse) => (
+                                            <span className="font-label-sm text-secondary">
+                                                {formatProductPrice(order.amount)}
+                                            </span>
+                                        )
+                                    }
+                                ]}
+                            />
                         </Col>
                     </Row>
                 </>

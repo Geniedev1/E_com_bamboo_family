@@ -5,9 +5,7 @@ import {
     addProduct,
     deleteProduct,
     fetchAllUsers,
-    fetchAllUsersByQuery,
     fetchUserInfo,
-    fetchUserInfoByQuery,
     updateProduct
 } from "./admin-thunks";
 
@@ -100,20 +98,6 @@ export const adminSlice = createSlice({
         });
         builder.addCase(fetchUserInfo.fulfilled, (state, action) => {
             state.user = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchUserInfoByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchUserInfoByQuery.fulfilled, (state, action) => {
-            state.user = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchAllUsersByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchAllUsersByQuery.fulfilled, (state, action) => {
-            state.users = action.payload;
             state.loadingState = LoadingStatus.LOADED;
         });
     }

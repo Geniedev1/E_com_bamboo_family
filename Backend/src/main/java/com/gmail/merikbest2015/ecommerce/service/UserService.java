@@ -1,9 +1,7 @@
 package com.gmail.merikbest2015.ecommerce.service;
 
 import com.gmail.merikbest2015.ecommerce.domain.Product;
-import com.gmail.merikbest2015.ecommerce.domain.Review;
 import com.gmail.merikbest2015.ecommerce.domain.User;
-import graphql.schema.DataFetcher;
 
 import java.util.List;
 
@@ -21,8 +19,4 @@ public interface UserService {
     List<Product> getCart(List<Long> productIds);
 
     User updateUserInfo(String email, User user);
-
-    DataFetcher<List<User>> getAllUsersByQuery();
-
-    DataFetcher<User> getUserByQuery();
 }

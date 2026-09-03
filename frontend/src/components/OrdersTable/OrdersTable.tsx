@@ -8,6 +8,7 @@ import { HeaderResponse, OrderResponse } from "../../types/types";
 import { ACCOUNT_USER_ORDERS } from "../../constants/routeConstants";
 import { selectTotalElements } from "../../redux-toolkit/orders/orders-selector";
 import { useTablePagination } from "../../hooks/useTablePagination";
+import { formatProductPrice } from "../../utils/priceUtils";
 
 type PropsType = {
     orders: Array<OrderResponse>;
@@ -31,18 +32,19 @@ const OrdersTable: FC<PropsType> = ({ orders, loading, fetchOrders }): ReactElem
             dataSource={orders}
             columns={[
                 {
-                    title: "Order №",
+                    title: "Mã đơn",
                     dataIndex: "id",
-                    key: "id"
+                    key: "id",
+                    render: (_, order: OrderResponse) => <span className="font-label-sm text-primary">#{order.id}</span>
                 },
                 {
-                    title: "Date",
+                    title: "Ngày đặt",
                     dataIndex: "date",
                     key: "date",
                     sorter: (a, b) => a.date.localeCompare(b.date)
                 },
                 {
-                    title: "Customer",
+                    title: "Khách hàng",
                     dataIndex: "firstName",
                     key: "firstName",
                     render: (_, order: OrderResponse) => `${order.firstName} ${order.lastName}`
@@ -53,16 +55,27 @@ const OrdersTable: FC<PropsType> = ({ orders, loading, fetchOrders }): ReactElem
                     key: "email"
                 },
                 {
-                    title: "Sum, $",
+                    title: "Tổng tiền",
                     dataIndex: "totalPrice",
                     key: "totalPrice",
-                    sorter: (a, b) => a.totalPrice - b.totalPrice
+                    sorter: (a, b) => a.totalPrice - b.totalPrice,
+                    render: (_, order: OrderResponse) => (
+                        <span className="font-label-sm text-secondary">{formatProductPrice(order.totalPrice)}</span>
+                    )
                 },
                 {
-                    title: "Actions",
+                    title: "Thao tác",
                     dataIndex: "operations",
                     key: "operations",
-                    render: (_, order: OrderResponse) => <Link to={`${ACCOUNT_USER_ORDERS}/${order.id}`}>Show more</Link>
+                    render: (_, order: OrderResponse) => (
+                        <Link
+                            to={`${ACCOUNT_USER_ORDERS}/${order.id}`}
+                            className="inline-flex items-center gap-1 font-label-sm text-secondary hover:text-primary hover:no-underline"
+                        >
+                            <span className="material-symbols-outlined text-[18px]">visibility</span>
+                            Xem chi tiết
+                        </Link>
+                    )
                 }
             ]}
         />

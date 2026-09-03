@@ -36,9 +36,11 @@ import Account from "./pages/Account/Account";
 import OrderFinalize from "./pages/OrderFinalize/OrderFinalize";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import ChatWidget from "./components/ChatWidget/ChatWidget";
 import OAuth2RedirectHandler from "./utils/oauth2/OAuth2RedirectHandler";
 import "./tailwind.css";
 import "./App.css";
+import "./antd-overrides.css";
 
 const App: FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -72,17 +74,13 @@ const App: FC = (): ReactElement => {
                     <Route exact path={ORDER} component={Order} />
                     <Route exact path={ORDER_FINALIZE} component={OrderFinalize} />
                     <Route path={OAUTH2_REDIRECT} component={OAuth2RedirectHandler} />
-                    <Route
-                        path={ACCOUNT}
-                        render={() =>
-                            localStorage.getItem("token") ? <Route component={Account} /> : <Route component={Home} />
-                        }
-                    />
+                    <Route path={ACCOUNT} component={Account} />
                     <Route path="*" component={Home} />
                 </Switch>
             </main>
             <Footer />
             <BackTop />
+            <ChatWidget />
         </>
     );
 };

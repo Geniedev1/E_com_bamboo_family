@@ -1,7 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -145,26 +144,4 @@ public class OrderControllerTest {
                 .andExpect(jsonPath("$.postIndexError", is(EMPTY_POST_INDEX)));
     }
 
-    @Test
-    @WithUserDetails(USER_EMAIL)
-    public void getUserOrdersByQuery() throws Exception {
-        GraphQLRequest graphQLRequest = new GraphQLRequest();
-        graphQLRequest.setQuery(GRAPHQL_QUERY_ORDERS);
-
-        mockMvc.perform(post(API_V1_ORDER + GRAPHQL)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.orders[*].id").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].totalPrice", hasItem(TOTAL_PRICE)))
-                .andExpect(jsonPath("$.data.orders[*].date").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].firstName", hasItem(FIRST_NAME)))
-                .andExpect(jsonPath("$.data.orders[*].lastName", hasItem(LAST_NAME)))
-                .andExpect(jsonPath("$.data.orders[*].city", hasItem(CITY)))
-                .andExpect(jsonPath("$.data.orders[*].address", hasItem(ADDRESS)))
-                .andExpect(jsonPath("$.data.orders[*].email", hasItem(USER_EMAIL)))
-                .andExpect(jsonPath("$.data.orders[*].phoneNumber", hasItem(PHONE_NUMBER)))
-                .andExpect(jsonPath("$.data.orders[*].postIndex", hasItem(POST_INDEX)))
-                .andExpect(jsonPath("$.data.orders[*].orderItems").isNotEmpty());
-    }
 }

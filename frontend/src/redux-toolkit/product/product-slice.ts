@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { FullProductResponse, LoadingStatus, ReviewResponse } from "../../types/types";
-import { fetchProduct, fetchProductByQuery, fetchReviewsByProductId } from "./product-thunks";
+import { fetchProduct, fetchReviewsByProductId } from "./product-thunks";
 
 export interface ProductState {
     product: Partial<FullProductResponse>;
@@ -46,17 +46,6 @@ export const productSlice = createSlice({
         builder.addCase(fetchReviewsByProductId.fulfilled, (state, action) => {
             state.reviews = action.payload;
             state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchProductByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchProductByQuery.fulfilled, (state, action) => {
-            state.product = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
-        });
-        builder.addCase(fetchProductByQuery.rejected, (state, action) => {
-            state.errorMessage = action.payload!;
-            state.loadingState = LoadingStatus.ERROR;
         });
     }
 });

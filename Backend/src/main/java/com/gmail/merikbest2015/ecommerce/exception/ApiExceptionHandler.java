@@ -29,12 +29,7 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(new EmailException(exception.getEmailError()));
     }
 
-    @ExceptionHandler(CaptchaException.class)
-    public ResponseEntity<CaptchaException> handleCaptchaException(CaptchaException exception) {
-        return ResponseEntity.badRequest().body(new CaptchaException(exception.getCaptchaError()));
-    }
-
-    @ExceptionHandler(InputFieldException.class)
+@ExceptionHandler(InputFieldException.class)
     public ResponseEntity<Map<String, String>> handleInputFieldException(InputFieldException exception) {
         InputFieldException inputFieldException = new InputFieldException(exception.getBindingResult());
         return ResponseEntity.badRequest().body(inputFieldException.getErrorsMap());

@@ -55,8 +55,7 @@ public class ProductRequest {
 
     private Integer stockQuantity; // Số lượng tồn kho
 
-    @Length(max = 255)
-    private String category; // Danh mục hiển thị
+    private Long categoryId; // Danh mục (tham chiếu category.id)
 
     @Length(max = 50)
     private String productStatus; // ACTIVE | INACTIVE | OUT_OF_STOCK

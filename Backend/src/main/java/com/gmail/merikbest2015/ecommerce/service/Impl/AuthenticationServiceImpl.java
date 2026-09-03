@@ -3,7 +3,6 @@ package com.gmail.merikbest2015.ecommerce.service.Impl;
 import com.gmail.merikbest2015.ecommerce.enums.AuthProvider;
 import com.gmail.merikbest2015.ecommerce.enums.Role;
 import com.gmail.merikbest2015.ecommerce.domain.User;
-import com.gmail.merikbest2015.ecommerce.dto.CaptchaResponse;
 import com.gmail.merikbest2015.ecommerce.exception.ApiRequestException;
 import com.gmail.merikbest2015.ecommerce.exception.EmailException;
 import com.gmail.merikbest2015.ecommerce.exception.PasswordConfirmationException;
@@ -14,6 +13,7 @@ import com.gmail.merikbest2015.ecommerce.security.oauth2.OAuth2UserInfo;
 import com.gmail.merikbest2015.ecommerce.service.AuthenticationService;
 import com.gmail.merikbest2015.ecommerce.service.email.MailSender;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,11 +32,11 @@ import java.util.UUID;
 import static com.gmail.merikbest2015.ecommerce.constants.ErrorMessage.*;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
-    private final RestTemplate restTemplate;
     private final JwtProvider jwtProvider;
     private final MailSender mailSender;
     private final PasswordEncoder passwordEncoder;
@@ -45,12 +44,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Value("${hostname}")
     private String hostname;
-
-    @Value("${recaptcha.secret}")
-    private String secret;
-
-    @Value("${recaptcha.url}")
-    private String captchaUrl;
 
     @Override
     public Map<String, Object> login(String email, String password) {
@@ -71,10 +64,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional
-    public String registerUser(User user, String captcha, String password2) {
-        String url = String.format(captchaUrl, secret, captcha);
-        restTemplate.postForObject(url, Collections.emptyList(), CaptchaResponse.class);
-
+    public String registerUser(User user, String password2) {
         if (user.getPassword() != null && !user.getPassword().equals(password2)) {
             throw new PasswordException(PASSWORDS_DO_NOT_MATCH);
         }
@@ -162,9 +152,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     private void sendEmail(User user, String subject, String template, String urlAttribute, String urlPath) {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("firstName", user.getFirstName());
-        attributes.put(urlAttribute, "http://" + hostname + urlPath);
-        mailSender.sendMessageHtml(user.getEmail(), subject, template, attributes);
+        // Email delivery must not roll back the surrounding transaction (e.g. a new
+        // registration or password-reset code). Log and continue if the mail server fails.
+        try {
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("firstName", user.getFirstName());
+            attributes.put(urlAttribute, frontendBaseUrl() + urlPath);
+            mailSender.sendMessageHtml(user.getEmail(), subject, template, attributes);
+        } catch (Exception e) {
+            log.warn("Could not send '{}' email to {}: {}", subject, user.getEmail(), e.getMessage());
+        }
+    }
+
+    // hostname có thể gồm nhiều origin (phân tách bởi dấu phẩy) và đã kèm scheme
+    // (vd https://rattanovi.com). Lấy origin đầu tiên, thêm http:// nếu thiếu scheme.
+    private String frontendBaseUrl() {
+        String first = hostname.split(",")[0].trim();
+        if (first.startsWith("http://") || first.startsWith("https://")) {
+            return first;
+        }
+        return "http://" + first;
     }
 }

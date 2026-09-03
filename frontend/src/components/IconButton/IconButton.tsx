@@ -1,5 +1,4 @@
 import React, { FC, ReactElement, ReactNode } from "react";
-import { Button } from "antd";
 
 type PropsType = {
     title: string;
@@ -9,9 +8,14 @@ type PropsType = {
 
 const IconButton: FC<PropsType> = ({ title, icon, disabled }): ReactElement => {
     return (
-        <Button type="primary" htmlType="submit" icon={icon} disabled={disabled}>
-            {title}
-        </Button>
+        <button
+            type="submit"
+            disabled={disabled}
+            className="inline-flex items-center justify-center gap-base rounded-xl bg-primary px-lg py-sm font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary-container disabled:opacity-60"
+        >
+            {icon}
+            <span>{title}</span>
+        </button>
     );
 };
 

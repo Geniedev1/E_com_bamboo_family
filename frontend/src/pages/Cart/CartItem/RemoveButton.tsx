@@ -1,6 +1,4 @@
 import React, { FC, memo, ReactElement } from "react";
-import { CloseOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 
 type PropsType = {
     productId: number;
@@ -8,11 +6,15 @@ type PropsType = {
 };
 
 const RemoveButton: FC<PropsType> = memo(({ productId, deleteFromCart }): ReactElement => {
-
     return (
-        <Button onClick={() => deleteFromCart(productId)} icon={<CloseOutlined />}>
-            Remove
-        </Button>
+        <button
+            type="button"
+            onClick={() => deleteFromCart(productId)}
+            className="inline-flex items-center gap-xs font-label-sm text-[13px] text-on-surface-variant transition-colors hover:text-error"
+        >
+            <span className="material-symbols-outlined text-[18px]">delete</span>
+            Xóa
+        </button>
     );
 });
 

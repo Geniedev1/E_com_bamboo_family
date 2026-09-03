@@ -4,7 +4,6 @@ import { AuthErrors, LoadingStatus, ReviewError, UserResponse, UserEditErrors } 
 import {
     addReviewToProduct,
     fetchUserInfo,
-    fetchUserInfoByQuery,
     updateUserInfo,
     updateUserPassword
 } from "./user-thunks";
@@ -76,13 +75,6 @@ export const userSlice = createSlice({
         builder.addCase(addReviewToProduct.rejected, (state, action) => {
             state.reviewErrors = action.payload!;
             state.isReviewAdded = false;
-        });
-        builder.addCase(fetchUserInfoByQuery.pending, (state) => {
-            state.loadingState = LoadingStatus.LOADING;
-        });
-        builder.addCase(fetchUserInfoByQuery.fulfilled, (state, action) => {
-            state.user = action.payload;
-            state.loadingState = LoadingStatus.LOADED;
         });
     }
 });

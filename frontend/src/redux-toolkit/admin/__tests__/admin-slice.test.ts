@@ -5,8 +5,6 @@ import {
     ADMIN_ADD,
     ADMIN_DELETE,
     ADMIN_EDIT,
-    ADMIN_GRAPHQL_USER,
-    ADMIN_GRAPHQL_USER_ALL,
     ADMIN_USER,
     ADMIN_USER_ALL,
     API_BASE_URL
@@ -16,9 +14,7 @@ import {
     addProduct,
     deleteProduct,
     fetchAllUsers,
-    fetchAllUsersByQuery,
     fetchUserInfo,
-    fetchUserInfoByQuery,
     updateProduct
 } from "../admin-thunks";
 import { LoadingStatus } from "../../../types/types";
@@ -141,33 +137,5 @@ describe("admin slice tests", () => {
         expect(result.type).toBe("admin/fetchUserInfo/fulfilled");
         expect(state.loadingState).toEqual(LoadingStatus.LOADED);
         expect(state.user).toEqual(userData);
-    });
-
-    it("should fetchUserInfoByQuery dispatches fulfilled on success", async () => {
-        expect(state.loadingState).toEqual(LoadingStatus.LOADING);
-        expect(state.user).toEqual({});
-
-        mock.onPost(API_BASE_URL + ADMIN_GRAPHQL_USER).reply(200, userData);
-        const result = await store.dispatch(fetchUserInfoByQuery("1"));
-
-        state = store.getState().admin;
-
-        expect(result.type).toBe("admin/fetchUserInfoByQuery/fulfilled");
-        expect(state.loadingState).toEqual(LoadingStatus.LOADED);
-        expect(state.user).toEqual(userData);
-    });
-
-    it("should fetchAllUsersByQuery dispatches fulfilled on success", async () => {
-        expect(state.loadingState).toEqual(LoadingStatus.LOADING);
-        expect(state.users).toEqual([]);
-
-        mock.onPost(API_BASE_URL + ADMIN_GRAPHQL_USER_ALL).reply(200, mockBaseUsersResponse);
-        const result = await store.dispatch(fetchAllUsersByQuery());
-
-        state = store.getState().admin;
-
-        expect(result.type).toBe("admin/fetchAllUsersByQuery/fulfilled");
-        expect(state.loadingState).toEqual(LoadingStatus.LOADED);
-        expect(state.users).toEqual(mockBaseUsersResponse);
     });
 });

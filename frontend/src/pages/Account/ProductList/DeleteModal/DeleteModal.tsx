@@ -2,6 +2,7 @@ import React, { FC, ReactElement } from "react";
 import { Col, Modal, Row, Typography } from "antd";
 
 import { ProductResponse } from "../../../../types/types";
+import { getImageUrl } from "../../../../utils/imageUrl";
 import "./DeleteModal.css";
 
 type PropsType = {
@@ -19,7 +20,7 @@ const DeleteModal: FC<PropsType> = ({ visible, deleteProductHandler, handleCance
                     <img
                         className={"delete-modal-product-image"}
                         alt={productInfo?.productTitle}
-                        src={productInfo?.filename}
+                        src={getImageUrl(productInfo?.filename)}
                     />
                 </Col>
                 <Col span={12}>

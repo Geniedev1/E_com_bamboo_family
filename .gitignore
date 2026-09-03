@@ -42,5 +42,8 @@ build/
 frontend/build/
 frontend/node_modules/
 
+### Backend local image uploads ###
+Backend/uploads/
+
 ### macOS ###
 .DS_Store

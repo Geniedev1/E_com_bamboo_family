@@ -10,8 +10,7 @@ import {
     UserResponse
 } from "../../types/types";
 import RequestService from "../../utils/request-service";
-import { AUTH_EDIT_PASSWORD, REVIEW, USERS, USERS_GRAPHQL } from "../../constants/urlConstants";
-import { userByQuery } from "../../utils/graphql-query/users-query";
+import { AUTH_EDIT_PASSWORD, REVIEW, USERS } from "../../constants/urlConstants";
 
 export const fetchUserInfo = createAsyncThunk<UserResponse>("user/fetchUserInfo", async () => {
     const response = await RequestService.get(USERS, true);
@@ -50,14 +49,5 @@ export const addReviewToProduct = createAsyncThunk<{}, ReviewRequest, { rejectVa
         } catch (error) {
             return thunkApi.rejectWithValue(error.response.data);
         }
-    }
-);
-
-// GraphQL query
-export const fetchUserInfoByQuery = createAsyncThunk<UserResponse, string>(
-    "user/fetchUserInfoByQuery",
-    async (userId) => {
-        const response = await RequestService.post(USERS_GRAPHQL, { query: userByQuery(userId) }, true);
-        return response.data.data.user;
     }
 );

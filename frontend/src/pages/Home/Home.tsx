@@ -2,10 +2,10 @@ import React, { FC, ReactElement, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { MENU, PRODUCT } from "../../constants/routeConstants";
+import { MENU } from "../../constants/routeConstants";
 import { selectProducts } from "../../redux-toolkit/products/products-selector";
 import { fetchProducts } from "../../redux-toolkit/products/products-thunks";
-import { ProductResponse } from "../../types/types";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const heroImage =
     "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1800&q=80";
@@ -29,60 +29,6 @@ const collections = [
         image: "https://images.unsplash.com/photo-1607344645866-009c7d8c9df4?auto=format&fit=crop&w=900&q=80"
     }
 ];
-
-const materialBadgeByIndex = ["Mây tự nhiên", "Tre hun khói", "Mây tự nhiên", "Nứa đan"];
-
-type HomeProductCardProps = {
-    product: ProductResponse;
-    index: number;
-};
-
-const HomeProductCard: FC<HomeProductCardProps> = ({ product, index }): ReactElement => {
-    const material = product.category || materialBadgeByIndex[index % materialBadgeByIndex.length];
-
-    return (
-        <Link
-            className="group flex min-h-[438px] flex-col overflow-hidden rounded-lg border border-[#eadfca] bg-[#fffdf6] text-on-surface shadow-[0_8px_18px_-14px_rgba(83,61,31,0.32)] transition duration-300 hover:-translate-y-1 hover:text-on-surface hover:no-underline hover:shadow-[0_16px_28px_-20px_rgba(83,61,31,0.46)]"
-            to={`${PRODUCT}/${product.id}`}
-        >
-            <div className="relative aspect-[1.28/1] overflow-hidden bg-[#f7f0e4]">
-                <span className="absolute left-sm top-sm z-10 rounded-full bg-[#2e633f] px-sm py-[3px] font-label-sm text-[11px] uppercase leading-none text-white">
-                    New
-                </span>
-                <span className="absolute right-sm top-sm z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-primary shadow-[0_8px_18px_-13px_rgba(83,61,31,0.48)] transition group-hover:text-secondary">
-                    <span className="material-symbols-outlined text-[22px]">favorite</span>
-                </span>
-                <img
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    src={product.filename}
-                    alt={product.productTitle}
-                />
-            </div>
-            <div className="flex flex-1 flex-col p-sm">
-                <h3 className="min-h-[52px] font-headline-md text-[18px] font-semibold leading-[1.45] text-primary">
-                    {product.productTitle}
-                </h3>
-                <div className="mt-sm space-y-xs font-body-md text-[14px] leading-6 text-[#6b5b45]">
-                    <div className="flex items-center gap-xs font-label-sm text-[15px] text-primary">
-                        <span className="material-symbols-outlined text-[17px] text-[#7d8b54]">paid</span>
-                        {product.price.toLocaleString("vi-VN")}.000 đ
-                    </div>
-                    <div className="flex items-center gap-xs">
-                        <span className="material-symbols-outlined text-[17px] text-[#8c955f]">straighten</span>
-                        <span className="truncate">{product.volume || "Kích thước đang cập nhật"}</span>
-                    </div>
-                    <div className="flex items-center gap-xs">
-                        <span className="material-symbols-outlined text-[17px] text-[#8c955f]">layers</span>
-                        <span className="truncate">{material || product.vendor}</span>
-                    </div>
-                </div>
-                <span className="mt-auto flex h-10 items-center justify-center rounded-lg border border-[#b59c72] font-label-sm text-[14px] text-primary transition group-hover:bg-primary group-hover:text-white">
-                    Xem chi tiết
-                </span>
-            </div>
-        </Link>
-    );
-};
 
 const Home: FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -140,8 +86,8 @@ const Home: FC = (): ReactElement => {
                     </Link>
                 </div>
                 <div className="grid gap-gutter sm:grid-cols-2 lg:grid-cols-4">
-                    {products.slice(0, 4).map((product, index) => (
-                        <HomeProductCard key={product.id} product={product} index={index} />
+                    {products.slice(0, 4).map((product) => (
+                        <ProductCard key={product.id} product={product} />
                     ))}
                 </div>
             </section>

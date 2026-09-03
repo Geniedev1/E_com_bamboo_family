@@ -19,5 +19,7 @@ export const ACCOUNT_USER_ORDERS = "/account/user/orders";
 
 export const ACCOUNT_ADMIN_ADD = "/account/admin/add";
 export const ACCOUNT_ADMIN_PRODUCTS = "/account/admin/products";
+export const ACCOUNT_ADMIN_CATEGORIES = "/account/admin/categories";
+export const ACCOUNT_ADMIN_CHAT = "/account/admin/chat";
 export const ACCOUNT_ADMIN_ORDERS = "/account/admin/orders";
 export const ACCOUNT_ADMIN_USERS = "/account/admin/users";

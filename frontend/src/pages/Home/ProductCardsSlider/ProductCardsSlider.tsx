@@ -15,8 +15,6 @@ const ProductCardsSlider: FC = (): ReactElement => {
     const products = useSelector(selectProducts);
 
     useEffect(() => {
-        // GraphQL example
-        // dispatch(fetchProductsByIdsQuery(productsId));
         dispatch(fetchProductsByIds(productsIds));
 
         return () => {

@@ -1,14 +1,11 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.HeaderResponse;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderItemResponse;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderRequest;
 import com.gmail.merikbest2015.ecommerce.dto.order.OrderResponse;
 import com.gmail.merikbest2015.ecommerce.mapper.OrderMapper;
 import com.gmail.merikbest2015.ecommerce.security.UserPrincipal;
-import com.gmail.merikbest2015.ecommerce.service.graphql.GraphQLProvider;
-import graphql.ExecutionResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,7 +25,6 @@ import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
 public class OrderController {
 
     private final OrderMapper orderMapper;
-    private final GraphQLProvider graphQLProvider;
 
     @GetMapping(ORDER_ID)
     public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long orderId) {
@@ -50,10 +46,5 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponse> postOrder(@Valid @RequestBody OrderRequest order, BindingResult bindingResult) {
         return ResponseEntity.ok(orderMapper.postOrder(order, bindingResult));
-    }
-
-    @PostMapping(GRAPHQL)
-    public ResponseEntity<ExecutionResult> getUserOrdersByQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
     }
 }

@@ -1,7 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.perfume.PerfumeRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,12 +50,10 @@ public class AdminControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    private GraphQLRequest graphQLRequest;
     private PerfumeRequest perfumeRequest;
 
     @Before
     public void init() {
-        graphQLRequest = new GraphQLRequest();
         perfumeRequest = new PerfumeRequest();
         perfumeRequest.setPerfumer(PERFUMER_CHANEL);
         perfumeRequest.setPerfumeTitle(PERFUME_TITLE);
@@ -249,93 +246,4 @@ public class AdminControllerTest {
                 .andExpect(jsonPath("$[*].email", hasItem(USER_EMAIL)));
     }
 
-    @Test
-    @DisplayName("[200] POST /api/v1/admin/graphql/user - Get User By Query")
-    public void getUserByQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_USER);
-
-        mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_USER)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.user.id", equalTo(USER_ID)))
-                .andExpect(jsonPath("$.data.user.email", equalTo(USER_EMAIL)))
-                .andExpect(jsonPath("$.data.user.firstName", equalTo(FIRST_NAME)))
-                .andExpect(jsonPath("$.data.user.lastName", equalTo(LAST_NAME)))
-                .andExpect(jsonPath("$.data.user.city", equalTo(CITY)))
-                .andExpect(jsonPath("$.data.user.address", equalTo(ADDRESS)))
-                .andExpect(jsonPath("$.data.user.phoneNumber", equalTo(PHONE_NUMBER)))
-                .andExpect(jsonPath("$.data.user.postIndex", equalTo("1234567890")))
-                .andExpect(jsonPath("$.data.user.activationCode", equalTo(null)))
-                .andExpect(jsonPath("$.data.user.passwordResetCode", equalTo(null)))
-                .andExpect(jsonPath("$.data.user.active", equalTo(true)))
-                .andExpect(jsonPath("$.data.user.roles[0]", equalTo(ROLE_USER)));
-    }
-
-    @Test
-    @DisplayName("[200] POST /api/v1/admin/graphql/user/all - Get Users By Query")
-    public void getUsersByQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_USERS);
-
-        mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_USER_ALL)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.users[*].id").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].email").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].firstName").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].lastName").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].city").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].address").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].phoneNumber").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].postIndex").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].activationCode").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].passwordResetCode").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].active").isNotEmpty())
-                .andExpect(jsonPath("$.data.users[*].roles").isNotEmpty());
-    }
-
-    @Test
-    @DisplayName("[200] POST /api/v1/admin/graphql/orders - Get Orders By Query")
-    public void getOrdersByQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_ORDERS);
-
-        mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_ORDERS)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.orders[*].id").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].totalPrice").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].date").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].firstName").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].lastName").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].city").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].address").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].email").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].phoneNumber").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].postIndex").isNotEmpty())
-                .andExpect(jsonPath("$.data.orders[*].orderItems[*].perfume").isNotEmpty());
-    }
-
-    @Test
-    @DisplayName("[200] POST /api/v1/admin/graphql/order - Get User Orders By Email Query")
-    public void getUserOrdersByEmailQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_ORDERS_BY_EMAIL);
-
-        mockMvc.perform(post(API_V1_ADMIN + GRAPHQL_ORDER)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].id").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].totalPrice").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].date").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].firstName").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].lastName").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].city").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].address").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].email").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].phoneNumber").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].postIndex").isNotEmpty())
-                .andExpect(jsonPath("$.data.ordersByEmail[*].orderItems[*].perfume").isNotEmpty());
-    }
 }

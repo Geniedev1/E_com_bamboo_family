@@ -49,7 +49,15 @@ public class Product {
     private String description; // Mô tả đầy đủ
 
     @Column(name = "filename")
-    private String filename; // URL ảnh sản phẩm (lưu trên S3)
+    private String filename; // Ảnh bìa (ảnh đầu tiên trong images) — giữ để tương thích ngược
+
+    // Tối đa 5 ảnh / sản phẩm. filename = images[0] (ảnh bìa).
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @OrderColumn(name = "image_order")
+    @Column(name = "image_url")
+    @ToString.Exclude
+    private List<String> images;
 
     @Column(name = "price")
     private Integer price; // Giá gốc (VND)
@@ -67,8 +75,10 @@ public class Product {
     @Column(name = "stock_quantity")
     private Integer stockQuantity; // Số lượng tồn kho
 
-    @Column(name = "category")
-    private String category; // Danh mục (Gốm sứ, Vải, Gỗ, Trang sức...)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    @ToString.Exclude
+    private Category category; // Danh mục (tham chiếu bảng category)
 
     @Column(name = "product_status")
     private String productStatus; // ACTIVE | INACTIVE | OUT_OF_STOCK

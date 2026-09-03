@@ -1,20 +1,22 @@
 import React from "react";
 
-import { mountWithStore } from "../../../utils/test/testHelper";
-import CarouselImageSlider from "../CarouselImageSlider/CarouselImageSlider";
-import SliderBrands from "../SliderBrands/SliderBrands";
-import HomePageTheme from "../HomePageTheme/HomePageTheme";
-import ProductCardsSlider from "../ProductCardsSlider/ProductCardsSlider";
+import { createMockRootState, mockDispatch, mountWithStore } from "../../../utils/test/testHelper";
+import { LoadingStatus } from "../../../types/types";
+import { mockProductsResponse } from "../../../utils/test/__mocks__/products-mock";
+import ProductCard from "../../../components/ProductCard/ProductCard";
 import Home from "../Home";
 
 window.scrollTo = jest.fn();
 
 describe("Home", () => {
-    it("should render correctly", () => {
-        const wrapper = mountWithStore(<Home />);
-        expect(wrapper.find(CarouselImageSlider).exists()).toBeTruthy();
-        expect(wrapper.find(SliderBrands).exists()).toBeTruthy();
-        expect(wrapper.find(HomePageTheme).exists()).toBeTruthy();
-        expect(wrapper.find(ProductCardsSlider).exists()).toBeTruthy();
+    beforeEach(() => {
+        mockDispatch();
+    });
+
+    it("should render featured product cards", () => {
+        const base = createMockRootState(LoadingStatus.LOADED);
+        const mockState = { ...base, products: { ...base.products, products: mockProductsResponse } };
+        const wrapper = mountWithStore(<Home />, mockState);
+        expect(wrapper.find(ProductCard).length).toEqual(mockProductsResponse.length);
     });
 });

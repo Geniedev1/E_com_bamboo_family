@@ -82,6 +82,7 @@ nano .env
 ```
 
 Nội dung `.env` cần điền:
+
 ```
 POSTGRES_DB=shopdb
 POSTGRES_USER=shopuser
@@ -104,7 +105,7 @@ AWS_REGION=ap-southeast-1
 1. Commit toàn bộ code mới nhất của bạn (sau khi đã cấu hình) lên một GitHub Repository.
 2. Đăng nhập vào Cloudflare, chọn mục **Pages**.
 3. Bấm **Create a project** -> **Connect to Git**.
-4. Chọn repo chứa code của bạn, chọn nhánh `main` hoặc `master`.
+4. Chọn repo chứa code của bạn, chọn nhánh `lite-core`.
 5. Cấu hình Build settings:
    - Framework preset: `Create React App`
    - Build command: `npm run build`
@@ -201,6 +202,7 @@ git pull
 ## Trỏ Domain về EC2
 
 Nếu dùng domain (khuyên dùng):
+
 1. Lấy **Public IP** của EC2 trong AWS Console
 2. Vào DNS provider → thêm **A record**:
    - `@` → `<EC2_PUBLIC_IP>`
@@ -214,7 +216,7 @@ Nếu dùng domain (khuyên dùng):
 ## Chi phí ước tính
 
 | Dịch vụ | Chi phí |
-|---|---|
+| --- | --- |
 | EC2 t2.micro | **Miễn phí** 12 tháng (free tier) |
 | EC2 t3.small | ~$15-20/tháng |
 | S3 (ảnh) | $0.023/GB/tháng |

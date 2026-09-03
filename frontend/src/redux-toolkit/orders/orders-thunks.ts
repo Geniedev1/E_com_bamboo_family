@@ -3,14 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { HeaderResponse, OrderResponse, UserOrdersRequest } from "../../types/types";
 import RequestService from "../../utils/request-service";
 import {
-    ADMIN_GRAPHQL_ORDER,
-    ADMIN_GRAPHQL_ORDERS,
     ADMIN_ORDER,
     ADMIN_ORDERS,
-    ORDER,
-    ORDER_GRAPHQL
+    ORDER
 } from "../../constants/urlConstants";
-import { ordersByEmailQuery, ordersByQuery } from "../../utils/graphql-query/orders-query";
 
 export const fetchUserOrders = createAsyncThunk<HeaderResponse<OrderResponse>, number>(
     "orders/fetchUserOrders",
@@ -36,6 +32,20 @@ export const fetchAllUsersOrders = createAsyncThunk<HeaderResponse<OrderResponse
     }
 );
 
+// Fetch every order in one request (large page) so the admin can group them by
+// customer client-side. Suits the lite shop's modest order volume.
+export const fetchAllUsersOrdersFull = createAsyncThunk<HeaderResponse<OrderResponse>, void>(
+    "orders/fetchAllUsersOrdersFull",
+    async () => {
+        const response = await RequestService.get(`${ADMIN_ORDERS}?page=0&size=1000`, true);
+        return {
+            items: response.data,
+            pagesCount: parseInt(response.headers["page-total-count"]),
+            totalElements: parseInt(response.headers["page-total-elements"])
+        };
+    }
+);
+
 export const fetchUserOrdersByEmail = createAsyncThunk<HeaderResponse<OrderResponse>, UserOrdersRequest>(
     "orders/fetchUserOrdersByEmail",
     async ({ email, page }) => {
@@ -45,30 +55,5 @@ export const fetchUserOrdersByEmail = createAsyncThunk<HeaderResponse<OrderRespo
             pagesCount: parseInt(response.headers["page-total-count"]),
             totalElements: parseInt(response.headers["page-total-elements"])
         };
-    }
-);
-
-// graphql
-export const fetchUserOrdersByQuery = createAsyncThunk<Array<OrderResponse>, string>(
-    "orders/fetchUserOrdersByQuery",
-    async (email) => {
-        const response = await RequestService.post(ORDER_GRAPHQL, { query: ordersByEmailQuery(email) }, true);
-        return response.data.data.ordersByEmail;
-    }
-);
-
-export const fetchAllUsersOrdersByQuery = createAsyncThunk<Array<OrderResponse>>(
-    "orders/fetchAllUsersOrdersByQuery",
-    async () => {
-        const response = await RequestService.post(ADMIN_GRAPHQL_ORDERS, { query: ordersByQuery }, true);
-        return response.data.data.orders;
-    }
-);
-
-export const fetchUserOrdersByEmailQuery = createAsyncThunk<Array<OrderResponse>, string>(
-    "orders/fetchUserOrdersByEmailQuery",
-    async (email) => {
-        const response = await RequestService.post(ADMIN_GRAPHQL_ORDER, { query: ordersByEmailQuery(email) }, true);
-        return response.data.data.ordersByEmail;
     }
 );

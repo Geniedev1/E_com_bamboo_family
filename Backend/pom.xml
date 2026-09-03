@@ -128,18 +128,6 @@
             <version>6.1.6.Final</version>
         </dependency>
 
-        <!-- graphql -->
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>5.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-tools</artifactId>
-            <version>5.2.4</version>
-        </dependency>
-
         <!-- AOP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -173,13 +161,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-
-        <!-- AWS -->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>1.11.133</version>
         </dependency>
 
         <!-- thymeleaf -->

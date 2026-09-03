@@ -1,13 +1,10 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.product.ProductResponse;
 import com.gmail.merikbest2015.ecommerce.dto.user.UpdateUserRequest;
 import com.gmail.merikbest2015.ecommerce.dto.user.UserResponse;
 import com.gmail.merikbest2015.ecommerce.mapper.UserMapper;
 import com.gmail.merikbest2015.ecommerce.security.UserPrincipal;
-import com.gmail.merikbest2015.ecommerce.service.graphql.GraphQLProvider;
-import graphql.ExecutionResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +22,6 @@ import static com.gmail.merikbest2015.ecommerce.constants.PathConstants.*;
 public class UserController {
 
     private final UserMapper userMapper;
-    private final GraphQLProvider graphQLProvider;
 
     @GetMapping
     public ResponseEntity<UserResponse> getUserInfo(@AuthenticationPrincipal UserPrincipal user) {
@@ -42,10 +38,5 @@ public class UserController {
     @PostMapping(CART)
     public ResponseEntity<List<ProductResponse>> getCart(@RequestBody List<Long> productIds) {
         return ResponseEntity.ok(userMapper.getCart(productIds));
-    }
-
-    @PostMapping(GRAPHQL)
-    public ResponseEntity<ExecutionResult> getUserInfoByQuery(@RequestBody GraphQLRequest request) {
-        return ResponseEntity.ok(graphQLProvider.getGraphQL().execute(request.getQuery()));
     }
 }

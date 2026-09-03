@@ -1,5 +1,7 @@
 package com.gmail.merikbest2015.ecommerce.dto.product;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +19,5 @@ public class FullProductResponse extends ProductResponse {
     private String baseDescription;
     private String description;
     private String type;
+    private List<String> images; // Danh sách ảnh (tối đa 5), images[0] = ảnh bìa
 }

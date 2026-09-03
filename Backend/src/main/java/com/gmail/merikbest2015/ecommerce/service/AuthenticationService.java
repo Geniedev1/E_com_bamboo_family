@@ -9,7 +9,7 @@ public interface AuthenticationService {
 
     Map<String, Object> login(String email, String password);
 
-    String registerUser(User user, String captcha, String password2);
+    String registerUser(User user, String password2);
 
     User registerOauth2User(String provider, OAuth2UserInfo oAuth2UserInfo);
 

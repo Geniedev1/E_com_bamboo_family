@@ -49,7 +49,7 @@ describe("ProductList", () => {
         const mockStore = { ...mockRootStore, products: { ...mockRootStore.products, products: mockProductsResponse } };
         const wrapper = mountWithStore(<ProductList />, mockStore);
         expect(wrapper.find(DeleteModal).prop("visible")).toBe(false);
-        wrapper.find(ProductCard).find(Button).at(1).simulate("click");
+        wrapper.find(ProductCard).at(0).find("button").at(0).simulate("click");
         expect(wrapper.find(DeleteModal).prop("visible")).toBe(true);
         wrapper.find(DeleteModal).find(Button).at(0).simulate("click");
         expect(wrapper.find(DeleteModal).prop("visible")).toBe(false);
@@ -58,7 +58,7 @@ describe("ProductList", () => {
     it("should click delete product", () => {
         const mockStore = { ...mockRootStore, products: { ...mockRootStore.products, products: mockProductsResponse } };
         const wrapper = mountWithStore(<ProductList />, mockStore);
-        wrapper.find(ProductCard).find(Button).at(1).simulate("click");
+        wrapper.find(ProductCard).at(0).find("button").at(0).simulate("click");
         wrapper.find(DeleteModal).find(Button).at(1).simulate("click");
         expect(mockDispatchFn).nthCalledWith(2, expect.any(Function));
     });

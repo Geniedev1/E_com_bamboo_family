@@ -31,8 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final OAuth2SuccessHandler oauthSuccessHandler;
     private final CustomOAuth2UserService oAuth2UserService;
 
-    @Value("${hostname}")
-    private String hostname;
+    @Value("${cors.allowed-origins}")
+    private String allowedOrigins;
 
     public WebSecurityConfiguration(
             JwtConfigurer jwtConfigurer,
@@ -53,6 +53,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
                 .antMatchers("/api/v1/auth/**",
                         "/api/v1/auth/login",
                         "/api/v1/registration/**",
@@ -60,8 +61,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/v1/users/cart",
                         "/api/v1/order/**",
                         "/api/v1/review/**",
+                        "/api/v1/chat/**",
                         "/websocket", "/websocket/**",
                         "/img/**",
+                        "/images/**",
                         "/static/**").permitAll()
                 .antMatchers("/auth/**", "/oauth2/**", "/**/*swagger*/**", "/v2/api-docs").permitAll()
                 .anyRequest().authenticated()
@@ -101,8 +104,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         origins.add("http://localhost:3000");
         origins.add("http://127.0.0.1:3000");
 
-        if (hostname != null) {
-            for (String rawOrigin : hostname.split(",")) {
+        if (allowedOrigins != null) {
+            for (String rawOrigin : allowedOrigins.split(",")) {
                 String origin = rawOrigin.trim();
                 if (!origin.isEmpty()) {
                     origins.add(origin.startsWith("http://") || origin.startsWith("https://")

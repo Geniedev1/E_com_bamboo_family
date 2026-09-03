@@ -50,6 +50,13 @@ public class EmailConfiguration {
         mailProperties.setProperty("mail.debug", debug);
         mailProperties.setProperty("mail.smtp.auth", auth);
         mailProperties.setProperty("mail.smtp.starttls.enable", enable);
+        // Fail fast if the mail server is unreachable so it never blocks a request
+        // (order placement / registration continue even when mail is down).
+        for (String p : new String[]{"smtp", "smtps"}) {
+            mailProperties.setProperty("mail." + p + ".connectiontimeout", "5000");
+            mailProperties.setProperty("mail." + p + ".timeout", "5000");
+            mailProperties.setProperty("mail." + p + ".writetimeout", "5000");
+        }
         return mailSender;
     }
 

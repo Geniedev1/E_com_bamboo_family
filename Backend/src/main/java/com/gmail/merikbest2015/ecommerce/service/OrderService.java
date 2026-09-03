@@ -3,7 +3,6 @@ package com.gmail.merikbest2015.ecommerce.service;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.domain.OrderItem;
 import com.gmail.merikbest2015.ecommerce.enums.OrderStatus;
-import graphql.schema.DataFetcher;
 
 import java.util.List;
 import java.util.Map;
@@ -26,8 +25,4 @@ public interface OrderService {
     Order updateOrderStatus(Long orderId, OrderStatus newStatus);
 
     String deleteOrder(Long orderId);
-
-    DataFetcher<List<Order>> getAllOrdersByQuery();
-
-    DataFetcher<List<Order>> getUserOrdersByEmailQuery();
 }

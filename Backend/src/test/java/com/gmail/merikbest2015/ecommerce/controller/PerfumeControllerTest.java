@@ -1,7 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gmail.merikbest2015.ecommerce.dto.GraphQLRequest;
 import com.gmail.merikbest2015.ecommerce.dto.perfume.PerfumeSearchRequest;
 import com.gmail.merikbest2015.ecommerce.dto.perfume.SearchTypeRequest;
 import com.gmail.merikbest2015.ecommerce.enums.SearchPerfume;
@@ -46,7 +45,6 @@ public class PerfumeControllerTest {
     private ObjectMapper mapper;
 
     private PerfumeSearchRequest filter;
-    private GraphQLRequest graphQLRequest;
 
     @Before
     public void init() {
@@ -63,8 +61,6 @@ public class PerfumeControllerTest {
         filter.setGenders(genders);
         filter.setPrices(prices);
         filter.setSortByPrice(true);
-
-        graphQLRequest = new GraphQLRequest();
     }
 
     @Test
@@ -227,46 +223,4 @@ public class PerfumeControllerTest {
                 .andExpect(jsonPath("$[*].price").isNotEmpty());
     }
 
-    @Test
-    public void getPerfumesByIdsQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_PERFUMES_BY_IDS);
-
-        mockMvc.perform(post(API_V1_PERFUMES + GRAPHQL_IDS)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.perfumesIds[*].id").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumesIds[*].perfumeTitle").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumesIds[*].perfumer").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumesIds[*].price").isNotEmpty());
-    }
-
-    @Test
-    public void getAllPerfumesByQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_PERFUMES);
-
-        mockMvc.perform(post(API_V1_PERFUMES + GRAPHQL_PERFUMES)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.perfumes[*].id").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumes[*].perfumeTitle").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumes[*].perfumer").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumes[*].price").isNotEmpty())
-                .andExpect(jsonPath("$.data.perfumes[*].filename").isNotEmpty());
-    }
-
-    @Test
-    public void getPerfumeByQuery() throws Exception {
-        graphQLRequest.setQuery(GRAPHQL_QUERY_PERFUME);
-
-        mockMvc.perform(post(API_V1_PERFUMES + GRAPHQL_PERFUME)
-                        .content(mapper.writeValueAsString(graphQLRequest))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.perfume.id", equalTo(1)))
-                .andExpect(jsonPath("$.data.perfume.perfumeTitle", equalTo("Boss Bottled Night")))
-                .andExpect(jsonPath("$.data.perfume.perfumer", equalTo("Hugo Boss")))
-                .andExpect(jsonPath("$.data.perfume.price", equalTo(35)));
-    }
 }

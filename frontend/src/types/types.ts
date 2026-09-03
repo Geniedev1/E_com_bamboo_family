@@ -21,6 +21,7 @@ export interface FullProductResponse extends ProductResponse {
     baseDescription: string;
     description: string;
     type: string;
+    images?: string[];
     file: any;
 }
 
@@ -163,7 +164,6 @@ export interface UserRegistration {
     lastName: string;
     password: string;
     password2: string;
-    captcha: string | null;
 }
 
 export interface UserResetPasswordRequest {
@@ -173,7 +173,6 @@ export interface UserResetPasswordRequest {
 }
 
 export interface AuthErrors {
-    captchaError: string;
     emailError: string;
     firstNameError: string;
     lastNameError: string;
@@ -181,9 +180,42 @@ export interface AuthErrors {
     password2Error: string;
 }
 
+export interface ChatMessageResponse {
+    id: number;
+    conversationId: number;
+    token: string;
+    sender: "CUSTOMER" | "ADMIN";
+    content: string;
+    createdAt: string;
+}
+
+export interface ConversationResponse {
+    id: number;
+    token: string;
+    customerName?: string;
+    customerEmail?: string;
+    lastMessage?: string;
+    lastMessageAt?: string;
+    unreadAdmin: number;
+}
+
+export interface Category {
+    id: number;
+    name: string;
+    description?: string;
+    sortOrder?: number;
+}
+
+export interface CategoryRequest {
+    name: string;
+    description?: string;
+    sortOrder?: number;
+}
+
 export interface FilterParamsType {
     vendors: Array<string>;
     genders: Array<string>;
+    categories: Array<string>;
     prices: Array<number>;
     currentPage?: number;
     sortByPrice?: boolean;

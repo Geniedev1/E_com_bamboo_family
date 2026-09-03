@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import RequestService from "../../utils/request-service";
-import {PRODUCTS, PRODUCTS_GRAPHQL_PRODUCT, REVIEW} from "../../constants/urlConstants";
-import { getProductByQuery } from "../../utils/graphql-query/product-query";
+import { PRODUCTS, REVIEW } from "../../constants/urlConstants";
 import { FullProductResponse, ReviewResponse } from "../../types/types";
 
 export const fetchProduct = createAsyncThunk<Partial<FullProductResponse>, string, { rejectValue: string }>(
@@ -22,20 +21,5 @@ export const fetchReviewsByProductId = createAsyncThunk<Array<ReviewResponse>, s
     async (productId) => {
         const response = await RequestService.get(`${REVIEW}/${productId}`);
         return response.data;
-    }
-);
-
-// GraphQL thunks
-export const fetchProductByQuery = createAsyncThunk<Partial<FullProductResponse>, string, { rejectValue: string }>(
-    "product/fetchProductByQuery",
-    async (productId, thunkApi) => {
-        try {
-            const response = await RequestService.post(PRODUCTS_GRAPHQL_PRODUCT, {
-                query: getProductByQuery(productId)
-            });
-            return response.data.data.product;
-        } catch (error) {
-            return thunkApi.rejectWithValue(error.response.data);
-        }
     }
 );

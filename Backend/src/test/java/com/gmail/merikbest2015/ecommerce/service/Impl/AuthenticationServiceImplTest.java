@@ -136,60 +136,6 @@ public class AuthenticationServiceImplTest {
     }
 
     @Test
-    public void registerFacebookOauthUser() {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("id", 123456);
-        attributes.put("first_name", FIRST_NAME);
-        attributes.put("last_name", LAST_NAME);
-        attributes.put("email", USER_EMAIL);
-        FacebookOAuth2UserInfo userInfo = new FacebookOAuth2UserInfo(attributes);
-        OAuth2UserInfo facebook = OAuth2UserFactory.getOAuth2UserInfo("facebook", attributes);
-
-        User user = new User();
-        user.setEmail(USER_EMAIL);
-        user.setFirstName(FIRST_NAME);
-        user.setLastName(LAST_NAME);
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        user.setProvider(AuthProvider.FACEBOOK);
-
-        when(userRepository.save(user)).thenReturn(user);
-        authenticationService.registerOauth2User("facebook", userInfo);
-        assertEquals(USER_EMAIL, user.getEmail());
-        assertEquals(FIRST_NAME, user.getFirstName());
-        assertEquals(LAST_NAME, user.getLastName());
-        assertEquals(facebook.getAttributes(), userInfo.getAttributes());
-        assertNull(user.getPassword());
-        verify(userRepository, times(1)).save(user);
-    }
-
-    @Test
-    public void registerGithubOauthUser() {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("id", 123456);
-        attributes.put("name", FIRST_NAME);
-        attributes.put("email", USER_EMAIL);
-        GithubOAuth2UserInfo userInfo = new GithubOAuth2UserInfo(attributes);
-        OAuth2UserInfo github = OAuth2UserFactory.getOAuth2UserInfo("github", attributes);
-
-        User user = new User();
-        user.setEmail(USER_EMAIL);
-        user.setFirstName(FIRST_NAME);
-        user.setLastName("");
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        user.setProvider(AuthProvider.GITHUB);
-
-        when(userRepository.save(user)).thenReturn(user);
-        authenticationService.registerOauth2User("github", userInfo);
-        assertEquals(USER_EMAIL, user.getEmail());
-        assertEquals(FIRST_NAME, user.getFirstName());
-        assertEquals(github.getAttributes(), userInfo.getAttributes());
-        assertNull(user.getPassword());
-        verify(userRepository, times(1)).save(user);
-    }
-
-    @Test
     public void updateOauthUser() {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("sub", 123456);

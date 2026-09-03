@@ -2,7 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 
 import { LoadingStatus } from "../../../types/types";
-import { API_BASE_URL, AUTH_EDIT_PASSWORD, REVIEW, USERS, USERS_GRAPHQL } from "../../../constants/urlConstants";
+import { API_BASE_URL, AUTH_EDIT_PASSWORD, REVIEW, USERS } from "../../../constants/urlConstants";
 import { mockFullProductResponse } from "../../../utils/test/__mocks__/products-mock";
 import { store } from "../../../store";
 import { initialState } from "../user-slice";
@@ -17,7 +17,6 @@ import {
 import {
     addReviewToProduct,
     fetchUserInfo,
-    fetchUserInfoByQuery,
     updateUserInfo,
     updateUserPassword
 } from "../user-thunks";
@@ -107,18 +106,5 @@ describe("user slice tests", () => {
         state = store.getState().user;
         expect(result.type).toBe("user/addReviewToProduct/rejected");
         expect(state.reviewErrors).toEqual(reviewErrorsData);
-    });
-
-    it("should fetchUserInfoByQuery dispatches fulfilled on success", async () => {
-        expect(state.user).toEqual(undefined);
-        expect(state.loadingState).toEqual(LoadingStatus.LOADING);
-
-        mock.onPost(API_BASE_URL + USERS_GRAPHQL).reply(200, { data: { user: userData } });
-        const result = await store.dispatch(fetchUserInfoByQuery("1"));
-
-        state = store.getState().user;
-        expect(result.type).toBe("user/fetchUserInfoByQuery/fulfilled");
-        expect(state.user).toEqual(userData);
-        expect(state.loadingState).toEqual(LoadingStatus.LOADED);
     });
 });
