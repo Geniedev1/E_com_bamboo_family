@@ -29,9 +29,19 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = (String) oAuth2User.getAttributes().get("email");
         String token = jwtProvider.createToken(email, "USER");
-        String uri = UriComponentsBuilder.fromUriString("http://" + hostname + "/oauth2/redirect")
+        String uri = UriComponentsBuilder.fromUriString(frontendBaseUrl() + "/oauth2/redirect")
                 .queryParam("token", token)
                 .build().toUriString();
         getRedirectStrategy().sendRedirect(request, response, uri);
+    }
+
+    // hostname có thể gồm nhiều origin (phân tách bởi dấu phẩy) và đã kèm scheme
+    // (vd https://rattanovi.com). Lấy origin đầu tiên, thêm http:// nếu thiếu scheme.
+    private String frontendBaseUrl() {
+        String first = hostname.split(",")[0].trim();
+        if (first.startsWith("http://") || first.startsWith("https://")) {
+            return first;
+        }
+        return "http://" + first;
     }
 }
