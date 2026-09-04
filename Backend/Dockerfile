@@ -16,6 +16,11 @@ RUN mvn package -Dmaven.test.skip=true -B
 FROM eclipse-temurin:8-jre-focal
 WORKDIR /app
 
+# curl dùng cho docker-compose healthcheck (curl -f http://localhost:8080/actuator/health)
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends curl \
+  && rm -rf /var/lib/apt/lists/*
+
 # Tạo non-root user để bảo mật + thư mục lưu ảnh upload
 RUN addgroup --system spring && adduser --system --group spring \
   && mkdir -p /app/uploads && chown -R spring:spring /app
