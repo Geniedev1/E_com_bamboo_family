@@ -42,7 +42,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    @Value("${hostname}")
+    @Value("${app.public-url}")
     private String hostname;
 
     @Override

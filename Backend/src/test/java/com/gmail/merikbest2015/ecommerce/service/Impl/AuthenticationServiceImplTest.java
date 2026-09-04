@@ -52,7 +52,7 @@ public class AuthenticationServiceImplTest {
     @MockBean
     private PasswordEncoder passwordEncoder;
 
-    @Value("${hostname}")
+    @Value("${app.public-url}")
     private String hostname;
 
     @Test
