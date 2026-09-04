@@ -27,7 +27,7 @@
         <div class="order-info">
             <p><span class="label">Mã đơn hàng:</span> #<span th:text="${order.id}"></span></p>
             <p><span class="label">Trạng thái:</span> Đã xác nhận</p>
-            <p><span class="label">Tổng tiền:</span> <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'COMMA', 0, 'POINT')}"></span> ₫</p>
+            <p><span class="label">Tổng tiền:</span> <span th:text="${#numbers.formatDecimal(order.totalPrice * 1000, 0, 'POINT', 0, 'POINT')}"></span> ₫</p>
             <p><span class="label">Địa chỉ giao hàng:</span> <span th:text="${order.address + ', ' + order.city}"></span></p>
             <p><span class="label">Số điện thoại:</span> <span th:text="${order.phoneNumber}"></span></p>
         </div>
