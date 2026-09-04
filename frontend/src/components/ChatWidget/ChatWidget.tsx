@@ -86,7 +86,7 @@ const ChatWidget: FC = (): ReactElement => {
                         <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-[22px]">forum</span>
                             <div className="leading-tight">
-                                <p className="font-label-sm text-[14px]">Hỗ trợ Làng Nghề Việt</p>
+                                <p className="font-label-sm text-[14px]">Hỗ trợ Rattanovi</p>
                                 <p className="font-body-md text-[11px] opacity-80">Thường trả lời trong ít phút</p>
                             </div>
                         </div>

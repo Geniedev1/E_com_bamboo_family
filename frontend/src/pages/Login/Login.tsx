@@ -47,12 +47,12 @@ const Login: FC = (): ReactElement => {
                 <div className="hidden lg:block relative bg-surface-container-high">
                     <img
                         src={loginHero}
-                        alt="Làng Nghề Việt"
+                        alt="Rattanovi"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-primary/40 mix-blend-multiply" />
                     <div className="relative z-10 flex flex-col justify-end h-full p-lg">
-                        <span className="font-headline-xl text-headline-xl leading-none text-white">Làng Nghề Việt</span>
+                        <span className="font-headline-xl text-headline-xl leading-none text-white">Rattanovi</span>
                         <h2 className="font-headline-lg text-headline-lg mt-md leading-tight text-white">
                             Gìn giữ nét đẹp truyền thống trong không gian hiện đại.
                         </h2>

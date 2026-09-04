@@ -1,11 +1,11 @@
 import React, { FC, ReactElement } from "react";
-import { InstagramFilled, PinterestFilled, TwitterCircleFilled, YoutubeFilled } from "@ant-design/icons";
+import { InstagramFilled, PinterestFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import { CONTACTS } from "../../constants/routeConstants";
 
 const onlineLinks = [
-    { label: "Facebook", href: "https://www.facebook.com/" },
+    { label: "Facebook", href: "https://www.facebook.com/share/1J1VHMWV2Z/?mibextid=wwXIfr" },
     { label: "Shopee", href: "https://shopee.vn/" },
     { label: "Lazada", href: "https://www.lazada.vn/" },
     { label: "Tiki", href: "https://tiki.vn/" },
@@ -14,10 +14,8 @@ const onlineLinks = [
 ];
 
 const socialLinks = [
-    { label: "Pinterest", href: "https://www.pinterest.com/", icon: <PinterestFilled /> },
-    { label: "Twitter", href: "https://twitter.com/", icon: <TwitterCircleFilled /> },
-    { label: "Instagram", href: "https://www.instagram.com/", icon: <InstagramFilled /> },
-    { label: "Youtube", href: "https://www.youtube.com/", icon: <YoutubeFilled /> }
+    { label: "Pinterest", href: "https://pin.it/4GzH2MDLR", icon: <PinterestFilled /> },
+    { label: "Instagram", href: "https://www.instagram.com/dongocminh200412", icon: <InstagramFilled /> }
 ];
 
 const linkClassName =
@@ -39,7 +37,7 @@ const Footer: FC = (): ReactElement => {
                 {/* Brand + social row */}
                 <div className="mb-lg flex flex-col gap-md border-b border-white/10 pb-lg md:flex-row md:items-end md:justify-between">
                     <div>
-                        <p className="font-headline-md text-headline-md text-white">Làng Nghề Việt</p>
+                        <p className="font-headline-md text-headline-md text-white">Rattanovi</p>
                         <p className="mt-xs max-w-md font-body-md text-[14px] leading-6 text-primary-fixed-dim">
                             Tinh hoa mây tre đan Việt Nam, mang hơi thở thiên nhiên vào không gian sống hiện đại.
                         </p>
@@ -104,21 +102,20 @@ const Footer: FC = (): ReactElement => {
                     <section>
                         <h2 className="mb-sm font-label-sm text-[15px] text-white">Về Chúng Tôi</h2>
                         <p className="mb-sm max-w-[620px] font-body-md text-[14px] leading-6 text-primary-fixed-dim">
-                            TrangBamboo - Thương hiệu/nhà sản xuất đồ tre mỹ nghệ hàng đầu với 15 năm kinh nghiệm.
+                            Rattanovi - Thương hiệu/nhà sản xuất đồ tre mỹ nghệ hàng đầu với 15 năm kinh nghiệm.
                             Chúng tôi tự hào mang đến những sản phẩm thân thiện môi trường, kết hợp tinh hoa nghệ
                             thuật và thiên nhiên.
                         </p>
                         <p className="mb-0 flex items-center gap-xs font-label-sm text-[14px] text-white">
                             <span className="material-symbols-outlined text-[18px]">call</span>
-                            0977877318 (FB/Zalo)
+                            0325738794 (FB/Zalo)
                         </p>
                     </section>
                 </div>
 
                 {/* Bottom bar */}
                 <div className="mt-lg flex flex-col gap-xs border-t border-white/10 pt-md text-[13px] text-primary-fixed-dim md:flex-row md:items-center md:justify-between">
-                    <p className="mb-0">© 2026 KhanhNguyen. Bản quyền đã được bảo hộ.</p>
-                    <p className="mb-0">Handmade with care · Làng Nghề Việt</p>
+                    <p className="mb-0">Handmade with care · Rattanovi</p>
                 </div>
             </div>
         </footer>

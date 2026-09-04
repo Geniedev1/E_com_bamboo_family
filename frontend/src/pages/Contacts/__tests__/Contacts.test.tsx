@@ -8,10 +8,10 @@ window.scrollTo = jest.fn();
 describe("Contacts", () => {
     it("should render correctly", () => {
         const wrapper = mountWithStore(<Contacts />);
-        expect(wrapper.text().includes("Working time")).toBe(true);
-        expect(wrapper.text().includes("The online store is open from 08:00 to 20:00 without breaks and weekends.")).toBe(true);
-        expect(wrapper.text().includes("Online orders are accepted around the clock.")).toBe(true);
-        expect(wrapper.text().includes("Delivery")).toBe(true);
-        expect(wrapper.text().includes("Delivery of orders come through courier service.")).toBe(true);
+        expect(wrapper.text().includes("Giờ làm việc")).toBe(true);
+        expect(wrapper.text().includes("Cửa hàng mở cửa từ 08:00 đến 20:00, tất cả các ngày trong tuần.")).toBe(true);
+        expect(wrapper.text().includes("Đơn hàng online được tiếp nhận 24/7.")).toBe(true);
+        expect(wrapper.text().includes("Giao hàng")).toBe(true);
+        expect(wrapper.text().includes("Đơn hàng được giao qua dịch vụ vận chuyển.")).toBe(true);
     });
 });

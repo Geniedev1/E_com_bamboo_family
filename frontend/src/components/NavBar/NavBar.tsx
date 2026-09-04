@@ -36,7 +36,7 @@ const NavBar: FC = (): ReactElement => {
         <nav className="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/40 shadow-sm transition-all duration-300 ease-in-out">
             <div className="relative flex justify-start items-center gap-sm max-w-7xl mx-auto px-margin-mobile md:justify-between md:px-margin-desktop py-4">
                 <Link to={BASE} className="max-w-[220px] truncate font-headline-md text-[22px] font-bold text-primary dark:text-primary-fixed hover:text-primary hover:no-underline md:max-w-none md:text-headline-md">
-                    Làng Nghề Việt
+                    Rattanovi
                 </Link>
                 <ul className="hidden md:flex space-x-gutter mb-0">
                     <li>

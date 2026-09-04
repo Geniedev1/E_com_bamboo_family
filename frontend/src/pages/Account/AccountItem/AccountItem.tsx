@@ -57,7 +57,7 @@ const AccountItem: FC = (): ReactElement => {
             </h1>
             <p className="mt-sm max-w-2xl font-body-md text-body-md text-on-surface-variant">
                 {isAdmin
-                    ? "Chọn một mục bên dưới để quản lý cửa hàng Làng Nghề Việt."
+                    ? "Chọn một mục bên dưới để quản lý cửa hàng Rattanovi."
                     : "Chào mừng bạn quay lại. Quản lý đơn hàng và thông tin cá nhân của bạn tại đây."}
             </p>
 

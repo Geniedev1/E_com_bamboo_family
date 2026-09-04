@@ -48,7 +48,7 @@ const Home: FC = (): ReactElement => {
                     <div className="max-w-3xl text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.34)]">
                         <p className="font-label-sm text-label-sm uppercase opacity-90">Mây tre thủ công</p>
                         <h1 className="mt-sm font-headline-xl text-[40px] leading-tight text-white md:text-headline-xl">
-                            Làng Nghề Việt
+                            Rattanovi
                         </h1>
                         <p className="mt-md max-w-2xl font-body-lg text-body-lg text-white/90">
                             Sản phẩm thủ công từ vật liệu tự nhiên, được chọn lọc cho những không gian sống ấm áp,
@@ -150,7 +150,7 @@ const Home: FC = (): ReactElement => {
                     <p className="font-headline-lg text-headline-lg">
                         “Một sản phẩm tốt không chỉ đẹp trên kệ, mà còn làm nhịp sống hằng ngày chậm lại và dễ chịu hơn.”
                     </p>
-                    <p className="mt-md font-label-sm text-label-sm uppercase text-secondary">Làng Nghề Việt</p>
+                    <p className="mt-md font-label-sm text-label-sm uppercase text-secondary">Rattanovi</p>
                 </div>
             </section>
         </div>
