@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 
 import { ProductResponse } from "../../../types/types";
-import { formatVnd } from "../../../utils/priceUtils";
+import { formatProductPrice } from "../../../utils/priceUtils";
 import { getImageUrl } from "../../../utils/imageUrl";
 import RemoveButton from "./RemoveButton";
 
@@ -74,10 +74,10 @@ const CartItem: FC<PropsType> = ({
             </div>
 
             <div className="shrink-0 text-right sm:min-w-[110px]">
-                <p className="font-headline-md text-[18px] text-primary">{formatVnd(product.price * productCount)}</p>
+                <p className="font-headline-md text-[18px] text-primary">{formatProductPrice(product.price * productCount)}</p>
                 {productCount > 1 && (
                     <p className="mt-xs font-body-md text-[12px] text-on-surface-variant">
-                        {formatVnd(product.price)} × {productCount}
+                        {formatProductPrice(product.price)} × {productCount}
                     </p>
                 )}
             </div>

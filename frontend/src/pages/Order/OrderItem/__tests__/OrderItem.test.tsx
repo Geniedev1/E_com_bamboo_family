@@ -9,7 +9,7 @@ describe("OrderItem", () => {
         const wrapper = mountWithStore(<OrderItem product={mockProductsResponse[0]} quantity={11} />);
         expect(wrapper.text().includes(mockProductsResponse[0].vendor)).toBe(true);
         expect(wrapper.text().includes(mockProductsResponse[0].productTitle)).toBe(true);
-        expect(wrapper.text().includes(`Price: $ ${mockProductsResponse[0].price}`)).toBe(true);
-        expect(wrapper.text().includes("Quantity: 11")).toBe(true);
+        expect(wrapper.text().includes(`Giá: ${mockProductsResponse[0].price}.000 đ`)).toBe(true);
+        expect(wrapper.text().includes("Số lượng: 11")).toBe(true);
     });
 });

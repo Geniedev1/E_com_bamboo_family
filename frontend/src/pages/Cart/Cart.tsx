@@ -13,7 +13,7 @@ import {
 import CartItem from "./CartItem/CartItem";
 import Spinner from "../../components/Spinner/Spinner";
 import { MENU, ORDER } from "../../constants/routeConstants";
-import { formatVnd } from "../../utils/priceUtils";
+import { formatProductPrice } from "../../utils/priceUtils";
 
 const Cart: FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -110,7 +110,7 @@ const Cart: FC = (): ReactElement => {
                                     <span className="text-on-surface-variant">
                                         Tạm tính ({products.length} sản phẩm)
                                     </span>
-                                    <span className="text-on-surface">{formatVnd(totalPrice)}</span>
+                                    <span className="text-on-surface">{formatProductPrice(totalPrice)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-on-surface-variant">Phí vận chuyển</span>
@@ -119,7 +119,7 @@ const Cart: FC = (): ReactElement => {
                             </div>
                             <div className="flex items-center justify-between py-md">
                                 <span className="font-label-sm text-[15px] text-on-surface">Tổng cộng</span>
-                                <span className="font-headline-md text-[22px] text-primary">{formatVnd(totalPrice)}</span>
+                                <span className="font-headline-md text-[22px] text-primary">{formatProductPrice(totalPrice)}</span>
                             </div>
                             <Link
                                 to={ORDER}
