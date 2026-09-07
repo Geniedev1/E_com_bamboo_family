@@ -163,6 +163,9 @@ const CategoryList: FC = (): ReactElement => {
                     <Form.Item name="description" label="Mô tả">
                         <Input.TextArea rows={2} placeholder="Mô tả ngắn (tùy chọn)" />
                     </Form.Item>
+                    <Form.Item name="descriptionEn" label="Mô tả (English)">
+                        <Input.TextArea rows={2} placeholder="Bản dịch tiếng Anh (tùy chọn)" />
+                    </Form.Item>
                     <Form.Item name="sortOrder" label="Thứ tự hiển thị">
                         <InputNumber min={0} style={{ width: "100%" }} placeholder="0" />
                     </Form.Item>

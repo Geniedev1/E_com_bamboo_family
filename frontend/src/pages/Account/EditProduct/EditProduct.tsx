@@ -25,6 +25,7 @@ import "./EditProduct.css";
 
 type EditProductData = {
     productTitle: string;
+    productTitleEn: string;
     vendor: string;
     year: string;
     country: string;
@@ -36,8 +37,10 @@ type EditProductData = {
     gender: string;
     categoryId: number;
     topDescription: string;
+    topDescriptionEn: string;
     middleDescription: string;
     baseDescription: string;
+    baseDescriptionEn: string;
     price: string;
 };
 
@@ -118,6 +121,14 @@ const EditProduct: FC = (): ReactElement => {
                             error={errors.productTitleError}
                             disabled={isLoading}
                             placeholder={"Tên sản phẩm"}
+                        />
+                        <FormInput
+                            title={"Tên sản phẩm (English)"}
+                            titleSpan={6}
+                            wrapperSpan={18}
+                            name={"productTitleEn"}
+                            disabled={isLoading}
+                            placeholder={"Tùy chọn - để trống sẽ hiện tên tiếng Việt"}
                         />
                         <FormInput
                             title={"Thương hiệu"}
@@ -217,6 +228,14 @@ const EditProduct: FC = (): ReactElement => {
                             placeholder={"Mô tả ngắn"}
                         />
                         <FormInput
+                            title={"Mô tả ngắn (English)"}
+                            titleSpan={6}
+                            wrapperSpan={18}
+                            name={"topDescriptionEn"}
+                            disabled={isLoading}
+                            placeholder={"Tùy chọn - để trống sẽ hiện tiếng Việt"}
+                        />
+                        <FormInput
                             title={"Chi tiết nổi bật"}
                             titleSpan={6}
                             wrapperSpan={18}
@@ -233,6 +252,14 @@ const EditProduct: FC = (): ReactElement => {
                             error={errors.baseDescriptionError}
                             disabled={isLoading}
                             placeholder={"Chất liệu / bảo quản"}
+                        />
+                        <FormInput
+                            title={"Chất liệu / bảo quản (English)"}
+                            titleSpan={6}
+                            wrapperSpan={18}
+                            name={"baseDescriptionEn"}
+                            disabled={isLoading}
+                            placeholder={"Tùy chọn - để trống sẽ hiện tiếng Việt"}
                         />
                         <FormInput
                             title={"Giá"}

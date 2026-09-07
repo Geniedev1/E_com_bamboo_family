@@ -7,6 +7,7 @@ import { ACCOUNT_ADMIN_PRODUCTS, PRODUCT } from "../../constants/routeConstants"
 import { useCart } from "../../hooks/useCart";
 import { getImageUrl } from "../../utils/imageUrl";
 import { formatDimensions } from "../../utils/dimensionUtils";
+import { localize } from "../../utils/localizedField";
 
 type PropsType = {
     product: ProductResponse;
@@ -33,6 +34,7 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
     const hasReviews = product.reviewsCount > 0;
     const detailUrl = `${PRODUCT}/${product.id}`;
     const dimensionsText = formatDimensions(product, t);
+    const productTitle = localize(product.productTitle, product.productTitleEn);
 
     return (
         <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-lowest shadow-[0_12px_30px_-24px_rgba(23,49,36,0.7)] transition duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:shadow-[0_24px_46px_-28px_rgba(23,49,36,0.55)]">
@@ -41,7 +43,7 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                     <img
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                         src={getImageUrl(product.filename)}
-                        alt={product.productTitle}
+                        alt={productTitle}
                     />
                     {hasReviews && (
                         <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2 py-[3px] font-label-sm text-[12px] leading-none text-primary shadow-[0_6px_16px_-10px_rgba(23,49,36,0.7)] backdrop-blur">
@@ -63,7 +65,7 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                         className="min-h-[44px] font-headline-md text-[16px] font-semibold leading-snug text-primary transition group-hover:text-secondary"
                         style={clampTwoLines}
                     >
-                        {product.productTitle}
+                        {productTitle}
                     </h3>
                 </Link>
 

@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { ProductResponse } from "../../../types/types";
 import { formatProductPrice } from "../../../utils/priceUtils";
 import { getImageUrl } from "../../../utils/imageUrl";
+import { formatDimensions } from "../../../utils/dimensionUtils";
+import { localize } from "../../../utils/localizedField";
 import RemoveButton from "./RemoveButton";
 
 type PropsType = {
@@ -21,6 +23,8 @@ const CartItem: FC<PropsType> = ({
 }): ReactElement => {
     const { t } = useTranslation();
     const [productCount, setProductCount] = useState(1);
+    const dimensionsText = formatDimensions(product, t);
+    const productTitle = localize(product.productTitle, product.productTitleEn);
 
     useEffect(() => {
         setProductCount(productInCart);
@@ -36,15 +40,15 @@ const CartItem: FC<PropsType> = ({
         <div className="flex flex-col gap-md rounded-lg border border-[#eadfca] bg-[#fffdf6] p-md shadow-[0_8px_18px_-14px_rgba(83,61,31,0.32)] sm:flex-row">
             <img
                 src={getImageUrl(product.filename)}
-                alt={product.productTitle}
+                alt={productTitle}
                 className="h-28 w-28 shrink-0 rounded-lg bg-[#f7f0e4] object-cover"
             />
 
             <div className="flex min-w-0 flex-1 flex-col">
                 <p className="font-label-sm text-[11px] uppercase tracking-wide text-secondary">{product.vendor}</p>
-                <h3 className="font-headline-md text-[18px] leading-snug text-primary">{product.productTitle}</h3>
-                {product.volume && (
-                    <p className="mt-xs font-body-md text-[13px] text-on-surface-variant">{product.volume} ml</p>
+                <h3 className="font-headline-md text-[18px] leading-snug text-primary">{productTitle}</h3>
+                {dimensionsText && (
+                    <p className="mt-xs font-body-md text-[13px] text-on-surface-variant">{dimensionsText}</p>
                 )}
 
                 <div className="mt-auto flex items-center justify-between pt-sm">

@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { selectIsUserLoading, selectUserFromUserState } from "../../../redux-toolkit/user/user-selector";
 import Spinner from "../../../components/Spinner/Spinner";
@@ -32,15 +33,15 @@ const adminLinks: QuickLink[] = [
     { to: ACCOUNT_ADMIN_USERS, icon: "group", title: "Người dùng", desc: "Danh sách tài khoản khách hàng" }
 ];
 
-const userLinks: QuickLink[] = [
-    { to: ACCOUNT_USER_ORDERS, icon: "receipt_long", title: "Đơn hàng của tôi", desc: "Theo dõi các đơn đã đặt" },
-    { to: ACCOUNT_USER_INFO, icon: "person", title: "Thông tin cá nhân", desc: "Cập nhật thông tin giao hàng" }
-];
-
 const AccountItem: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const usersData = useSelector(selectUserFromUserState);
     const loading = useSelector(selectIsUserLoading);
     const isAdmin = usersData?.roles?.[0] === UserRoles.ADMIN;
+    const userLinks: QuickLink[] = [
+        { to: ACCOUNT_USER_ORDERS, icon: "receipt_long", title: t("account.myOrders"), desc: t("account.myOrdersDesc") },
+        { to: ACCOUNT_USER_INFO, icon: "person", title: t("account.personalInfo"), desc: t("account.personalInfoDesc") }
+    ];
     const links = isAdmin ? adminLinks : userLinks;
 
     if (loading) {
@@ -50,15 +51,15 @@ const AccountItem: FC = (): ReactElement => {
     return (
         <div>
             <p className="font-label-sm text-label-sm uppercase text-secondary">
-                {isAdmin ? "Bảng điều khiển" : "Tài khoản"}
+                {isAdmin ? "Bảng điều khiển" : t("nav.account")}
             </p>
             <h1 className="mt-xs font-headline-lg text-[28px] leading-tight text-primary">
-                Xin chào, {usersData?.firstName} {usersData?.lastName}!
+                {t("account.greeting", { name: `${usersData?.firstName ?? ""} ${usersData?.lastName ?? ""}`.trim() })}
             </h1>
             <p className="mt-sm max-w-2xl font-body-md text-body-md text-on-surface-variant">
                 {isAdmin
                     ? "Chọn một mục bên dưới để quản lý cửa hàng Rattanovi."
-                    : "Chào mừng bạn quay lại. Quản lý đơn hàng và thông tin cá nhân của bạn tại đây."}
+                    : t("account.customerSubtitle")}
             </p>
 
             <div className="mt-lg grid gap-gutter sm:grid-cols-2">

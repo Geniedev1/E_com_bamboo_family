@@ -1,6 +1,7 @@
 export interface ProductResponse {
     id: number;
     productTitle: string;
+    productTitleEn?: string;
     vendor: string;
     price: number;
     productRating: number;
@@ -21,9 +22,12 @@ export interface FullProductResponse extends ProductResponse {
     country: string;
     gender: string;
     topDescription: string;
+    topDescriptionEn?: string;
     middleDescription: string;
     baseDescription: string;
+    baseDescriptionEn?: string;
     description: string;
+    descriptionEn?: string;
     type: string;
     images?: string[];
     file: any;
@@ -207,12 +211,14 @@ export interface Category {
     id: number;
     name: string;
     description?: string;
+    descriptionEn?: string;
     sortOrder?: number;
 }
 
 export interface CategoryRequest {
     name: string;
     description?: string;
+    descriptionEn?: string;
     sortOrder?: number;
 }
 

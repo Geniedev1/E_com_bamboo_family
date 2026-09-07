@@ -1,5 +1,10 @@
-export const formatVnd = (value: number): string => `${(value || 0).toLocaleString("vi-VN")} đ`;
+import i18n from "../i18n";
 
-// Product prices are stored as "thousands" in the seed data (e.g. 35 -> 35.000 đ),
+const numberLocale = (): string => (i18n.language === "en" ? "en-US" : "vi-VN");
+
+export const formatVnd = (value: number): string => `${(value || 0).toLocaleString(numberLocale())} đ`;
+
+// Product prices are stored as "thousands" in the seed data (e.g. 35 -> 35,000 đ),
 // matching how the catalogue (Menu) displays them. Keep card/listing prices consistent.
-export const formatProductPrice = (value?: number | null): string => `${(value || 0).toLocaleString("vi-VN")}.000 đ`;
+export const formatProductPrice = (value?: number | null): string =>
+    `${((value || 0) * 1000).toLocaleString(numberLocale())} đ`;

@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Table } from "antd";
 import { AsyncThunk } from "@reduxjs/toolkit";
 
@@ -17,6 +18,7 @@ type PropsType = {
 };
 
 const OrdersTable: FC<PropsType> = ({ orders, loading, fetchOrders }): ReactElement => {
+    const { t } = useTranslation();
     const totalElements = useSelector(selectTotalElements);
     const handleTableChange = useTablePagination<OrderResponse, number>(fetchOrders);
 
@@ -32,30 +34,30 @@ const OrdersTable: FC<PropsType> = ({ orders, loading, fetchOrders }): ReactElem
             dataSource={orders}
             columns={[
                 {
-                    title: "Mã đơn",
+                    title: t("account.orderId"),
                     dataIndex: "id",
                     key: "id",
                     render: (_, order: OrderResponse) => <span className="font-label-sm text-primary">#{order.id}</span>
                 },
                 {
-                    title: "Ngày đặt",
+                    title: t("account.orderDate"),
                     dataIndex: "date",
                     key: "date",
                     sorter: (a, b) => a.date.localeCompare(b.date)
                 },
                 {
-                    title: "Khách hàng",
+                    title: t("account.customerName"),
                     dataIndex: "firstName",
                     key: "firstName",
                     render: (_, order: OrderResponse) => `${order.firstName} ${order.lastName}`
                 },
                 {
-                    title: "Email",
+                    title: t("account.email"),
                     dataIndex: "email",
                     key: "email"
                 },
                 {
-                    title: "Tổng tiền",
+                    title: t("account.totalAmount"),
                     dataIndex: "totalPrice",
                     key: "totalPrice",
                     sorter: (a, b) => a.totalPrice - b.totalPrice,
@@ -64,7 +66,7 @@ const OrdersTable: FC<PropsType> = ({ orders, loading, fetchOrders }): ReactElem
                     )
                 },
                 {
-                    title: "Thao tác",
+                    title: t("account.actions"),
                     dataIndex: "operations",
                     key: "operations",
                     render: (_, order: OrderResponse) => (
@@ -73,7 +75,7 @@ const OrdersTable: FC<PropsType> = ({ orders, loading, fetchOrders }): ReactElem
                             className="inline-flex items-center gap-1 font-label-sm text-secondary hover:text-primary hover:no-underline"
                         >
                             <span className="material-symbols-outlined text-[18px]">visibility</span>
-                            Xem chi tiết
+                            {t("account.viewDetails")}
                         </Link>
                     )
                 }

@@ -15,6 +15,7 @@ import { price } from "./MenuData";
 import { useSearch } from "../../hooks/useSearch";
 import { fetchCategories } from "../../redux-toolkit/category/category-thunks";
 import { selectCategories } from "../../redux-toolkit/category/category-selector";
+import { localize } from "../../utils/localizedField";
 import "./Menu.css";
 
 export enum CheckboxCategoryFilter {
@@ -136,7 +137,7 @@ const Menu: FC = (): ReactElement => {
 
     const categoryFilters = [ALL_CATEGORIES_LABEL, ...categories.map((category) => category.name)];
     const descriptionByName: Record<string, string | undefined> = categories.reduce(
-        (acc, category) => ({ ...acc, [category.name]: category.description }),
+        (acc, category) => ({ ...acc, [category.name]: localize(category.description, category.descriptionEn) }),
         {} as Record<string, string | undefined>
     );
     const [filterParams, setFilterParams] = useState<FilterParamsType>({

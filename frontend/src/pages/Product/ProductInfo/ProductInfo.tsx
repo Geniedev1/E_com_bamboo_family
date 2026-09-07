@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { FullProductResponse } from "../../../types/types";
 import { getImageUrl } from "../../../utils/imageUrl";
 import { getVisibleDimensions } from "../../../utils/dimensionUtils";
+import { localize } from "../../../utils/localizedField";
 
 type PropsType = {
     product?: Partial<FullProductResponse>;
@@ -25,6 +26,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
 
     const inStock = product?.stockQuantity === undefined || product?.stockQuantity === null || product.stockQuantity > 0;
     const rating = product?.productRating && product.productRating > 0 ? product.productRating : 0;
+    const productTitle = localize(product?.productTitle, product?.productTitleEn);
 
     const dimensionRows = getVisibleDimensions(product || {}, t).map((dim) => ({
         label: dim.label,
@@ -36,15 +38,21 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
         ...dimensionRows,
         { label: t("product.origin"), value: product?.country },
         { label: t("product.year"), value: product?.year },
-        { label: t("product.material"), value: product?.baseDescription },
-        { label: t("product.description"), value: product?.description || product?.topDescription }
+        { label: t("product.material"), value: localize(product?.baseDescription, product?.baseDescriptionEn) },
+        {
+            label: t("product.description"),
+            value: localize(
+                product?.description || product?.topDescription,
+                product?.descriptionEn || product?.topDescriptionEn
+            )
+        }
     ].filter((row) => row.value !== undefined && row.value !== null && `${row.value}`.trim() !== "");
 
     return (
         <div className="grid gap-lg md:grid-cols-2">
             <div>
                 <div className="overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-low">
-                    <img src={getImageUrl(mainImage)} alt={product?.productTitle} className="aspect-square w-full object-cover" />
+                    <img src={getImageUrl(mainImage)} alt={productTitle} className="aspect-square w-full object-cover" />
                 </div>
                 {galleryImages.length > 1 && (
                     <div className="mt-sm flex flex-wrap gap-xs">
@@ -62,7 +70,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
                             >
                                 <img
                                     src={getImageUrl(src)}
-                                    alt={`${product?.productTitle} ${index + 1}`}
+                                    alt={`${productTitle} ${index + 1}`}
                                     className="h-full w-full object-cover"
                                 />
                             </button>
@@ -72,7 +80,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
             </div>
 
             <div className="flex flex-col">
-                <h1 className="font-headline-lg text-[28px] leading-tight text-primary">{product?.productTitle}</h1>
+                <h1 className="font-headline-lg text-[28px] leading-tight text-primary">{productTitle}</h1>
                 {product?.vendor && (
                     <p className="mt-1 flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
                         <span className="material-symbols-outlined text-[18px] text-[#8c955f]">storefront</span>

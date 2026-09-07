@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import SockJS from "sockjs-client";
 import { CompatClient, Stomp } from "@stomp/stompjs";
 
@@ -10,6 +11,7 @@ import { getChatToken } from "../../utils/chatToken";
 import { selectUserFromUserState } from "../../redux-toolkit/user/user-selector";
 
 const ChatWidget: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const user = useSelector(selectUserFromUserState);
     const [open, setOpen] = useState<boolean>(false);
     const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
@@ -86,11 +88,11 @@ const ChatWidget: FC = (): ReactElement => {
                         <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-[22px]">forum</span>
                             <div className="leading-tight">
-                                <p className="font-label-sm text-[14px]">Hỗ trợ Rattanovi</p>
-                                <p className="font-body-md text-[11px] opacity-80">Thường trả lời trong ít phút</p>
+                                <p className="font-label-sm text-[14px]">{t("chat.supportTitle")}</p>
+                                <p className="font-body-md text-[11px] opacity-80">{t("chat.responseTime")}</p>
                             </div>
                         </div>
-                        <button type="button" onClick={() => setOpen(false)} aria-label="Đóng" className="text-on-primary/90 hover:text-on-primary">
+                        <button type="button" onClick={() => setOpen(false)} aria-label={t("chat.close")} className="text-on-primary/90 hover:text-on-primary">
                             <span className="material-symbols-outlined text-[22px]">close</span>
                         </button>
                     </div>
@@ -98,7 +100,7 @@ const ChatWidget: FC = (): ReactElement => {
                     <div className="flex-1 space-y-2 overflow-y-auto bg-surface px-3 py-3">
                         {messages.length === 0 ? (
                             <p className="mt-6 text-center font-body-md text-[13px] text-on-surface-variant">
-                                Chào bạn 👋 Cần tư vấn sản phẩm mây tre? Nhắn cho shop nhé!
+                                {t("chat.greeting")}
                             </p>
                         ) : (
                             messages.map((m) => (
@@ -123,13 +125,13 @@ const ChatWidget: FC = (): ReactElement => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={onKeyDown}
-                            placeholder="Nhập tin nhắn..."
+                            placeholder={t("chat.inputPlaceholder")}
                             className="h-10 flex-1 rounded-full bg-surface-container-low px-4 font-body-md text-[14px] text-on-surface outline-none placeholder:text-on-surface-variant"
                         />
                         <button
                             type="button"
                             onClick={send}
-                            aria-label="Gửi"
+                            aria-label={t("chat.send")}
                             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-on-primary transition hover:bg-primary-container"
                         >
                             <span className="material-symbols-outlined text-[20px]">send</span>
@@ -141,7 +143,7 @@ const ChatWidget: FC = (): ReactElement => {
             <button
                 type="button"
                 onClick={() => setOpen((o) => !o)}
-                aria-label="Chat với shop"
+                aria-label={t("chat.openAria")}
                 className="relative flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-[0_16px_36px_-14px_rgba(23,49,36,0.8)] transition hover:bg-primary-container"
             >
                 <span className="material-symbols-outlined text-[26px]">{open ? "close" : "chat"}</span>

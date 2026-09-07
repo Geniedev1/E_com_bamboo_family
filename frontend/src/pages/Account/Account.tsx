@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { selectIsUserLoading, selectUserFromUserState } from "../../redux-toolkit/user/user-selector";
 import { resetAuthState } from "../../redux-toolkit/auth/auth-slice";
@@ -36,6 +37,7 @@ import ChangePassword from "./ChangePassword/ChangePassword";
 import PersonalOrdersList from "./PersonalOrdersList/PersonalOrdersList";
 
 const Account: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const usersData = useSelector(selectUserFromUserState);
     const loading = useSelector(selectIsUserLoading);
@@ -53,7 +55,7 @@ const Account: FC = (): ReactElement => {
     // Wait for the profile before routing so a refresh/deep-link doesn't bounce
     // to the dashboard (or Home) before we know the user's role.
     const isReady = !loading && !!usersData;
-    const fullName = [usersData?.firstName, usersData?.lastName].filter(Boolean).join(" ") || "Tài khoản";
+    const fullName = [usersData?.firstName, usersData?.lastName].filter(Boolean).join(" ") || t("account.fallbackName");
     const initial = (usersData?.firstName || usersData?.email || "?").charAt(0).toUpperCase();
 
     return (
@@ -71,13 +73,13 @@ const Account: FC = (): ReactElement => {
                                     <span className="material-symbols-outlined text-[13px]">
                                         {isAdmin ? "shield_person" : "person"}
                                     </span>
-                                    {isAdmin ? "Quản trị viên" : "Khách hàng"}
+                                    {isAdmin ? "Quản trị viên" : t("account.roleCustomer")}
                                 </span>
                             </div>
                         </div>
 
                         <nav className="mt-4 flex flex-col gap-1">
-                            <AccountLink link={ACCOUNT_USER_INFO} title="Thông tin cá nhân" icon="person" />
+                            <AccountLink link={ACCOUNT_USER_INFO} title={t("account.personalInfo")} icon="person" />
                             {isAdmin ? (
                                 <>
                                     <AccountLink link={ACCOUNT_ADMIN_ADD} title="Thêm sản phẩm" icon="add_box" />
@@ -89,8 +91,8 @@ const Account: FC = (): ReactElement => {
                                 </>
                             ) : (
                                 <>
-                                    <AccountLink link={ACCOUNT_USER_EDIT} title="Đổi mật khẩu" icon="lock" />
-                                    <AccountLink link={ACCOUNT_USER_ORDERS} title="Đơn hàng của tôi" icon="receipt_long" />
+                                    <AccountLink link={ACCOUNT_USER_EDIT} title={t("account.changePassword")} icon="lock" />
+                                    <AccountLink link={ACCOUNT_USER_ORDERS} title={t("account.myOrders")} icon="receipt_long" />
                                 </>
                             )}
                         </nav>

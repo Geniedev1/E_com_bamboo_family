@@ -91,7 +91,7 @@ const Registration: FC = (): ReactElement => {
                                     type="text"
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
-                                    placeholder="Nguyễn"
+                                    placeholder={t("registration.firstNamePlaceholder")}
                                     className={inputClass}
                                 />
                                 {errors.firstNameError && (
@@ -107,7 +107,7 @@ const Registration: FC = (): ReactElement => {
                                     type="text"
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
-                                    placeholder="Văn A"
+                                    placeholder={t("registration.lastNamePlaceholder")}
                                     className={inputClass}
                                 />
                                 {errors.lastNameError && (
@@ -125,7 +125,7 @@ const Registration: FC = (): ReactElement => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="email@vi-du.com"
+                                placeholder="email@example.com"
                                 className={inputClass}
                             />
                             {errors.emailError && (

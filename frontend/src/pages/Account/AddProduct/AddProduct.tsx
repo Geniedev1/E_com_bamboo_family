@@ -21,6 +21,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 
 type AddProductData = {
     productTitle: string;
+    productTitleEn: string;
     vendor: string;
     year: string;
     country: string;
@@ -32,8 +33,10 @@ type AddProductData = {
     gender: string;
     categoryId: number;
     topDescription: string;
+    topDescriptionEn: string;
     middleDescription: string;
     baseDescription: string;
+    baseDescriptionEn: string;
     price: string;
 };
 
@@ -96,6 +99,12 @@ const AddProduct: FC = (): ReactElement => {
                             name={"productTitle"}
                             error={productErrors.productTitleError}
                             placeholder={"Nhập tên sản phẩm"}
+                            disabled={ispProductLoading}
+                        />
+                        <AddFormInput
+                            title={"Tên sản phẩm (English)"}
+                            name={"productTitleEn"}
+                            placeholder={"Tùy chọn - để trống sẽ hiện tên tiếng Việt"}
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
@@ -197,10 +206,22 @@ const AddProduct: FC = (): ReactElement => {
                             disabled={ispProductLoading}
                         />
                         <AddFormInput
+                            title={"Mô tả ngắn (English)"}
+                            name={"topDescriptionEn"}
+                            placeholder={"Tùy chọn - để trống sẽ hiện mô tả tiếng Việt"}
+                            disabled={ispProductLoading}
+                        />
+                        <AddFormInput
                             title={"Chất liệu / bảo quản"}
                             name={"baseDescription"}
                             error={productErrors.baseDescriptionError}
                             placeholder={"Nhập chất liệu hoặc cách bảo quản"}
+                            disabled={ispProductLoading}
+                        />
+                        <AddFormInput
+                            title={"Chất liệu / bảo quản (English)"}
+                            name={"baseDescriptionEn"}
+                            placeholder={"Tùy chọn - để trống sẽ hiện tiếng Việt"}
                             disabled={ispProductLoading}
                         />
                         <Upload

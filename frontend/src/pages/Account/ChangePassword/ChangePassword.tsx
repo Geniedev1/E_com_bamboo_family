@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Alert, Col, Form, Row } from "antd";
 import { KeyOutlined, UndoOutlined } from "@ant-design/icons";
 
@@ -11,6 +12,7 @@ import IconButton from "../../../components/IconButton/IconButton";
 import { updateUserPassword } from "../../../redux-toolkit/user/user-thunks";
 
 const ChangePassword: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const errors = useSelector(selectUserResetPasswordErrors);
@@ -33,7 +35,7 @@ const ChangePassword: FC = (): ReactElement => {
 
     return (
         <>
-            <ContentTitle title={"Đổi mật khẩu"} titleLevel={4} icon={<KeyOutlined />} />
+            <ContentTitle title={t("changePassword.title")} titleLevel={4} icon={<KeyOutlined />} />
             <Form onFinish={onFormSubmit} form={form}>
                 <Row>
                     <Col xs={24} md={14}>
@@ -41,24 +43,24 @@ const ChangePassword: FC = (): ReactElement => {
                             <Alert type="success" message={successMessage} style={{ marginBottom: 16 }} />
                         )}
                         <FormInput
-                            title={"Mật khẩu mới"}
+                            title={t("changePassword.newPassword")}
                             titleSpan={10}
                             wrapperSpan={14}
                             name={"password"}
                             error={passwordError}
-                            placeholder={"Mật khẩu"}
+                            placeholder={t("changePassword.passwordPlaceholder")}
                             inputPassword
                         />
                         <FormInput
-                            title={"Xác nhận mật khẩu"}
+                            title={t("changePassword.confirmPassword")}
                             titleSpan={10}
                             wrapperSpan={14}
                             name={"password2"}
                             error={password2Error}
-                            placeholder={"Mật khẩu"}
+                            placeholder={t("changePassword.passwordPlaceholder")}
                             inputPassword
                         />
-                        <IconButton title={"Đổi mật khẩu"} icon={<UndoOutlined />} />
+                        <IconButton title={t("changePassword.submit")} icon={<UndoOutlined />} />
                     </Col>
                 </Row>
             </Form>

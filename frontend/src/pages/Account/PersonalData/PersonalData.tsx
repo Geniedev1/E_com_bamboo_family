@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { Button, Col, Form, Row } from "antd";
 import { CheckOutlined, EditOutlined, EyeInvisibleOutlined, ProfileOutlined } from "@ant-design/icons";
 
@@ -21,6 +22,7 @@ interface PersonalData {
 }
 
 const PersonalData: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const usersData = useSelector(selectUserFromUserState);
@@ -46,72 +48,72 @@ const PersonalData: FC = (): ReactElement => {
 
     return (
         <>
-            <ContentTitle title={"Thông tin cá nhân"} titleLevel={4} icon={<ProfileOutlined />} />
+            <ContentTitle title={t("personalData.title")} titleLevel={4} icon={<ProfileOutlined />} />
             <Row gutter={[24, 24]}>
                 <Col xs={24} md={12}>
-                    <AccountDataItem title={"Email"} text={usersData?.email} />
-                    <AccountDataItem title={"Họ"} text={usersData?.firstName} />
-                    <AccountDataItem title={"Tên"} text={usersData?.lastName} />
-                    <AccountDataItem title={"Thành phố"} text={usersData?.city} />
-                    <AccountDataItem title={"Địa chỉ"} text={usersData?.address} />
-                    <AccountDataItem title={"Số điện thoại"} text={usersData?.phoneNumber} />
-                    <AccountDataItem title={"Mã bưu chính"} text={usersData?.postIndex} />
+                    <AccountDataItem title={t("personalData.email")} text={usersData?.email} />
+                    <AccountDataItem title={t("personalData.firstName")} text={usersData?.firstName} />
+                    <AccountDataItem title={t("personalData.lastName")} text={usersData?.lastName} />
+                    <AccountDataItem title={t("personalData.city")} text={usersData?.city} />
+                    <AccountDataItem title={t("personalData.address")} text={usersData?.address} />
+                    <AccountDataItem title={t("personalData.phone")} text={usersData?.phoneNumber} />
+                    <AccountDataItem title={t("personalData.postIndex")} text={usersData?.postIndex} />
                     <Button
                         type={"primary"}
                         onClick={onClickShowUserData}
                         icon={showUserData ? <EyeInvisibleOutlined /> : <EditOutlined />}
                     >
-                        {showUserData ? "Ẩn" : "Chỉnh sửa"}
+                        {showUserData ? t("personalData.hide") : t("personalData.edit")}
                     </Button>
                 </Col>
                 <Col xs={24} md={12}>
                     {showUserData && (
                         <Form onFinish={onFormSubmit} form={form}>
                             <FormInput
-                                title={"Họ:"}
+                                title={t("personalData.firstNameLabel")}
                                 titleSpan={6}
                                 wrapperSpan={18}
                                 name={"firstName"}
                                 error={firstNameError}
-                                placeholder={"Nhập họ"}
+                                placeholder={t("personalData.firstNamePlaceholder")}
                             />
                             <FormInput
-                                title={"Tên:"}
+                                title={t("personalData.lastNameLabel")}
                                 titleSpan={6}
                                 wrapperSpan={18}
                                 name={"lastName"}
                                 error={lastNameError}
-                                placeholder={"Nhập tên"}
+                                placeholder={t("personalData.lastNamePlaceholder")}
                             />
                             <FormInput
-                                title={"Thành phố:"}
+                                title={t("personalData.cityLabel")}
                                 titleSpan={6}
                                 wrapperSpan={18}
                                 name={"city"}
-                                placeholder={"Nhập thành phố"}
+                                placeholder={t("personalData.cityPlaceholder")}
                             />
                             <FormInput
-                                title={"Địa chỉ:"}
+                                title={t("personalData.addressLabel")}
                                 titleSpan={6}
                                 wrapperSpan={18}
                                 name={"address"}
-                                placeholder={"Nhập địa chỉ"}
+                                placeholder={t("personalData.addressPlaceholder")}
                             />
                             <FormInput
-                                title={"Số điện thoại:"}
+                                title={t("personalData.phoneLabel")}
                                 titleSpan={6}
                                 wrapperSpan={18}
                                 name={"phoneNumber"}
-                                placeholder={"Nhập số điện thoại"}
+                                placeholder={t("personalData.phonePlaceholder")}
                             />
                             <FormInput
-                                title={"Mã bưu chính:"}
+                                title={t("personalData.postIndexLabel")}
                                 titleSpan={6}
                                 wrapperSpan={18}
                                 name={"postIndex"}
-                                placeholder={"Nhập mã bưu chính"}
+                                placeholder={t("personalData.postIndexPlaceholder")}
                             />
-                            <IconButton title={"Lưu"} icon={<CheckOutlined />} />
+                            <IconButton title={t("personalData.save")} icon={<CheckOutlined />} />
                         </Form>
                     )}
                 </Col>

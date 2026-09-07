@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Col, Row, Table } from "antd";
 import { InfoCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 
@@ -17,9 +18,11 @@ import Spinner from "../../../components/Spinner/Spinner";
 import AccountDataItem from "../../../components/AccountDataItem/AccountDataItem";
 import { OrderItemResponse } from "../../../types/types";
 import { formatProductPrice } from "../../../utils/priceUtils";
+import { localize } from "../../../utils/localizedField";
 import "./ManageUserOrder.css";
 
 const ManageUserOrder: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const params = useParams<{ id: string }>();
     const order = useSelector(selectOrder);
@@ -48,26 +51,26 @@ const ManageUserOrder: FC = (): ReactElement => {
                 <Spinner />
             ) : (
                 <>
-                    <ContentTitle title={`Đơn hàng #${id}`} titleLevel={4} icon={<ShoppingOutlined />} />
+                    <ContentTitle title={t("account.orderNumberTitle", { id })} titleLevel={4} icon={<ShoppingOutlined />} />
                     <Row gutter={[24, 24]}>
                         <Col xs={24} md={12}>
                             <div className="h-full rounded-2xl border border-outline-variant/50 bg-surface p-5">
-                                <ContentTitle title={"Thông tin khách hàng"} titleLevel={5} icon={<InfoCircleOutlined />} />
-                                <AccountDataItem title={"Họ và tên"} text={`${firstName ?? ""} ${lastName ?? ""}`} />
-                                <AccountDataItem title={"Email"} text={email} />
-                                <AccountDataItem title={"Số điện thoại"} text={phoneNumber} />
-                                <AccountDataItem title={"Thành phố"} text={city} />
-                                <AccountDataItem title={"Địa chỉ"} text={address} />
-                                <AccountDataItem title={"Mã bưu chính"} text={postIndex} />
+                                <ContentTitle title={t("account.customerInfo")} titleLevel={5} icon={<InfoCircleOutlined />} />
+                                <AccountDataItem title={t("account.fullName")} text={`${firstName ?? ""} ${lastName ?? ""}`} />
+                                <AccountDataItem title={t("order.email")} text={email} />
+                                <AccountDataItem title={t("order.phone")} text={phoneNumber} />
+                                <AccountDataItem title={t("order.city")} text={city} />
+                                <AccountDataItem title={t("order.address")} text={address} />
+                                <AccountDataItem title={t("order.postIndex")} text={postIndex} />
                             </div>
                         </Col>
                         <Col xs={24} md={12}>
                             <div className="h-full rounded-2xl border border-outline-variant/50 bg-surface p-5">
-                                <ContentTitle title={"Thông tin đơn hàng"} titleLevel={5} icon={<InfoCircleOutlined />} />
-                                <AccountDataItem title={"Mã đơn"} text={`#${id}`} />
-                                <AccountDataItem title={"Ngày đặt"} text={date} />
+                                <ContentTitle title={t("account.orderInfo")} titleLevel={5} icon={<InfoCircleOutlined />} />
+                                <AccountDataItem title={t("account.orderId")} text={`#${id}`} />
+                                <AccountDataItem title={t("account.orderDate")} text={date} />
                                 <div className="mt-4 flex items-center justify-between rounded-xl bg-primary-fixed px-4 py-3">
-                                    <span className="font-label-sm text-[15px] text-primary">Tổng đơn hàng</span>
+                                    <span className="font-label-sm text-[15px] text-primary">{t("account.orderTotal")}</span>
                                     <span className="font-headline-md text-[20px] font-bold text-secondary">
                                         {formatProductPrice(totalPrice)}
                                     </span>
@@ -81,36 +84,37 @@ const ManageUserOrder: FC = (): ReactElement => {
                                 dataSource={orderItems}
                                 columns={[
                                     {
-                                        title: "Mã SP",
+                                        title: t("account.productCode"),
                                         dataIndex: "id",
                                         key: "id",
                                         render: (_, order: OrderItemResponse) => `#${order.product.id}`
                                     },
                                     {
-                                        title: "Thương hiệu",
+                                        title: t("account.vendor"),
                                         dataIndex: "vendor",
                                         key: "vendor",
                                         render: (_, order: OrderItemResponse) => order.product.vendor
                                     },
                                     {
-                                        title: "Tên sản phẩm",
+                                        title: t("account.productName"),
                                         dataIndex: "productTitle",
                                         key: "productTitle",
-                                        render: (_, order: OrderItemResponse) => order.product.productTitle
+                                        render: (_, order: OrderItemResponse) =>
+                                            localize(order.product.productTitle, order.product.productTitleEn)
                                     },
                                     {
-                                        title: "Số lượng",
+                                        title: t("account.quantity"),
                                         dataIndex: "quantity",
                                         key: "quantity"
                                     },
                                     {
-                                        title: "Đơn giá",
+                                        title: t("account.unitPrice"),
                                         dataIndex: "price",
                                         key: "price",
                                         render: (_, order: OrderItemResponse) => formatProductPrice(order.product.price)
                                     },
                                     {
-                                        title: "Thành tiền",
+                                        title: t("account.lineTotal"),
                                         dataIndex: "amount",
                                         key: "amount",
                                         render: (_, order: OrderItemResponse) => (
