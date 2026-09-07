@@ -25,6 +25,9 @@ public class Category {
     @Column(name = "description")
     private String description; // Mô tả gợi ý (tiếng Việt)
 
+    @Column(name = "description_en")
+    private String descriptionEn; // Mô tả gợi ý (tiếng Anh), tùy chọn
+
     @Column(name = "sort_order")
     private Integer sortOrder; // Thứ tự hiển thị
 

@@ -17,5 +17,8 @@ public class CategoryRequest {
     @Length(max = 500)
     private String description;
 
+    @Length(max = 500)
+    private String descriptionEn;
+
     private Integer sortOrder;
 }

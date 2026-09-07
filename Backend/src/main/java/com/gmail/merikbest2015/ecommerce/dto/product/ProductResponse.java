@@ -11,6 +11,7 @@ import lombok.Setter;
 public class ProductResponse {
     private Long id;
     private String productTitle;
+    private String productTitleEn;
     private String vendor;
     private Integer price;
     private Double productRating;

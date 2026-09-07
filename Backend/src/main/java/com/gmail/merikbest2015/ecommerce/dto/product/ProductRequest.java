@@ -22,6 +22,9 @@ public class ProductRequest {
     private String productTitle; // Tên sản phẩm
 
     @Length(max = 255)
+    private String productTitleEn; // Tên sản phẩm (tiếng Anh), tùy chọn
+
+    @Length(max = 255)
     private String vendor; // Thương hiệu / nghệ nhân / nhà sản xuất
 
     private Integer year; // Năm sản xuất (không bắt buộc)
@@ -36,13 +39,22 @@ public class ProductRequest {
     private String topDescription; // Mô tả ngắn 1
 
     @Length(max = 255)
+    private String topDescriptionEn; // Mô tả ngắn 1 (tiếng Anh), tùy chọn
+
+    @Length(max = 255)
     private String middleDescription; // Mô tả ngắn 2
 
     @Length(max = 255)
     private String baseDescription; // Mô tả ngắn 3
 
+    @Length(max = 255)
+    private String baseDescriptionEn; // Mô tả ngắn 3 (tiếng Anh), tùy chọn
+
     @Length(max = 2000)
     private String description; // Mô tả đầy đủ
+
+    @Length(max = 255)
+    private String descriptionEn; // Mô tả đầy đủ (tiếng Anh), tùy chọn
 
     @NotNull(message = FILL_IN_THE_INPUT_FIELD)
     private Integer price; // Giá (VND)

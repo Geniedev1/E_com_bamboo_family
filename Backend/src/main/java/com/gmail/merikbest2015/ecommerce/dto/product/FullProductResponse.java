@@ -15,9 +15,12 @@ public class FullProductResponse extends ProductResponse {
     private String country;
     private String gender;
     private String topDescription;
+    private String topDescriptionEn;
     private String middleDescription;
     private String baseDescription;
+    private String baseDescriptionEn;
     private String description;
+    private String descriptionEn;
     private String type;
     private List<String> images; // Danh sách ảnh (tối đa 5), images[0] = ảnh bìa
 }

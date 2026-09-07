@@ -24,6 +24,9 @@ public class Product {
     @Column(name = "product_title")
     private String productTitle;
 
+    @Column(name = "product_title_en")
+    private String productTitleEn; // Tên sản phẩm (tiếng Anh), tùy chọn
+
     @Column(name = "vendor")
     private String vendor; // Người bán / thương hiệu / nghệ nhân
 
@@ -39,14 +42,23 @@ public class Product {
     @Column(name = "top_description")
     private String topDescription; // Mô tả ngắn
 
+    @Column(name = "top_description_en")
+    private String topDescriptionEn; // Mô tả ngắn (tiếng Anh), tùy chọn
+
     @Column(name = "middle_description")
     private String middleDescription; // Mô tả trung
 
     @Column(name = "base_description")
     private String baseDescription; // Mô tả chân
 
+    @Column(name = "base_description_en")
+    private String baseDescriptionEn; // Mô tả chân (tiếng Anh), tùy chọn
+
     @Column(name = "description")
     private String description; // Mô tả đầy đủ
+
+    @Column(name = "description_en")
+    private String descriptionEn; // Mô tả đầy đủ (tiếng Anh), tùy chọn
 
     @Column(name = "filename")
     private String filename; // Ảnh bìa (ảnh đầu tiên trong images) — giữ để tương thích ngược

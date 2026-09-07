@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 public interface ProductProjection {
     Long getId();
     String getProductTitle();
+    String getProductTitleEn();
     String getVendor();
     Integer getPrice();
     String getFilename();

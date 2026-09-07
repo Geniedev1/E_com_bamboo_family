@@ -49,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
                 });
         category.setName(data.getName());
         category.setDescription(data.getDescription());
+        category.setDescriptionEn(data.getDescriptionEn());
         category.setSortOrder(data.getSortOrder());
         return categoryRepository.save(category);
     }
