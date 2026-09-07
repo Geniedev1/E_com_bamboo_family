@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import loginHero from "../../img/login-hero.png";
 import { selectErrors, selectIsAuthLoading, selectIsRegistered } from "../../redux-toolkit/auth/auth-selector";
@@ -13,6 +14,7 @@ const inputClass =
     "w-full bg-surface-container-low border-0 border-b-2 border-tertiary/20 focus:border-primary focus:outline-none rounded-t-lg px-md py-sm font-body-md text-on-surface";
 
 const Registration: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const isLoading = useSelector(selectIsAuthLoading);
     const isRegistered = useSelector(selectIsRegistered);
@@ -52,13 +54,13 @@ const Registration: FC = (): ReactElement => {
                     <div className="relative z-10 flex flex-col justify-end h-full p-lg">
                         <span className="font-headline-xl text-headline-xl leading-none text-white">Rattanovi</span>
                         <h2 className="font-headline-lg text-headline-lg mt-md leading-tight text-white">
-                            Bắt đầu hành trình cùng nghề thủ công Việt.
+                            {t("registration.heroTitle")}
                         </h2>
                         <p className="font-body-md text-body-md text-white opacity-90 mt-sm">
-                            Tạo tài khoản để nhận ưu đãi, theo dõi đơn hàng và lưu lại những món đồ mây tre yêu thích.
+                            {t("registration.heroDesc")}
                         </p>
                         <span className="font-label-sm text-label-sm text-white/90 mt-lg">
-                            +2,000 nghệ nhân và khách hàng đồng hành
+                            {t("registration.heroBadge")}
                         </span>
                     </div>
                 </div>
@@ -66,15 +68,15 @@ const Registration: FC = (): ReactElement => {
                 {/* ===== Right: register form ===== */}
                 <div className="p-lg md:p-xl flex flex-col justify-center">
                     <header className="mb-lg">
-                        <h1 className="font-headline-lg text-headline-lg text-primary mb-xs">Bắt đầu hành trình</h1>
+                        <h1 className="font-headline-lg text-headline-lg text-primary mb-xs">{t("registration.title")}</h1>
                         <p className="font-body-md text-body-md text-on-surface-variant">
-                            Tạo tài khoản để nhận ưu đãi và lưu lại những món đồ yêu thích.
+                            {t("registration.subtitle")}
                         </p>
                     </header>
 
                     {isRegistered && (
                         <div className="mb-md rounded-lg bg-primary/10 text-primary border border-primary/20 px-md py-sm font-body-md text-sm">
-                            Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản.
+                            {t("registration.successMessage")}
                         </div>
                     )}
 
@@ -82,7 +84,7 @@ const Registration: FC = (): ReactElement => {
                         <div className="grid grid-cols-2 gap-md">
                             <div className="space-y-xs">
                                 <label className="block font-label-sm text-label-sm text-on-surface-variant" htmlFor="reg-first-name">
-                                    Họ
+                                    {t("registration.firstName")}
                                 </label>
                                 <input
                                     id="reg-first-name"
@@ -98,7 +100,7 @@ const Registration: FC = (): ReactElement => {
                             </div>
                             <div className="space-y-xs">
                                 <label className="block font-label-sm text-label-sm text-on-surface-variant" htmlFor="reg-last-name">
-                                    Tên
+                                    {t("registration.lastName")}
                                 </label>
                                 <input
                                     id="reg-last-name"
@@ -116,7 +118,7 @@ const Registration: FC = (): ReactElement => {
 
                         <div className="space-y-xs">
                             <label className="block font-label-sm text-label-sm text-on-surface-variant" htmlFor="reg-email">
-                                Email
+                                {t("registration.email")}
                             </label>
                             <input
                                 id="reg-email"
@@ -133,14 +135,14 @@ const Registration: FC = (): ReactElement => {
 
                         <div className="space-y-xs">
                             <label className="block font-label-sm text-label-sm text-on-surface-variant" htmlFor="reg-password">
-                                Mật khẩu
+                                {t("registration.password")}
                             </label>
                             <input
                                 id="reg-password"
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Tối thiểu 6 ký tự"
+                                placeholder={t("registration.passwordPlaceholder")}
                                 className={inputClass}
                             />
                             {errors.passwordError && (
@@ -150,14 +152,14 @@ const Registration: FC = (): ReactElement => {
 
                         <div className="space-y-xs">
                             <label className="block font-label-sm text-label-sm text-on-surface-variant" htmlFor="reg-password2">
-                                Xác nhận mật khẩu
+                                {t("registration.confirmPassword")}
                             </label>
                             <input
                                 id="reg-password2"
                                 type="password"
                                 value={password2}
                                 onChange={(e) => setPassword2(e.target.value)}
-                                placeholder="Nhập lại mật khẩu"
+                                placeholder={t("registration.confirmPasswordPlaceholder")}
                                 className={inputClass}
                             />
                             {errors.password2Error && (
@@ -170,16 +172,16 @@ const Registration: FC = (): ReactElement => {
                             disabled={isLoading}
                             className="w-full bg-primary text-on-primary font-label-sm text-label-sm py-md rounded-xl hover:bg-primary-container transition-colors mt-lg flex justify-center items-center gap-base disabled:opacity-60"
                         >
-                            Đăng ký tài khoản
+                            {t("registration.submit")}
                             <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </button>
                     </form>
 
                     <div className="mt-lg pt-lg border-t border-outline-variant/30 text-center">
                         <p className="font-body-md text-body-md text-on-surface-variant">
-                            Đã có tài khoản?
+                            {t("registration.haveAccount")}
                             <Link to={LOGIN} className="text-secondary font-bold hover:underline ml-xs">
-                                Đăng nhập
+                                {t("registration.loginNow")}
                             </Link>
                         </p>
                     </div>

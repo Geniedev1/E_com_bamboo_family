@@ -20,7 +20,7 @@ describe("OrderFinalize", () => {
     it("should render correctly", () => {
         const wrapper = mountWithStore(<OrderFinalize />, mockStore);
         expect(mockDispatchFn).nthCalledWith(1, { type: "cart/resetCartState" });
-        expect(wrapper.text().includes("Thank you for the order!")).toBe(true);
-        expect(wrapper.text().includes("Your order number is: 1")).toBe(true);
+        expect(wrapper.text().includes("Cảm ơn bạn đã đặt hàng!")).toBe(true);
+        expect(wrapper.text().includes("Mã đơn hàng của bạn là: 1")).toBe(true);
     });
 });

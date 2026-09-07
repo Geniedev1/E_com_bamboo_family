@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import loginHero from "../../img/login-hero.png";
 import googleLogo from "../../img/google.png";
@@ -12,6 +13,7 @@ import { FORGOT, REGISTRATION } from "../../constants/routeConstants";
 import SocialButton from "./SocialButton/SocialButton";
 
 const Login: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const history = useHistory();
     const params = useParams<{ code: string }>();
@@ -54,14 +56,13 @@ const Login: FC = (): ReactElement => {
                     <div className="relative z-10 flex flex-col justify-end h-full p-lg">
                         <span className="font-headline-xl text-headline-xl leading-none text-white">Rattanovi</span>
                         <h2 className="font-headline-lg text-headline-lg mt-md leading-tight text-white">
-                            Gìn giữ nét đẹp truyền thống trong không gian hiện đại.
+                            {t("login.heroTitle")}
                         </h2>
                         <p className="font-body-md text-body-md text-white opacity-90 mt-sm">
-                            Hành trình mang tinh hoa mây tre đan Việt Nam đến với mọi ngôi nhà, nơi mỗi sản phẩm là một
-                            câu chuyện về sự tỉ mỉ và tâm huyết.
+                            {t("login.heroDesc")}
                         </p>
                         <span className="font-label-sm text-label-sm text-white/90 mt-lg">
-                            +2,000 nghệ nhân và khách hàng đồng hành
+                            {t("login.heroBadge")}
                         </span>
                     </div>
                 </div>
@@ -69,9 +70,9 @@ const Login: FC = (): ReactElement => {
                 {/* ===== Right: login form ===== */}
                 <div className="p-lg md:p-xl flex flex-col justify-center">
                     <header className="mb-lg">
-                        <h1 className="font-headline-lg text-headline-lg text-primary mb-xs">Chào mừng trở lại</h1>
+                        <h1 className="font-headline-lg text-headline-lg text-primary mb-xs">{t("login.welcomeBack")}</h1>
                         <p className="font-body-md text-body-md text-on-surface-variant">
-                            Vui lòng đăng nhập để tiếp tục khám phá các tác phẩm thủ công.
+                            {t("login.subtitle")}
                         </p>
                     </header>
 
@@ -89,7 +90,7 @@ const Login: FC = (): ReactElement => {
                     <form className="space-y-md" onSubmit={onSubmit}>
                         <div className="space-y-xs">
                             <label className="block font-label-sm text-label-sm text-on-surface-variant" htmlFor="login-email">
-                                Email
+                                {t("login.email")}
                             </label>
                             <input
                                 id="login-email"
@@ -105,10 +106,10 @@ const Login: FC = (): ReactElement => {
                         <div className="space-y-xs">
                             <div className="flex justify-between items-center">
                                 <label className="font-label-sm text-label-sm text-on-surface-variant" htmlFor="login-password">
-                                    Mật khẩu
+                                    {t("login.password")}
                                 </label>
                                 <Link to={FORGOT} className="text-secondary font-label-sm text-label-sm hover:underline">
-                                    Quên mật khẩu?
+                                    {t("login.forgotPassword")}
                                 </Link>
                             </div>
                             <div className="relative">
@@ -124,7 +125,7 @@ const Login: FC = (): ReactElement => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    aria-label="Hiện/ẩn mật khẩu"
+                                    aria-label={t("login.togglePassword")}
                                     className="absolute right-md top-1/2 -translate-y-1/2 text-outline-variant hover:text-on-surface-variant"
                                 >
                                     <span className="material-symbols-outlined">
@@ -143,7 +144,7 @@ const Login: FC = (): ReactElement => {
                                 className="w-5 h-5 rounded border-outline-variant accent-primary"
                             />
                             <label htmlFor="remember" className="font-body-md text-body-md text-on-surface-variant select-none">
-                                Ghi nhớ đăng nhập
+                                {t("login.remember")}
                             </label>
                         </div>
 
@@ -151,16 +152,16 @@ const Login: FC = (): ReactElement => {
                             type="submit"
                             className="w-full bg-primary text-on-primary font-label-sm text-label-sm py-md rounded-xl hover:bg-primary-container transition-colors mt-lg flex justify-center items-center gap-base"
                         >
-                            Đăng nhập
+                            {t("login.submit")}
                             <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </button>
                     </form>
 
                     <div className="mt-lg pt-lg border-t border-outline-variant/30 text-center">
                         <p className="font-body-md text-body-md text-on-surface-variant">
-                            Chưa có tài khoản?
+                            {t("login.noAccount")}
                             <Link to={REGISTRATION} className="text-secondary font-bold hover:underline ml-xs">
-                                Đăng ký ngay
+                                {t("login.registerNow")}
                             </Link>
                         </p>
                     </div>
@@ -169,7 +170,7 @@ const Login: FC = (): ReactElement => {
                         <div className="relative flex items-center py-sm">
                             <div className="flex-grow border-t border-outline-variant/30" />
                             <span className="flex-shrink mx-md font-label-sm text-label-sm text-outline">
-                                Hoặc tiếp tục với
+                                {t("login.orContinueWith")}
                             </span>
                             <div className="flex-grow border-t border-outline-variant/30" />
                         </div>

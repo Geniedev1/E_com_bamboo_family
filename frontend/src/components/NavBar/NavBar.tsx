@@ -2,13 +2,16 @@ import React, { FC, ReactElement, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { Badge } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { selectUserFromUserState } from "../../redux-toolkit/user/user-selector";
 import { selectCartItemsCount } from "../../redux-toolkit/cart/cart-selector";
 import { logoutSuccess } from "../../redux-toolkit/user/user-slice";
 import { ACCOUNT, BASE, CART, CONTACTS, LOGIN, MENU, REGISTRATION } from "../../constants/routeConstants";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const NavBar: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,17 +44,17 @@ const NavBar: FC = (): ReactElement => {
                 <ul className="hidden md:flex space-x-gutter mb-0">
                     <li>
                         <Link className={getNavLinkClass(BASE)} to={BASE}>
-                            Trang chủ
+                            {t("nav.home")}
                         </Link>
                     </li>
                     <li>
                         <Link className={getNavLinkClass(MENU)} to={{ pathname: MENU, state: { id: "all" } }}>
-                            Sản phẩm
+                            {t("nav.products")}
                         </Link>
                     </li>
                     <li>
                         <Link className={getNavLinkClass(CONTACTS)} to={CONTACTS}>
-                            Liên hệ
+                            {t("nav.contact")}
                         </Link>
                     </li>
                 </ul>
@@ -63,10 +66,10 @@ const NavBar: FC = (): ReactElement => {
                     </Link>
                     {usersData ? (
                         <div className="hidden items-center space-x-sm md:flex">
-                            <Link to={ACCOUNT} className="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all flex items-center text-primary hover:no-underline" title="My Account">
+                            <Link to={ACCOUNT} className="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all flex items-center text-primary hover:no-underline" title={t("nav.myAccount")}>
                                 <span className="material-symbols-outlined text-[24px]">person</span>
                             </Link>
-                            <button type="button" onClick={handleLogout} className="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all flex items-center" title="Logout">
+                            <button type="button" onClick={handleLogout} className="hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all flex items-center" title={t("nav.logout")}>
                                 <span className="material-symbols-outlined text-[24px]">logout</span>
                             </button>
                         </div>
@@ -74,16 +77,17 @@ const NavBar: FC = (): ReactElement => {
                         <Link
                             to={LOGIN}
                             className="hidden md:inline-flex items-center gap-xs rounded-full bg-primary px-md py-1.5 font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary-container hover:text-white hover:no-underline"
-                            title="Đăng nhập / Đăng ký"
+                            title={t("nav.loginRegister")}
                         >
                             <span className="material-symbols-outlined text-[18px]">login</span>
-                            Đăng nhập
+                            {t("nav.login")}
                         </Link>
                     )}
+                    <LanguageSwitcher />
                     <button
                         type="button"
                         className="md:hidden hover:text-secondary dark:hover:text-secondary-fixed-dim transition-all flex items-center"
-                        aria-label="Mở menu"
+                        aria-label={t("nav.openMenu")}
                         aria-expanded={isMenuOpen}
                         onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
                     >
@@ -98,7 +102,7 @@ const NavBar: FC = (): ReactElement => {
                     <ul className="flex flex-col gap-sm pt-sm mb-0">
                         <li>
                             <Link className={getNavLinkClass(BASE)} to={BASE} onClick={closeMobileMenu}>
-                                Trang chủ
+                                {t("nav.home")}
                             </Link>
                         </li>
                         <li>
@@ -107,39 +111,39 @@ const NavBar: FC = (): ReactElement => {
                                 to={{ pathname: MENU, state: { id: "all" } }}
                                 onClick={closeMobileMenu}
                             >
-                                Sản phẩm
+                                {t("nav.products")}
                             </Link>
                         </li>
                         <li>
                             <Link className={getNavLinkClass(CONTACTS)} to={CONTACTS} onClick={closeMobileMenu}>
-                                Liên hệ
+                                {t("nav.contact")}
                             </Link>
                         </li>
                         {!usersData && (
                             <li className="flex gap-md pt-sm">
                                 <Link className={getNavLinkClass(LOGIN)} to={LOGIN} onClick={closeMobileMenu}>
-                                    Đăng nhập
+                                    {t("nav.login")}
                                 </Link>
                                 <Link
                                     className={getNavLinkClass(REGISTRATION)}
                                     to={REGISTRATION}
                                     onClick={closeMobileMenu}
                                 >
-                                    Đăng ký
+                                    {t("nav.register")}
                                 </Link>
                             </li>
                         )}
                         {usersData && (
                             <li className="flex gap-md pt-sm">
                                 <Link className={getNavLinkClass(ACCOUNT)} to={ACCOUNT} onClick={closeMobileMenu}>
-                                    Tài khoản
+                                    {t("nav.account")}
                                 </Link>
                                 <button
                                     type="button"
                                     className={`${navLinkBase} ${inactiveNavLink}`}
                                     onClick={handleLogout}
                                 >
-                                    Đăng xuất
+                                    {t("nav.signOut")}
                                 </button>
                             </li>
                         )}

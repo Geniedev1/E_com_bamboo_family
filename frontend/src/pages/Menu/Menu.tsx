@@ -2,6 +2,7 @@ import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Pagination } from "antd";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { selectIsProductsLoading, selectProducts } from "../../redux-toolkit/products/products-selector";
 import { FilterParamsType, SearchProduct } from "../../types/types";
@@ -20,21 +21,6 @@ export enum CheckboxCategoryFilter {
     VENDORS = "VENDORS",
     GENDERS = "GENDERS"
 }
-
-const ALL_CATEGORIES_LABEL = "Tất cả sản phẩm";
-
-const materialFilters = ["Mây tự nhiên", "Tre hun khói", "Nứa đan", "Kết hợp"];
-
-const sortOptions = [
-    { label: "Mới nhất", value: "false" },
-    { label: "Giá tăng dần", value: "true" }
-];
-
-const searchTypeOptions = [
-    { label: "Tên sản phẩm", value: SearchProduct.PRODUCT_TITLE },
-    { label: "Thương hiệu", value: SearchProduct.BRAND },
-    { label: "Xuất xứ", value: SearchProduct.COUNTRY }
-];
 
 type SoftDropdownProps = {
     value: string;
@@ -124,11 +110,29 @@ const SoftDropdown: FC<SoftDropdownProps> = ({
 };
 
 const Menu: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const products = useSelector(selectProducts);
     const isProductsLoading = useSelector(selectIsProductsLoading);
     const categories = useSelector(selectCategories);
     const location = useLocation<{ id: string }>();
+
+    const ALL_CATEGORIES_LABEL = t("menu.allProducts");
+    const materialFilters = [
+        t("menu.materialNatural"),
+        t("menu.materialSmokedBamboo"),
+        t("menu.materialReed"),
+        t("menu.materialMixed")
+    ];
+    const sortOptions = [
+        { label: t("menu.sortNewest"), value: "false" },
+        { label: t("menu.sortPriceAsc"), value: "true" }
+    ];
+    const searchTypeOptions = [
+        { label: t("menu.searchByName"), value: SearchProduct.PRODUCT_TITLE },
+        { label: t("menu.searchByBrand"), value: SearchProduct.BRAND },
+        { label: t("menu.searchByCountry"), value: SearchProduct.COUNTRY }
+    ];
 
     const categoryFilters = [ALL_CATEGORIES_LABEL, ...categories.map((category) => category.name)];
     const descriptionByName: Record<string, string | undefined> = categories.reduce(
@@ -230,11 +234,10 @@ const Menu: FC = (): ReactElement => {
             <section>
                 <div className="px-margin-mobile pb-xl pt-lg text-center md:px-[56px]">
                     <h1 className="font-headline-xl text-[40px] leading-tight text-primary md:text-headline-xl">
-                        Bộ sưu tập Mây Tre
+                        {t("menu.title")}
                     </h1>
                     <p className="mx-auto mt-sm max-w-2xl font-body-md text-body-md text-on-surface-variant">
-                        Khám phá vẻ đẹp mộc mạc và tinh tế của các sản phẩm thủ công truyền thống, mang hơi thở
-                        thiên nhiên vào không gian sống hiện đại.
+                        {t("menu.subtitle")}
                     </p>
                 </div>
             </section>
@@ -243,7 +246,7 @@ const Menu: FC = (): ReactElement => {
                 <aside className="sticky top-[92px] h-fit overflow-visible pr-xs">
                     <div>
                         <h2 className="border-b border-outline-variant pb-xs font-label-sm text-label-sm uppercase text-on-surface">
-                            Danh mục
+                            {t("menu.categoryHeading")}
                         </h2>
                         <div className="mt-sm flex w-full flex-col gap-sm">
                             {categoryFilters.map((category, index) => {
@@ -283,7 +286,7 @@ const Menu: FC = (): ReactElement => {
 
                     <div className="mt-lg">
                         <h2 className="border-b border-outline-variant pb-xs font-label-sm text-label-sm uppercase text-on-surface">
-                            Chất liệu
+                            {t("menu.materialHeading")}
                         </h2>
                         <div className="mt-sm flex flex-wrap gap-xs">
                             {materialFilters.map((material, index) => (
@@ -305,7 +308,7 @@ const Menu: FC = (): ReactElement => {
 
                     <div className="mt-lg">
                         <h2 className="border-b border-outline-variant pb-xs font-label-sm text-label-sm uppercase text-on-surface">
-                            Sắp xếp
+                            {t("menu.sortHeading")}
                         </h2>
                         <SoftDropdown
                             className="mt-sm w-full"
@@ -329,7 +332,7 @@ const Menu: FC = (): ReactElement => {
                                     <Input
                                         bordered={false}
                                         className="h-11 bg-transparent px-0 font-body-md text-body-md"
-                                        placeholder="Tìm sản phẩm..."
+                                        placeholder={t("menu.searchPlaceholder")}
                                     />
                                 </Form.Item>
                             </div>
@@ -344,7 +347,7 @@ const Menu: FC = (): ReactElement => {
                                 type="submit"
                                 className="h-11 rounded-full bg-secondary px-lg font-label-sm text-label-sm text-white shadow-[0_12px_24px_-16px_rgba(152,71,33,0.9)] transition hover:bg-on-secondary-container"
                             >
-                                Tìm kiếm
+                                {t("menu.searchButton")}
                             </button>
                         </div>
                     </Form>

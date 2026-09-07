@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { selectCartItems, selectIsCartLoading, selectTotalPrice } from "../../redux-toolkit/cart/cart-selector";
 import { fetchCart } from "../../redux-toolkit/cart/cart-thunks";
@@ -16,6 +17,7 @@ import { MENU, ORDER } from "../../constants/routeConstants";
 import { formatProductPrice } from "../../utils/priceUtils";
 
 const Cart: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const products = useSelector(selectCartItems);
     const totalPrice = useSelector(selectTotalPrice);
@@ -64,7 +66,7 @@ const Cart: FC = (): ReactElement => {
     return (
         <div className="min-h-[calc(100vh-72px)] bg-background">
             <div className="mx-auto max-w-7xl px-margin-mobile py-xl md:px-margin-desktop">
-                <h1 className="mb-lg font-headline-lg text-headline-lg text-primary">Giỏ hàng</h1>
+                <h1 className="mb-lg font-headline-lg text-headline-lg text-primary">{t("cart.title")}</h1>
 
                 {isCartLoading ? (
                     <Spinner />
@@ -74,17 +76,17 @@ const Cart: FC = (): ReactElement => {
                             <span className="material-symbols-outlined text-[32px]">shopping_cart</span>
                         </div>
                         <h2 className="mt-md font-headline-md text-[20px] text-primary">
-                            Giỏ hàng của bạn đang trống
+                            {t("cart.empty")}
                         </h2>
                         <p className="mt-xs font-body-md text-[14px] leading-6 text-on-surface-variant">
-                            Hãy khám phá bộ sưu tập mây tre và thêm những sản phẩm bạn yêu thích.
+                            {t("cart.emptyDesc")}
                         </p>
                         <Link
                             to={{ pathname: MENU, state: { id: "all" } }}
                             className="mt-lg inline-flex items-center gap-base rounded-xl bg-primary px-lg py-sm font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary-container hover:text-white hover:no-underline"
                         >
                             <span className="material-symbols-outlined text-[18px]">storefront</span>
-                            Tiếp tục mua sắm
+                            {t("cart.continueShopping")}
                         </Link>
                     </div>
                 ) : (
@@ -104,21 +106,21 @@ const Cart: FC = (): ReactElement => {
 
                         {/* Order summary */}
                         <aside className="rounded-lg border border-[#eadfca] bg-[#fffdf6] p-lg shadow-[0_8px_18px_-14px_rgba(83,61,31,0.32)] lg:sticky lg:top-[96px]">
-                            <h2 className="font-headline-md text-[20px] text-primary">Tóm tắt đơn hàng</h2>
+                            <h2 className="font-headline-md text-[20px] text-primary">{t("cart.orderSummary")}</h2>
                             <div className="mt-md space-y-sm border-b border-outline-variant/30 pb-md font-body-md text-[14px]">
                                 <div className="flex justify-between">
                                     <span className="text-on-surface-variant">
-                                        Tạm tính ({products.length} sản phẩm)
+                                        {t("cart.subtotal", { count: products.length })}
                                     </span>
                                     <span className="text-on-surface">{formatProductPrice(totalPrice)}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-on-surface-variant">Phí vận chuyển</span>
-                                    <span className="text-on-surface-variant">Tính khi thanh toán</span>
+                                    <span className="text-on-surface-variant">{t("cart.shippingFee")}</span>
+                                    <span className="text-on-surface-variant">{t("cart.shippingCalcAtCheckout")}</span>
                                 </div>
                             </div>
                             <div className="flex items-center justify-between py-md">
-                                <span className="font-label-sm text-[15px] text-on-surface">Tổng cộng</span>
+                                <span className="font-label-sm text-[15px] text-on-surface">{t("cart.total")}</span>
                                 <span className="font-headline-md text-[22px] text-primary">{formatProductPrice(totalPrice)}</span>
                             </div>
                             <Link
@@ -126,13 +128,13 @@ const Cart: FC = (): ReactElement => {
                                 className="flex w-full items-center justify-center gap-base rounded-xl bg-primary px-lg py-md font-label-sm text-label-sm text-on-primary transition-colors hover:bg-primary-container hover:text-white hover:no-underline"
                             >
                                 <span className="material-symbols-outlined text-[18px]">shopping_bag</span>
-                                Thanh toán
+                                {t("cart.checkout")}
                             </Link>
                             <Link
                                 to={{ pathname: MENU, state: { id: "all" } }}
                                 className="mt-sm block text-center font-label-sm text-[14px] text-secondary hover:underline"
                             >
-                                Tiếp tục mua sắm
+                                {t("cart.continueShopping")}
                             </Link>
                         </aside>
                     </div>

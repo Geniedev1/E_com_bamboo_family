@@ -752,6 +752,10 @@ video {
   display: inline-flex;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
 }
@@ -802,6 +806,10 @@ video {
 
 .h-64 {
   height: 16rem;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .h-9 {

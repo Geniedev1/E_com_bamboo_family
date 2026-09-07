@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { CheckCircleOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Row, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 
 import ContentWrapper from "../../components/ContentWrapper/ContentWrapper";
 import ContentTitle from "../../components/ContentTitle/ContentTitle";
@@ -29,6 +30,7 @@ interface OrderFormData {
 }
 
 const Order: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const history = useHistory();
     const [form] = Form.useForm();
@@ -65,73 +67,73 @@ const Order: FC = (): ReactElement => {
     return (
         <ContentWrapper>
             <div style={{ textAlign: "center" }}>
-                <ContentTitle icon={<ShoppingOutlined />} title={"Đặt hàng"} />
+                <ContentTitle icon={<ShoppingOutlined />} title={t("order.title")} />
             </div>
             <Form onFinish={onFormSubmit} form={form}>
                 <Row gutter={32}>
                     <Col span={12}>
                         <FormInput
-                            title={"Họ:"}
+                            title={t("order.firstName")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"firstName"}
                             error={errors.firstNameError}
                             disabled={isOrderLoading}
-                            placeholder={"Nhập họ"}
+                            placeholder={t("order.firstNamePlaceholder")}
                         />
                         <FormInput
-                            title={"Tên:"}
+                            title={t("order.lastName")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"lastName"}
                             error={errors.lastNameError}
                             disabled={isOrderLoading}
-                            placeholder={"Nhập tên"}
+                            placeholder={t("order.lastNamePlaceholder")}
                         />
                         <FormInput
-                            title={"Thành phố:"}
+                            title={t("order.city")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"city"}
                             error={errors.cityError}
                             disabled={isOrderLoading}
-                            placeholder={"Nhập thành phố"}
+                            placeholder={t("order.cityPlaceholder")}
                         />
                         <FormInput
-                            title={"Địa chỉ:"}
+                            title={t("order.address")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"address"}
                             error={errors.addressError}
                             disabled={isOrderLoading}
-                            placeholder={"Nhập địa chỉ"}
+                            placeholder={t("order.addressPlaceholder")}
                         />
                         <FormInput
-                            title={"Mã bưu điện:"}
+                            title={t("order.postIndex")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"postIndex"}
                             error={errors.postIndexError}
                             disabled={isOrderLoading}
-                            placeholder={"Nhập mã bưu điện"}
+                            placeholder={t("order.postIndexPlaceholder")}
                         />
                         <FormInput
-                            title={"Số điện thoại:"}
+                            title={t("order.phone")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"phoneNumber"}
                             error={errors.phoneNumberError}
                             disabled={isOrderLoading}
-                            placeholder={"0912 345 678"}
+                            placeholder={t("order.phonePlaceholder")}
                         />
                         <FormInput
-                            title={"Email:"}
+                            title={t("order.email")}
                             titleSpan={5}
                             wrapperSpan={19}
                             name={"email"}
                             error={errors.emailError}
                             disabled={isOrderLoading}
-                            placeholder={"example@gmail.com"}
+                            placeholder={t("order.emailPlaceholder")}
                         />
                     </Col>
                     <Col span={12}>
@@ -146,7 +148,7 @@ const Order: FC = (): ReactElement => {
                         </Row>
                         <Row gutter={[32, 32]} style={{ marginTop: 16 }}>
                             <Col span={12}>
-                                <Typography.Title level={3}>Thanh toán: {formatProductPrice(totalPrice)}</Typography.Title>
+                                <Typography.Title level={3}>{t("order.payment")} {formatProductPrice(totalPrice)}</Typography.Title>
                             </Col>
                             <Col>
                                 <Button
@@ -156,7 +158,7 @@ const Order: FC = (): ReactElement => {
                                     size="large"
                                     icon={<CheckCircleOutlined />}
                                 >
-                                    Đặt hàng
+                                    {t("order.placeOrder")}
                                 </Button>
                             </Col>
                         </Row>

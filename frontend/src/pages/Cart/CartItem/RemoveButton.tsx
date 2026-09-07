@@ -1,4 +1,5 @@
 import React, { FC, memo, ReactElement } from "react";
+import { useTranslation } from "react-i18next";
 
 type PropsType = {
     productId: number;
@@ -6,6 +7,8 @@ type PropsType = {
 };
 
 const RemoveButton: FC<PropsType> = memo(({ productId, deleteFromCart }): ReactElement => {
+    const { t } = useTranslation();
+
     return (
         <button
             type="button"
@@ -13,7 +16,7 @@ const RemoveButton: FC<PropsType> = memo(({ productId, deleteFromCart }): ReactE
             className="inline-flex items-center gap-xs font-label-sm text-[13px] text-on-surface-variant transition-colors hover:text-error"
         >
             <span className="material-symbols-outlined text-[18px]">delete</span>
-            Xóa
+            {t("cart.remove")}
         </button>
     );
 });

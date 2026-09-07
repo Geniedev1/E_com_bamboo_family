@@ -1,6 +1,7 @@
 import React, {FC, ReactElement, useEffect} from "react";
 import { Col, Row, Typography } from "antd";
 import { FacebookFilled, InfoCircleOutlined, InstagramFilled, PinterestFilled } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 import ContentWrapper from "../../components/ContentWrapper/ContentWrapper";
 import ContentTitle from "../../components/ContentTitle/ContentTitle";
@@ -12,6 +13,7 @@ const socialLinks = [
 ];
 
 const Contacts: FC = (): ReactElement => {
+    const { t } = useTranslation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -19,34 +21,34 @@ const Contacts: FC = (): ReactElement => {
 
     return (
         <ContentWrapper>
-            <ContentTitle icon={<InfoCircleOutlined />} title={"Liên hệ"} />
+            <ContentTitle icon={<InfoCircleOutlined />} title={t("contacts.title")} />
             <Row gutter={32}>
                 <Col span={12}>
                     <div>
-                        <Typography.Text strong>{"Điện thoại: "}</Typography.Text>
-                        <Typography.Text>0325 738 794 (FB/Zalo)</Typography.Text>
+                        <Typography.Text strong>{t("contacts.phone")}</Typography.Text>
+                        <Typography.Text>{t("contacts.phoneValue")}</Typography.Text>
                     </div>
                     <div>
-                        <Typography.Text strong>{"Email: "}</Typography.Text>
+                        <Typography.Text strong>{t("contacts.email")}</Typography.Text>
                         <Typography.Text>rattanovi@gmail.com</Typography.Text>
                     </div>
                     <div style={{ marginTop: 16 }}>
-                        <Typography.Text strong>Giờ làm việc</Typography.Text>
+                        <Typography.Text strong>{t("contacts.workingHours")}</Typography.Text>
                     </div>
                     <div>
                         <Typography.Text>
-                            Cửa hàng mở cửa từ 08:00 đến 20:00, tất cả các ngày trong tuần. <br />
-                            Đơn hàng online được tiếp nhận 24/7.
+                            {t("contacts.workingHoursText")} <br />
+                            {t("contacts.onlineOrders")}
                         </Typography.Text>
                     </div>
                     <div style={{ marginTop: 16 }}>
-                        <Typography.Text strong>Giao hàng</Typography.Text>
+                        <Typography.Text strong>{t("contacts.delivery")}</Typography.Text>
                     </div>
                     <div>
-                        <Typography.Text>Đơn hàng được giao qua dịch vụ vận chuyển.</Typography.Text>
+                        <Typography.Text>{t("contacts.deliveryText")}</Typography.Text>
                     </div>
                     <div style={{ marginTop: 16 }}>
-                        <Typography.Text strong>Kết nối với chúng tôi</Typography.Text>
+                        <Typography.Text strong>{t("contacts.connectWithUs")}</Typography.Text>
                     </div>
                     <div style={{ marginTop: 8 }}>
                         {socialLinks.map((link) => (

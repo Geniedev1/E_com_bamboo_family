@@ -17,8 +17,8 @@ describe("ForgotPassword", () => {
     it("should render correctly", () => {
         const wrapper = mountWithStore(<ForgotPassword />);
         expect(mockDispatchFn).nthCalledWith(1, { payload: LoadingStatus.LOADED, type: "auth/setAuthLoadingState" });
-        expect(wrapper.text().includes("Enter your email address that you used to create your account.")).toBe(true);
-        expect(wrapper.find(IconButton).at(0).prop("title")).toBe("Send");
+        expect(wrapper.text().includes("Nhập địa chỉ email bạn đã dùng để tạo tài khoản.")).toBe(true);
+        expect(wrapper.find(IconButton).at(0).prop("title")).toBe("Gửi");
     });
 
     it("should render error Alert message", () => {

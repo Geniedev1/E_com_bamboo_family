@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { MENU } from "../../constants/routeConstants";
 import { selectProducts } from "../../redux-toolkit/products/products-selector";
@@ -12,27 +13,22 @@ const heroImage =
 const storyImage =
     "https://images.unsplash.com/photo-1517840933437-c41356892b35?auto=format&fit=crop&w=1200&q=80";
 
-const collections = [
-    {
-        title: "Không gian sống",
-        text: "Các món trang trí nhẹ nhàng cho phòng khách, bàn trà và góc đọc sách.",
-        image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-        title: "Bếp và bàn ăn",
-        text: "Khay, rổ, hộp đựng và vật dụng thủ công cho nhịp sống hàng ngày.",
-        image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-        title: "Quà tặng thủ công",
-        text: "Những sản phẩm có chất liệu tự nhiên, phù hợp làm quà tặng tinh tế.",
-        image: "https://images.unsplash.com/photo-1607344645866-009c7d8c9df4?auto=format&fit=crop&w=900&q=80"
-    }
+const collectionImages = [
+    "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80"
 ];
 
 const Home: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const products = useSelector(selectProducts);
+
+    const collections = [
+        { title: t("home.collectionLivingTitle"), text: t("home.collectionLivingText"), image: collectionImages[0] },
+        { title: t("home.collectionKitchenTitle"), text: t("home.collectionKitchenText"), image: collectionImages[1] },
+        { title: t("home.collectionGiftTitle"), text: t("home.collectionGiftText"), image: collectionImages[2] }
+    ];
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -42,30 +38,29 @@ const Home: FC = (): ReactElement => {
     return (
         <div className="bg-background text-on-surface">
             <section className="relative min-h-[calc(100vh-72px)] overflow-hidden">
-                <img className="absolute inset-0 h-full w-full object-cover" src={heroImage} alt="Không gian thủ công Việt" />
+                <img className="absolute inset-0 h-full w-full object-cover" src={heroImage} alt={t("home.heroImageAlt")} />
                 <div className="absolute inset-0 bg-[#173124]/30" />
                 <div className="relative mx-auto flex min-h-[calc(100vh-72px)] max-w-7xl flex-col justify-end px-margin-mobile pb-xl pt-lg md:px-margin-desktop">
                     <div className="max-w-3xl text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.34)]">
-                        <p className="font-label-sm text-label-sm uppercase opacity-90">Mây tre thủ công</p>
+                        <p className="font-label-sm text-label-sm uppercase opacity-90">{t("home.craftTag")}</p>
                         <h1 className="mt-sm font-headline-xl text-[40px] leading-tight text-white md:text-headline-xl">
                             Rattanovi
                         </h1>
                         <p className="mt-md max-w-2xl font-body-lg text-body-lg text-white/90">
-                            Sản phẩm thủ công từ vật liệu tự nhiên, được chọn lọc cho những không gian sống ấm áp,
-                            bền vững và có câu chuyện.
+                            {t("home.heroDesc")}
                         </p>
                         <div className="mt-lg flex flex-wrap gap-sm">
                             <Link
                                 className="inline-flex h-12 items-center justify-center rounded bg-secondary px-md font-label-sm text-label-sm text-white transition hover:bg-on-secondary-container hover:text-white hover:no-underline"
                                 to={{ pathname: MENU, state: { id: "all" } }}
                             >
-                                Xem sản phẩm
+                                {t("home.viewProducts")}
                             </Link>
                             <a
                                 className="inline-flex h-12 items-center justify-center rounded border border-white/70 px-md font-label-sm text-label-sm text-white transition hover:border-white hover:bg-white hover:text-primary hover:no-underline"
                                 href="#craft-story"
                             >
-                                Câu chuyện
+                                {t("home.ourStory")}
                             </a>
                         </div>
                     </div>
@@ -75,14 +70,14 @@ const Home: FC = (): ReactElement => {
             <section className="mx-auto max-w-7xl px-margin-mobile py-xl md:px-margin-desktop">
                 <div className="mb-lg flex flex-col justify-between gap-sm md:flex-row md:items-end">
                     <div>
-                        <p className="font-label-sm text-label-sm uppercase text-secondary">Sản phẩm mới</p>
-                        <h2 className="mt-xs font-headline-lg text-headline-lg text-primary">Chọn lọc cho ngôi nhà</h2>
+                        <p className="font-label-sm text-label-sm uppercase text-secondary">{t("home.newProductsTag")}</p>
+                        <h2 className="mt-xs font-headline-lg text-headline-lg text-primary">{t("home.curatedTitle")}</h2>
                     </div>
                     <Link
                         className="font-label-sm text-label-sm text-primary transition hover:text-secondary hover:no-underline"
                         to={{ pathname: MENU, state: { id: "all" } }}
                     >
-                        Xem tất cả
+                        {t("home.viewAll")}
                     </Link>
                 </div>
                 <div className="grid gap-gutter sm:grid-cols-2 lg:grid-cols-4">
@@ -95,29 +90,28 @@ const Home: FC = (): ReactElement => {
             <section id="craft-story" className="bg-[#fbf6eb] py-xl">
                 <div className="mx-auto grid max-w-7xl gap-lg px-margin-mobile md:grid-cols-[1fr_1fr] md:px-margin-desktop">
                     <div className="overflow-hidden rounded-lg">
-                        <img className="h-full min-h-[360px] w-full object-cover" src={storyImage} alt="Nghề thủ công truyền thống" />
+                        <img className="h-full min-h-[360px] w-full object-cover" src={storyImage} alt={t("home.storyImageAlt")} />
                     </div>
                     <div className="flex flex-col justify-center">
-                        <p className="font-label-sm text-label-sm uppercase text-secondary">Từ làng nghề</p>
+                        <p className="font-label-sm text-label-sm uppercase text-secondary">{t("home.fromVillageTag")}</p>
                         <h2 className="mt-xs font-headline-xl text-[34px] leading-tight text-primary md:text-headline-xl">
-                            Giữ chất mộc trong từng chi tiết
+                            {t("home.keepDetailTitle")}
                         </h2>
                         <p className="mt-md font-body-lg text-body-lg text-on-surface-variant">
-                            Mỗi sản phẩm được tạo nên từ kỹ thuật đan lát, xử lý vật liệu và hoàn thiện thủ công.
-                            Thiết kế ưu tiên công năng, độ bền và vẻ đẹp tự nhiên của mây tre Việt.
+                            {t("home.storyText")}
                         </p>
                         <div className="mt-lg grid grid-cols-3 gap-sm">
                             <div>
                                 <strong className="block font-headline-lg text-headline-lg text-primary">48+</strong>
-                                <span className="font-body-md text-body-md text-on-surface-variant">nghệ nhân</span>
+                                <span className="font-body-md text-body-md text-on-surface-variant">{t("home.artisans")}</span>
                             </div>
                             <div>
                                 <strong className="block font-headline-lg text-headline-lg text-primary">12</strong>
-                                <span className="font-body-md text-body-md text-on-surface-variant">làng nghề</span>
+                                <span className="font-body-md text-body-md text-on-surface-variant">{t("home.villages")}</span>
                             </div>
                             <div>
                                 <strong className="block font-headline-lg text-headline-lg text-primary">100%</strong>
-                                <span className="font-body-md text-body-md text-on-surface-variant">tự nhiên</span>
+                                <span className="font-body-md text-body-md text-on-surface-variant">{t("home.natural")}</span>
                             </div>
                         </div>
                     </div>
@@ -126,8 +120,8 @@ const Home: FC = (): ReactElement => {
 
             <section className="mx-auto max-w-7xl px-margin-mobile py-xl md:px-margin-desktop">
                 <div className="mb-lg max-w-2xl">
-                    <p className="font-label-sm text-label-sm uppercase text-secondary">Bộ sưu tập</p>
-                    <h2 className="mt-xs font-headline-lg text-headline-lg text-primary">Dễ phối trong từng góc nhà</h2>
+                    <p className="font-label-sm text-label-sm uppercase text-secondary">{t("home.collectionsTag")}</p>
+                    <h2 className="mt-xs font-headline-lg text-headline-lg text-primary">{t("home.easyStyleTitle")}</h2>
                 </div>
                 <div className="grid gap-gutter md:grid-cols-3">
                     {collections.map((collection) => (
@@ -148,7 +142,7 @@ const Home: FC = (): ReactElement => {
             <section className="bg-surface-container-highest py-xl text-primary">
                 <div className="mx-auto max-w-4xl px-margin-mobile text-center md:px-margin-desktop">
                     <p className="font-headline-lg text-headline-lg">
-                        “Một sản phẩm tốt không chỉ đẹp trên kệ, mà còn làm nhịp sống hằng ngày chậm lại và dễ chịu hơn.”
+                        {t("home.quote")}
                     </p>
                     <p className="mt-md font-label-sm text-label-sm uppercase text-secondary">Rattanovi</p>
                 </div>

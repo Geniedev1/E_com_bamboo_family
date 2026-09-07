@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ProductResponse } from "../../../types/types";
 import { formatProductPrice } from "../../../utils/priceUtils";
@@ -18,6 +19,7 @@ const CartItem: FC<PropsType> = ({
     onChangeProductItemCount,
     deleteFromCart
 }): ReactElement => {
+    const { t } = useTranslation();
     const [productCount, setProductCount] = useState(1);
 
     useEffect(() => {
@@ -50,7 +52,7 @@ const CartItem: FC<PropsType> = ({
                     <div className="inline-flex items-center rounded-lg border border-outline-variant/50">
                         <button
                             type="button"
-                            aria-label="Giảm số lượng"
+                            aria-label={t("cart.decreaseAria")}
                             onClick={() => changeCount(productCount - 1)}
                             disabled={productCount <= 1}
                             className="grid h-9 w-9 place-items-center text-on-surface-variant transition-colors hover:text-primary disabled:opacity-40"
@@ -60,7 +62,7 @@ const CartItem: FC<PropsType> = ({
                         <span className="w-9 text-center font-label-sm text-[15px] text-on-surface">{productCount}</span>
                         <button
                             type="button"
-                            aria-label="Tăng số lượng"
+                            aria-label={t("cart.increaseAria")}
                             onClick={() => changeCount(productCount + 1)}
                             disabled={productCount >= 99}
                             className="grid h-9 w-9 place-items-center text-on-surface-variant transition-colors hover:text-primary disabled:opacity-40"

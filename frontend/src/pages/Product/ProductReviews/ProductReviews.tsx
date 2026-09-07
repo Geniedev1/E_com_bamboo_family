@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from "react";
 import { Button, Card, Col, Form, FormInstance, Input, Rate, Row, Typography } from "antd";
 import { SendOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 import { ReviewResponse, ReviewError } from "../../../types/types";
 import ReviewItem from "./ReviewItem/ReviewItem";
@@ -15,19 +16,20 @@ type PropType = {
 };
 
 const ProductReviews: FC<PropType> = ({ reviews, reviewErrors, addReview, form }): ReactElement => {
+    const { t } = useTranslation();
     const { authorError, messageError, ratingError } = reviewErrors;
 
     return (
         <>
             <Row>
                 <Col span={24} className={"product-reviews-title"}>
-                    <Typography.Title level={3}>Reviews</Typography.Title>
+                    <Typography.Title level={3}>{t("product.reviewsTitle")}</Typography.Title>
                 </Col>
             </Row>
             <Row>
                 {reviews.length === 0 ? (
                     <Col span={24} className={"product-reviews-title"}>
-                        <Typography.Text>There are no reviews for this product.</Typography.Text>
+                        <Typography.Text>{t("product.noReviews")}</Typography.Text>
                     </Col>
                 ) : (
                     <Col span={24}>
@@ -43,7 +45,7 @@ const ProductReviews: FC<PropType> = ({ reviews, reviewErrors, addReview, form }
                         <Card>
                             <Row gutter={32}>
                                 <Col span={6}>
-                                    <Typography.Text>Your name</Typography.Text>
+                                    <Typography.Text>{t("product.yourName")}</Typography.Text>
                                     <Typography.Text type="danger"> *</Typography.Text>
                                     <Form.Item
                                         name={"author"}
@@ -54,7 +56,7 @@ const ProductReviews: FC<PropType> = ({ reviews, reviewErrors, addReview, form }
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
-                                    <Typography.Text>Your mark</Typography.Text>
+                                    <Typography.Text>{t("product.yourMark")}</Typography.Text>
                                     <Typography.Text type="danger"> *</Typography.Text>
                                     <div>
                                         <Form.Item
@@ -69,7 +71,7 @@ const ProductReviews: FC<PropType> = ({ reviews, reviewErrors, addReview, form }
                             </Row>
                             <Row className={"product-reviews-wrapper"}>
                                 <Col span={24}>
-                                    <Typography.Text>Message text</Typography.Text>
+                                    <Typography.Text>{t("product.messageText")}</Typography.Text>
                                     <Typography.Text type="danger"> *</Typography.Text>
                                     <Form.Item
                                         name={"message"}
@@ -83,7 +85,7 @@ const ProductReviews: FC<PropType> = ({ reviews, reviewErrors, addReview, form }
                             <Row className={"product-reviews-wrapper"}>
                                 <Col span={24}>
                                     <Button type={"primary"} htmlType={"submit"} icon={<SendOutlined />}>
-                                        Post a review
+                                        {t("product.postReview")}
                                     </Button>
                                 </Col>
                             </Row>

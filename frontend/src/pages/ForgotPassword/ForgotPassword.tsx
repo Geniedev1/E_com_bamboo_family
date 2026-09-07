@@ -2,6 +2,7 @@ import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Col, Divider, Form, Row, Typography } from "antd";
 import { KeyOutlined, MailOutlined, SendOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 import {
     selectErrorMessage,
@@ -17,6 +18,7 @@ import IconButton from "../../components/IconButton/IconButton";
 import { forgotPassword } from "../../redux-toolkit/auth/auth-thunks";
 
 const ForgotPassword: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const error = useSelector(selectErrorMessage);
@@ -37,26 +39,26 @@ const ForgotPassword: FC = (): ReactElement => {
 
     return (
         <ContentWrapper>
-            <ContentTitle icon={<KeyOutlined />} title={"FORGOT PASSWORD ?"} />
+            <ContentTitle icon={<KeyOutlined />} title={t("forgotPassword.title")} />
             <Row gutter={32}>
                 <Col span={12}>
                     <Form form={form} onFinish={onClickSend}>
                         <Divider />
                         <Typography.Text style={{ display: "block", marginBottom: 16 }}>
-                            Enter your email address that you used to create your account.
+                            {t("forgotPassword.instructions")}
                         </Typography.Text>
                         {error && <Alert type="error" message={error} />}
                         {success && <Alert type="success" message={success} />}
                         <FormInput
-                            title={"E-mail:"}
+                            title={t("forgotPassword.email")}
                             icon={<MailOutlined />}
                             titleSpan={8}
                             wrapperSpan={16}
                             name={"email"}
-                            placeholder={"E-mail"}
-                            rule={[{ required: true, message: "Please input your E-mail!" }]}
+                            placeholder={t("forgotPassword.emailPlaceholder")}
+                            rule={[{ required: true, message: t("forgotPassword.emailRequired") }]}
                         />
-                        <IconButton disabled={isLoading} title={"Send"} icon={<SendOutlined />} />
+                        <IconButton disabled={isLoading} title={t("forgotPassword.send")} icon={<SendOutlined />} />
                     </Form>
                 </Col>
             </Row>

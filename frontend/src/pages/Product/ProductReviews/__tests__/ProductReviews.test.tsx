@@ -12,7 +12,7 @@ describe("ProductReviews", () => {
         const wrapper = mountWithStore(
             <ProductReviews reviews={mockReviews} reviewErrors={expect.any(Object)} addReview={jest.fn()} />
         );
-        expect(wrapper.text().includes("Reviews")).toBe(true);
+        expect(wrapper.text().includes("Đánh giá")).toBe(true);
         expect(wrapper.find(ReviewItem).length).toEqual(3);
     });
 
@@ -20,7 +20,7 @@ describe("ProductReviews", () => {
         const wrapper = mountWithStore(
             <ProductReviews reviews={[]} reviewErrors={expect.any(Object)} addReview={jest.fn()} />
         );
-        expect(wrapper.text().includes("There are no reviews for this product.")).toBe(true);
+        expect(wrapper.text().includes("Sản phẩm này chưa có đánh giá nào.")).toBe(true);
     });
 
     it("should render review errors", () => {

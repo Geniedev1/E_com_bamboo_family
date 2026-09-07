@@ -1,5 +1,6 @@
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import {configure} from "enzyme";
+import "./i18n";
 configure({ adapter: new Adapter() });
 
 window.matchMedia = (query) => ({
