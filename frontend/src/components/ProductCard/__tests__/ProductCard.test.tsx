@@ -2,7 +2,6 @@ import React from "react";
 
 import { mountWithStore } from "../../../utils/test/testHelper";
 import { mockProductsResponse } from "../../../utils/test/__mocks__/products-mock";
-import { formatProductPrice } from "../../../utils/priceUtils";
 import ProductCard from "../ProductCard";
 
 describe("ProductCard", () => {
@@ -12,13 +11,11 @@ describe("ProductCard", () => {
         const wrapper = mountWithStore(<ProductCard product={mockProduct} edit={true} onOpenDelete={jest.fn()} />);
         expect(wrapper.text().includes("Sửa")).toBe(true);
         expect(wrapper.text().includes("Xóa")).toBe(true);
-        expect(wrapper.text().includes(formatProductPrice(mockProduct.price))).toBe(true);
     });
 
     it("should render add to cart button", () => {
         const wrapper = mountWithStore(<ProductCard product={mockProduct} edit={false} onOpenDelete={jest.fn()} />);
         expect(wrapper.text().includes("Thêm vào giỏ")).toBe(true);
-        expect(wrapper.text().includes(formatProductPrice(mockProduct.price))).toBe(true);
     });
 
     it("should click onClickAddToCart", () => {

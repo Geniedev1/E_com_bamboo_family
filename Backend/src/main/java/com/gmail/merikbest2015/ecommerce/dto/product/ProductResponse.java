@@ -17,6 +17,10 @@ public class ProductResponse {
     private String filename;
     private Integer reviewsCount;
     private String volume;
+    private Integer length;
+    private Integer width;
+    private Integer height;
+    private Integer diameter;
     private String category;
     private String productStatus;
     private Integer stockQuantity;

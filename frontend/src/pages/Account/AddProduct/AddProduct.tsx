@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Col, Form, notification, Row, Select, Typography, Upload } from "antd";
+import { Button, Col, Form, InputNumber, notification, Row, Select, Typography, Upload } from "antd";
 import { PlusSquareFilled, PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
 import { UploadChangeParam } from "antd/lib/upload/interface";
 
@@ -25,7 +25,10 @@ type AddProductData = {
     year: string;
     country: string;
     type: string;
-    volume: string;
+    length: number;
+    width: number;
+    height: number;
+    diameter: number;
     gender: string;
     categoryId: number;
     topDescription: string;
@@ -118,16 +121,18 @@ const AddProduct: FC = (): ReactElement => {
                             disabled={ispProductLoading}
                             values={["all", "male", "female", "unisex"]}
                         />
-                        <Form.Item name={"categoryId"}>
+                        <div>
                             <Typography.Text>Danh mục</Typography.Text>
-                            <Select placeholder={"Chọn danh mục"} disabled={ispProductLoading} style={{ width: "100%" }}>
-                                {categories.map((category) => (
-                                    <Select.Option key={category.id} value={category.id}>
-                                        {category.name}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
+                            <Form.Item name={"categoryId"}>
+                                <Select placeholder={"Chọn danh mục"} disabled={ispProductLoading} style={{ width: "100%" }}>
+                                    {categories.map((category) => (
+                                        <Select.Option key={category.id} value={category.id}>
+                                            {category.name}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </div>
                         <AddFormInput
                             title={"Chi tiết nổi bật"}
                             name={"middleDescription"}
@@ -158,13 +163,32 @@ const AddProduct: FC = (): ReactElement => {
                             placeholder={"Nhập xuất xứ"}
                             disabled={ispProductLoading}
                         />
-                        <AddFormInput
-                            title={"Kích thước"}
-                            name={"volume"}
-                            error={productErrors.volumeError}
-                            placeholder={"Nhập kích thước"}
-                            disabled={ispProductLoading}
-                        />
+                        <Row gutter={12}>
+                            <Col span={6}>
+                                <Typography.Text>Dài (cm)</Typography.Text>
+                                <Form.Item name={"length"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={ispProductLoading} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={6}>
+                                <Typography.Text>Rộng (cm)</Typography.Text>
+                                <Form.Item name={"width"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={ispProductLoading} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={6}>
+                                <Typography.Text>Cao (cm)</Typography.Text>
+                                <Form.Item name={"height"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={ispProductLoading} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={6}>
+                                <Typography.Text>Đường kính (cm)</Typography.Text>
+                                <Form.Item name={"diameter"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={ispProductLoading} />
+                                </Form.Item>
+                            </Col>
+                        </Row>
                         <AddFormInput
                             title={"Mô tả ngắn"}
                             name={"topDescription"}

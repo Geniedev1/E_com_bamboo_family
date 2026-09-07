@@ -63,7 +63,19 @@ public class Product {
     private Integer price; // Giá gốc (VND)
 
     @Column(name = "volume")
-    private String volume; // Kích thước / dung tích / size
+    private String volume; // Kích thước / dung tích / size (cũ, không dùng để hiển thị nữa)
+
+    @Column(name = "length_cm")
+    private Integer length; // Chiều dài (cm), 0 = không áp dụng
+
+    @Column(name = "width_cm")
+    private Integer width; // Chiều rộng (cm), 0 = không áp dụng
+
+    @Column(name = "height_cm")
+    private Integer height; // Chiều cao (cm), 0 = không áp dụng
+
+    @Column(name = "diameter_cm")
+    private Integer diameter; // Đường kính (cm), 0 = không áp dụng
 
     @Column(name = "type")
     private String type; // Loại sản phẩm nội bộ

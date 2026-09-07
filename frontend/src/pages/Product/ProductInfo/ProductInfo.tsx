@@ -1,9 +1,10 @@
 import React, { FC, ReactElement, useState } from "react";
 import { Rate } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { FullProductResponse } from "../../../types/types";
-import { formatProductPrice } from "../../../utils/priceUtils";
 import { getImageUrl } from "../../../utils/imageUrl";
+import { getVisibleDimensions } from "../../../utils/dimensionUtils";
 
 type PropsType = {
     product?: Partial<FullProductResponse>;
@@ -11,12 +12,8 @@ type PropsType = {
     addToCart: () => void;
 };
 
-const formatSize = (value?: string): string => {
-    if (!value) return "";
-    return /^\d+$/.test(value) ? `${value} cm` : value;
-};
-
 const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): ReactElement => {
+    const { t } = useTranslation();
     const galleryImages =
         product?.images && product.images.length > 0
             ? product.images
@@ -29,13 +26,18 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
     const inStock = product?.stockQuantity === undefined || product?.stockQuantity === null || product.stockQuantity > 0;
     const rating = product?.productRating && product.productRating > 0 ? product.productRating : 0;
 
+    const dimensionRows = getVisibleDimensions(product || {}, t).map((dim) => ({
+        label: dim.label,
+        value: `${dim.value} cm`
+    }));
+
     const details: Array<{ label: string; value?: string | number }> = [
-        { label: "Loại sản phẩm", value: product?.type },
-        { label: "Kích thước", value: formatSize(product?.volume) },
-        { label: "Xuất xứ", value: product?.country },
-        { label: "Năm sản xuất", value: product?.year },
-        { label: "Chất liệu / bảo quản", value: product?.baseDescription },
-        { label: "Mô tả", value: product?.description || product?.topDescription }
+        { label: t("product.type"), value: product?.type },
+        ...dimensionRows,
+        { label: t("product.origin"), value: product?.country },
+        { label: t("product.year"), value: product?.year },
+        { label: t("product.material"), value: product?.baseDescription },
+        { label: t("product.description"), value: product?.description || product?.topDescription }
     ].filter((row) => row.value !== undefined && row.value !== null && `${row.value}`.trim() !== "");
 
     return (
@@ -51,7 +53,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
                                 key={index}
                                 type="button"
                                 onClick={() => setActiveImage(index)}
-                                aria-label={`Ảnh ${index + 1}`}
+                                aria-label={t("product.imageAlt", { index: index + 1 })}
                                 className={`h-16 w-16 overflow-hidden rounded-lg border-2 transition ${
                                     index === activeImage
                                         ? "border-secondary"
@@ -80,7 +82,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
 
                 <div className="mt-sm flex items-center gap-2">
                     <Rate allowHalf disabled value={rating} />
-                    <span className="font-body-md text-[13px] text-on-surface-variant">{reviewsLength} đánh giá</span>
+                    <span className="font-body-md text-[13px] text-on-surface-variant">{t("product.reviewsCount", { count: reviewsLength })}</span>
                 </div>
 
                 <span
@@ -89,13 +91,10 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
                     }`}
                 >
                     <span className="material-symbols-outlined text-[16px]">{inStock ? "check_circle" : "cancel"}</span>
-                    {inStock ? "Còn hàng" : "Hết hàng"}
+                    {inStock ? t("product.inStock") : t("product.outOfStock")}
                 </span>
 
                 <div className="mt-md flex flex-wrap items-center gap-4">
-                    <span className="font-headline-md text-[26px] font-bold text-secondary">
-                        {formatProductPrice(product?.price)}
-                    </span>
                     <button
                         type="button"
                         onClick={addToCart}
@@ -103,7 +102,7 @@ const ProductInfo: FC<PropsType> = ({ product, reviewsLength, addToCart }): Reac
                         className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-lg font-label-sm text-[15px] text-on-primary transition hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <span className="material-symbols-outlined text-[20px]">add_shopping_cart</span>
-                        Thêm vào giỏ
+                        {t("product.addToCart")}
                     </button>
                 </div>
 

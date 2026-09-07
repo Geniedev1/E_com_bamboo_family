@@ -48,7 +48,12 @@ public class ProductRequest {
     private Integer price; // Giá (VND)
 
     @Length(max = 255)
-    private String volume; // Kích thước / size
+    private String volume; // Kích thước / size (cũ, không dùng để hiển thị nữa)
+
+    private Integer length; // Chiều dài (cm), 0 = không áp dụng
+    private Integer width; // Chiều rộng (cm), 0 = không áp dụng
+    private Integer height; // Chiều cao (cm), 0 = không áp dụng
+    private Integer diameter; // Đường kính (cm), 0 = không áp dụng
 
     @Length(max = 255)
     private String type; // Phân loại nội bộ

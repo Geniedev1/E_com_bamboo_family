@@ -7,6 +7,10 @@ export interface ProductResponse {
     filename: string;
     reviewsCount: number;
     volume: string;
+    length?: number;
+    width?: number;
+    height?: number;
+    diameter?: number;
     category?: string | null;
     productStatus?: string;
     stockQuantity?: number;

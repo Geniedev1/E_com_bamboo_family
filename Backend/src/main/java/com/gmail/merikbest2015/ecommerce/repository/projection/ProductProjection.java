@@ -14,6 +14,10 @@ public interface ProductProjection {
     String getFilename();
     Double getProductRating();
     String getVolume();
+    Integer getLength();
+    Integer getWidth();
+    Integer getHeight();
+    Integer getDiameter();
     String getProductStatus();
     Integer getStockQuantity();
 

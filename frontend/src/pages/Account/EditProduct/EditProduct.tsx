@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { EditOutlined, UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, notification, Row, Select, Typography, Upload } from "antd";
+import { Button, Col, Form, InputNumber, notification, Row, Select, Typography, Upload } from "antd";
 import { UploadChangeParam } from "antd/lib/upload/interface";
 
 import ContentTitle from "../../../components/ContentTitle/ContentTitle";
@@ -29,7 +29,10 @@ type EditProductData = {
     year: string;
     country: string;
     type: string;
-    volume: string;
+    length: number;
+    width: number;
+    height: number;
+    diameter: number;
     gender: string;
     categoryId: number;
     topDescription: string;
@@ -178,15 +181,32 @@ const EditProduct: FC = (): ReactElement => {
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <FormInput
-                            title={"Kích thước"}
-                            titleSpan={6}
-                            wrapperSpan={18}
-                            name={"volume"}
-                            error={errors.volumeError}
-                            disabled={isLoading}
-                            placeholder={"Kích thước"}
-                        />
+                        <Row className={"form-item"} gutter={8}>
+                            <Col span={6}>
+                                <Typography.Text>Dài (cm)</Typography.Text>
+                                <Form.Item name={"length"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={isLoading} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={6}>
+                                <Typography.Text>Rộng (cm)</Typography.Text>
+                                <Form.Item name={"width"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={isLoading} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={6}>
+                                <Typography.Text>Cao (cm)</Typography.Text>
+                                <Form.Item name={"height"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={isLoading} />
+                                </Form.Item>
+                            </Col>
+                            <Col span={6}>
+                                <Typography.Text>Đường kính (cm)</Typography.Text>
+                                <Form.Item name={"diameter"} initialValue={0}>
+                                    <InputNumber min={0} style={{ width: "100%" }} disabled={isLoading} />
+                                </Form.Item>
+                            </Col>
+                        </Row>
                         <FormInput
                             title={"Mô tả ngắn"}
                             titleSpan={6}

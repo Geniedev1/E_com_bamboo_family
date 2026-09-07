@@ -1,11 +1,12 @@
 import React, { FC, ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { ProductResponse } from "../../types/types";
 import { ACCOUNT_ADMIN_PRODUCTS, PRODUCT } from "../../constants/routeConstants";
 import { useCart } from "../../hooks/useCart";
-import { formatProductPrice } from "../../utils/priceUtils";
 import { getImageUrl } from "../../utils/imageUrl";
+import { formatDimensions } from "../../utils/dimensionUtils";
 
 type PropsType = {
     product: ProductResponse;
@@ -21,6 +22,7 @@ const clampTwoLines: React.CSSProperties = {
 };
 
 const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactElement => {
+    const { t } = useTranslation();
     const { addToCart } = useCart(product.id);
 
     const onClickAddToCart = (event: React.MouseEvent): void => {
@@ -30,6 +32,7 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
 
     const hasReviews = product.reviewsCount > 0;
     const detailUrl = `${PRODUCT}/${product.id}`;
+    const dimensionsText = formatDimensions(product, t);
 
     return (
         <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/50 bg-surface-container-lowest shadow-[0_12px_30px_-24px_rgba(23,49,36,0.7)] transition duration-300 hover:-translate-y-1 hover:border-secondary/40 hover:shadow-[0_24px_46px_-28px_rgba(23,49,36,0.55)]">
@@ -71,23 +74,18 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                     </p>
                 )}
 
-                {product.volume && (
+                {dimensionsText && (
                     <p className="mt-1 flex items-center gap-1 font-body-md text-[13px] text-on-surface-variant">
                         <span className="material-symbols-outlined text-[16px] text-[#8c955f]">straighten</span>
-                        <span className="truncate">
-                            Kích thước: {/^\d+$/.test(product.volume) ? `${product.volume} cm` : product.volume}
-                        </span>
+                        <span className="truncate">{dimensionsText}</span>
                     </p>
                 )}
 
                 <div className="mt-auto pt-3">
-                    <div className="flex items-end justify-between gap-2">
-                        <span className="font-headline-md text-[18px] font-bold text-secondary">
-                            {formatProductPrice(product.price)}
-                        </span>
+                    <div className="flex items-end justify-end gap-2">
                         <span className="flex items-center gap-1 whitespace-nowrap font-body-md text-[12px] text-on-surface-variant">
                             <span className="material-symbols-outlined text-[15px]">reviews</span>
-                            {hasReviews ? `${product.reviewsCount} đánh giá` : "Chưa có đánh giá"}
+                            {hasReviews ? t("productCard.reviews", { count: product.reviewsCount }) : t("productCard.noReviews")}
                         </span>
                     </div>
 
@@ -116,7 +114,7 @@ const ProductCard: FC<PropsType> = ({ product, edit, onOpenDelete }): ReactEleme
                             className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary font-label-sm text-[14px] text-on-primary transition hover:bg-primary-container"
                         >
                             <span className="material-symbols-outlined text-[19px]">add_shopping_cart</span>
-                            Thêm vào giỏ
+                            {t("productCard.addToCart")}
                         </button>
                     )}
                 </div>
