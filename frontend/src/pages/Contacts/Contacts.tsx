@@ -30,7 +30,7 @@ const Contacts: FC = (): ReactElement => {
                     </div>
                     <div>
                         <Typography.Text strong>{t("contacts.email")}</Typography.Text>
-                        <Typography.Text>rattanovi@gmail.com</Typography.Text>
+                        <Typography.Text>rattanovi.contact@gmail.com</Typography.Text>
                     </div>
                     <div style={{ marginTop: 16 }}>
                         <Typography.Text strong>{t("contacts.workingHours")}</Typography.Text>
